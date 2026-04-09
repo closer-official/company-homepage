@@ -21,7 +21,7 @@ export const ESSAY_ENTRIES: EssayEntry[] = [
     title:
       "頑張っているのに伸びない。それは能力が低いからではなく、ズレたまま努力しているだけかもしれない",
     description:
-      "伸びない人の共通点、人が変わる環境の構造、noteと採用ページへの案内。",
+      "本質的なズレ、環境選びの見方、noteでの深掘りとパートナー募集への導線。",
     categoryLabel: "Essay / コラム",
   },
 ];

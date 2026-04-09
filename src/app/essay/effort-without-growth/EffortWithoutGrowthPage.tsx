@@ -7,8 +7,6 @@ import styles from "../fulcomm-sales-intern/page.module.css";
 const NOTE_URL =
   "https://note.com/5884_divizero/n/n5cd8730d7aa4?sub_rt=share_sb";
 
-const LINE_URL = "https://lin.ee/ZUxDrBQ";
-
 function ArrowIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -63,7 +61,10 @@ export default function EffortWithoutGrowthPage() {
             <em>ズレたまま努力しているだけ</em>かもしれません。
           </h1>
           <p className={`${styles.heroSub} ${styles.heroSubWide}`}>
-            僕は大学2年から14ヶ月、フルコミ営業の現場にいました。
+            僕は大学2年から14ヶ月、
+            <br />
+            フルコミ営業の現場にいました。
+            <br />
             <br />
             怒鳴られる。
             <br />
@@ -76,7 +77,7 @@ export default function EffortWithoutGrowthPage() {
             <br />
             人が変わるのは、綺麗な言葉のある環境ではなく、
             <br />
-            逃げ場がなくて、フィードバックが早い環境だということです
+            逃げ場がなくて、フィードバックが早い環境だということです。
           </p>
           <div className={styles.heroBtnRow}>
             <a
@@ -88,9 +89,6 @@ export default function EffortWithoutGrowthPage() {
               <span>noteで続きを読む</span>
               <ArrowIcon />
             </a>
-            <Link href="/partners" className={styles.ctaSecondary}>
-              <span>採用ページを見る</span>
-            </Link>
           </div>
           <div className={styles.scrollHint}>
             <span className={styles.scrollLine} />
@@ -140,29 +138,32 @@ export default function EffortWithoutGrowthPage() {
         <article className={styles.chapter}>
           <div className={styles.chapterNum}>02</div>
           <h2 className={styles.chapterTitle}>
-            僕が見てきた、伸びない人の共通点
+            僕が見てきた、本質的なズレ
           </h2>
           <div className={styles.chapterBody}>
             <p>
-              頑張っているのに伸びない人には、
+              頑張っているのに伸びない人は、
               <br />
-              だいたい共通するズレがあります。
+              だいたい同じところでつまずきます。
             </p>
-            <p>たとえば、</p>
-            <ul className={styles.chapterList}>
-              <li>感情と事実を混ぜる</li>
-              <li>結果より「頑張ってる自分」を守る</li>
-              <li>結果が出る前から我流を握る</li>
-            </ul>
-            <p>このあたりです。</p>
+            <p>
+              感情と事実を混ぜる。
+              <br />
+              結果より「頑張ってる自分」を守る。
+              <br />
+              結果が出る前から我流を握る。
+            </p>
             <p>
               実際、僕自身も最初はそうでした。
-              <br />
+            </p>
+            <p>
               断られた。
               <br />
               うまくいかない。
               <br />
-              そのたびに、「向いていないのかもしれない」と処理していました。
+              そのたびに、
+              <br />
+              「向いていないのかもしれない」と処理していました。
             </p>
             <p>
               でも本当は、
@@ -175,30 +176,18 @@ export default function EffortWithoutGrowthPage() {
             </p>
             <p>この3つを混ぜると、改善が止まります。</p>
             <p>
-              ここをどう分けるのか。
+              ここに気づけるかどうかで、
               <br />
-              なぜ「頑張ってる自分」を守ると伸びなくなるのか。
-              <br />
-              なぜ我流が遠回りになるのか。
+              努力はかなり変わります。
             </p>
-            <p>その話は、noteで詳しく書いています。</p>
-            <div className={styles.chapterCtas}>
-              <a
-                href={NOTE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaBtn}
-              >
-                <span>noteで続きを読む</span>
-                <ArrowIcon />
-              </a>
-            </div>
           </div>
         </article>
 
         <article className={styles.chapter}>
           <div className={styles.chapterNum}>03</div>
-          <h2 className={styles.chapterTitle}>このページで伝えたいこと</h2>
+          <h2 className={styles.chapterTitle}>
+            このページで一番伝えたいこと
+          </h2>
           <div className={styles.chapterBody}>
             <p>
               僕が言いたいのは、
@@ -224,7 +213,7 @@ export default function EffortWithoutGrowthPage() {
               <br />
               修正も遅い。
             </p>
-            <p>これでは、頑張っていても変わりにくい。</p>
+            <p>これでは、頑張っていても変わりにくいです。</p>
             <p>
               逆に、
               <br />
@@ -240,93 +229,77 @@ export default function EffortWithoutGrowthPage() {
             </p>
             <p>だから、人が変わりやすいです。</p>
             <p>
-              この考え方の背景や、
-              <br />
-              僕が14ヶ月の営業で何を学んだかは、
-              <br />
-              noteにまとめています
+              この判断軸は、あなたの発信の核とも一致しています。
             </p>
-            <div className={styles.chapterCtas}>
-              <a
-                href={NOTE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaBtn}
-              >
-                <span>noteで続きを読む</span>
-                <ArrowIcon />
-              </a>
-            </div>
           </div>
         </article>
 
         <article className={styles.chapter}>
           <div className={styles.chapterNum}>04</div>
-          <h2 className={styles.chapterTitle}>こういう人と一緒にやりたい</h2>
+          <h2 className={styles.chapterTitle}>
+            だから、環境選びは軽く見ない方がいい
+          </h2>
           <div className={styles.chapterBody}>
+            <p>「成長できる環境で働きたい」</p>
+            <p>この言葉はよく見ます。</p>
             <p>
-              僕が一緒にやりたいのは、
+              でも実際には、
               <br />
-              楽に稼ぎたい人ではありません。
+              綺麗な言葉だけで環境を選ぶと、かなり外します。
             </p>
             <p>
-              優しく褒めてもらいたい人でもありません。
+              裁量がある。
+              <br />
+              優秀な人が多い。
+              <br />
+              雰囲気がいい。
+              <br />
+              自由度が高い。
             </p>
-            <p>そうではなくて、</p>
-            <ul className={`${styles.chapterList} ${styles.chapterListTight}`}>
-              <li>ちゃんと成長したい人</li>
-              <li>ぬるい環境では変われないと思っている人</li>
-              <li>指摘を受けても改善して前に進みたい人</li>
-              <li>恥をかいても、試行回数を落としたくない人</li>
-              <li>
-                大学生のうちに、厳しくても意味のある経験をしたい人
-              </li>
-            </ul>
-            <p>そういう人です。</p>
-            <p>全員に合うとは思っていません。</p>
+            <p>それも悪くないです。</p>
             <p>
-              でも、
-              <br />
-              この考え方に少しでも共感するなら、
-              <br />
-              たぶん話はかなり合います。
+              でも、人が本当に変わるかどうかは別です。
             </p>
-            <div className={styles.chapterCtas}>
-              <Link href="/partners" className={styles.ctaSecondary}>
-                <span>採用ページを見る</span>
-              </Link>
-            </div>
+            <p>
+              大事なのは、
+              <br />
+              自分のズレが早く見えること。
+              <br />
+              逃げ道をごまかせないこと。
+            </p>
+            <p>
+              環境選びを間違えると、
+              <br />
+              頑張っているつもりのまま、
+              <br />
+              時間だけが溶けます。
+            </p>
           </div>
         </article>
 
         <article className={styles.chapter}>
           <div className={styles.chapterNum}>05</div>
-          <h2 className={styles.chapterTitle}>
-            先にnoteを読んでほしい理由
-          </h2>
+          <h2 className={styles.chapterTitle}>もっと詳しく知りたい人へ</h2>
           <div className={styles.chapterBody}>
+            <p>ここではかなり絞って書いています。</p>
             <p>
-              採用ページを見る前に、
+              なぜ頑張っているのに伸びないのか
               <br />
-              できれば先にnoteを読んでほしいと思っています。
-            </p>
-            <p>理由は単純です。</p>
-            <p>
-              表面的な条件だけ見て応募しても、
+              どんな人がこの環境で変わりやすいのか
               <br />
-              考え方が合わなければ、結局どこかでズレるからです。
-            </p>
-            <p>
-              僕たちは、
+              どうやって自分のズレを見つけるのか
               <br />
-              「楽そうか」ではなく、
-              <br />
-              「ちゃんと変われるか」を重視しています。
+              僕自身が14ヶ月の営業で何を学んだのか
             </p>
             <p>
-              その前提に共感できるかどうかは、
+              こういう話を、noteではもっと詳しく書いています。
+            </p>
+            <p>
+              このページを読んで、
               <br />
-              募集要項より先に、noteの方が伝わると思っています。
+              「なんとなく分かる」ではなく、
+              <br />
+              もっと深く整理したいと思った人は、そちらを見てください。
             </p>
             <div className={styles.chapterCtas}>
               <a
@@ -335,12 +308,9 @@ export default function EffortWithoutGrowthPage() {
                 rel="noopener noreferrer"
                 className={styles.ctaBtn}
               >
-                <span>noteで続きを読む</span>
+                <span>noteを読む</span>
                 <ArrowIcon />
               </a>
-              <Link href="/partners" className={styles.ctaSecondary}>
-                <span>その上で採用ページを見る</span>
-              </Link>
             </div>
           </div>
         </article>
@@ -352,10 +322,12 @@ export default function EffortWithoutGrowthPage() {
             <p>
               頑張っているのに伸びないとき、
               <br />
-              人は自分を責めるか、環境のせいにするかのどちらかに寄りがちです。
+              人は自分を責めるか、
+              <br />
+              環境のせいにするかのどちらかに寄りがちです。
             </p>
             <p>
-              でも、本当に見るべきなのはそこではないです。
+              でも、本当に見るべきなのはそこではありません。
             </p>
             <p>
               見るべきなのは、
@@ -367,38 +339,18 @@ export default function EffortWithoutGrowthPage() {
               <br />
               努力はやっと前に進み始めます。
             </p>
-            <p>もしあなたが、</p>
-            <ul className={`${styles.chapterList} ${styles.chapterListTight}`}>
-              <li>このままぬるいままで終わりたくない。</li>
-              <li>ちゃんと厳しい環境で、自分を変えたい。</li>
-              <li>読むだけで終わらせず、実際に挑戦したい。</li>
-            </ul>
             <p>
-              そう思うなら、
+              もしあなたが、
               <br />
-              まずはnoteを読んでください。
+              この考え方をもう少し深く知りたいなら、noteを読んでください。
             </p>
             <p>
-              その上で、
+              それを読んだうえで、
               <br />
-              「こういう考え方の環境でやってみたい」と思ったなら、
+              もしさらに何か関わってみたいと思うことがあれば、
               <br />
-              採用ページを見てほしいです。
+              そのとき初めて、次の導線を見てもらえれば十分です。
             </p>
-            <div className={styles.chapterCtas}>
-              <a
-                href={NOTE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaBtn}
-              >
-                <span>noteで続きを読む</span>
-                <ArrowIcon />
-              </a>
-              <Link href="/partners" className={styles.ctaSecondary}>
-                <span>採用ページを見る</span>
-              </Link>
-            </div>
           </div>
         </article>
       </div>
@@ -414,40 +366,42 @@ export default function EffortWithoutGrowthPage() {
         <div className={styles.partnerBridge}>
           <p className={styles.partnerBridgeLabel}>Next step</p>
           <h2 className={styles.partnerBridgeTitle}>
-            noteやこのサイトに共感し、何かしらの形で関わってみたい方へ
+            noteやこのサイトを読んだうえで、
+            <br />
+            何かしらの形で関わってみたいと思った方へ。
           </h2>
           <div className={styles.partnerBridgeTexts}>
             <p className={styles.partnerBridgeText}>
-              Closer by divizero では、事業の拡大に伴い、認定パートナーを募集しています。
+              Closer by divizero では、
+              <br />
+              事業の拡大に伴い、認定パートナーを募集しています。
             </p>
             <p className={styles.partnerBridgeText}>
-              現時点では、店舗リサーチ・初回案内・返信対応・ヒアリングサポートなど、事業の入口を担う役割が中心です。
+              現時点では、
+              <br />
+              店舗リサーチ・初回案内・返信対応・ヒアリングサポートなど、
+              <br />
+              事業の入口を担う役割が中心です。
             </p>
             <p className={styles.partnerBridgeText}>
-              ただし、それに限らず、SNS運用、更新対応、制作サポート、今後の新規事業領域など、関わり方は今後さらに広がっていく予定です。
+              ただし、それに限らず、
+              <br />
+              SNS運用、更新対応、制作サポート、
+              <br />
+              今後の新規事業領域など、
+              <br />
+              関わり方は今後さらに広がっていく予定です。
             </p>
             <p className={styles.partnerBridgeText}>
-              詳細はパートナー募集ページをご覧のうえ、お問い合わせください。
+              興味がある方だけ、
+              <br />
+              募集ページを見てもらえれば大丈夫です。
             </p>
           </div>
           <div className={styles.partnerBridgeActions}>
             <Link href="/partners" className={styles.partnerBridgeCta}>
               パートナー募集を見る
             </Link>
-            <Link
-              href="/contact?for=partner"
-              className={styles.partnerBridgeSub}
-            >
-              詳細を問い合わせる
-            </Link>
-            <a
-              href={LINE_URL}
-              className={styles.partnerBridgeSub}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LINE / ライン
-            </a>
           </div>
         </div>
       </aside>
