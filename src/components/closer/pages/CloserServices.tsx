@@ -48,31 +48,6 @@ export default function CloserServices() {
           </p>
         </div>
       </div>
-      <section
-        className="closer-services-crosslink"
-        aria-label="その他のサービス・プロダクト"
-      >
-        <div className="closer-services-crosslink-inner">
-          <p className="closer-services-crosslink-title">Other</p>
-          <p className="closer-services-crosslink-text">
-            divizero が扱う Web 制作以外のプロダクトや、旧形式の料金・実績ページはこちらからご覧いただけます。
-          </p>
-          <ul className="closer-services-crosslink-links">
-            <li>
-              <Link href="/services/plan">料金・プラン（詳細）</Link>
-            </li>
-            <li>
-              <Link href="/services/works">制作実績・お客様の声</Link>
-            </li>
-            <li>
-              <Link href="/services/toeic-casino">TOEIC×カジノ</Link>
-            </li>
-            <li>
-              <Link href="/services/affiliate">アフィリエイト</Link>
-            </li>
-          </ul>
-        </div>
-      </section>
       <section className="closer-cta-section">
         <span className="closer-cta-label">Contact</span>
         <h2 className="closer-cta-title">

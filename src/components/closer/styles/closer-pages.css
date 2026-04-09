@@ -310,57 +310,6 @@
   color: rgba(245, 241, 235, 0.5);
 }
 
-.closer-services-crosslink {
-  padding: 48px 80px 0;
-  background: var(--warm-white);
-  border-top: 1px solid var(--sand);
-}
-
-.closer-services-crosslink-inner {
-  max-width: 720px;
-  padding-bottom: 8px;
-}
-
-.closer-services-crosslink-title {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin: 0 0 12px;
-}
-
-.closer-services-crosslink-text {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.95;
-  margin: 0 0 16px;
-}
-
-.closer-services-crosslink-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 20px;
-}
-
-.closer-services-crosslink-links a {
-  font-size: 0.82rem;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--faint);
-  transition:
-    color 0.25s,
-    border-color 0.25s;
-}
-
-.closer-services-crosslink-links a:hover {
-  color: var(--ink);
-  border-color: var(--gold);
-}
-
 /* Pricing */
 .closer-pricing-hero {
   padding: 80px;
@@ -1069,9 +1018,6 @@ a.closer-contact-switch:hover {
   .closer-services-hero {
     padding: 80px 40px;
   }
-  .closer-services-crosslink {
-    padding: 40px 40px 0;
-  }
   .closer-essay-index-hero,
   .closer-essay-index {
     padding-left: 40px;
@@ -1116,9 +1062,6 @@ a.closer-contact-switch:hover {
   .closer-pricing-hero,
   .closer-works-hero {
     padding: 48px 24px;
-  }
-  .closer-services-crosslink {
-    padding: 32px 24px 0;
   }
   .closer-essay-index-hero {
     padding: 48px 24px 16px;
