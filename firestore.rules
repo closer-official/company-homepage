@@ -1,0 +1,62 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // site/main ドキュメント：誰でも読める、編集画面用に書き込みも許可
+    match /site/main {
+      allow read, write: if true;
+    }
+    
+    // contactsコレクションは誰でも書き込める（問い合わせフォーム用）
+    match /contacts/{contactId} {
+      allow read: if false;
+      allow create: if true;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // Web制作実績・口コミ（掲載は公開読み取り、作成のみ）
+    match /web_production_reviews/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.productionUrl is string
+        && request.resource.data.productionUrl.size() >= 4
+        && request.resource.data.productionUrl.size() <= 2048
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.createdAt is string
+        && (!('comment' in request.resource.data)
+            || request.resource.data.comment == null
+            || (request.resource.data.comment is string
+                && request.resource.data.comment.size() <= 2000))
+        && (!('leadTimeDays' in request.resource.data)
+            || request.resource.data.leadTimeDays == null
+            || (request.resource.data.leadTimeDays is int
+                && request.resource.data.leadTimeDays >= 0
+                && request.resource.data.leadTimeDays <= 999))
+        && (!('leadTimeNote' in request.resource.data)
+            || request.resource.data.leadTimeNote == null
+            || (request.resource.data.leadTimeNote is string
+                && request.resource.data.leadTimeNote.size() <= 2000))
+        && (!('communicationReview' in request.resource.data)
+            || request.resource.data.communicationReview == null
+            || (request.resource.data.communicationReview is string
+                && request.resource.data.communicationReview.size() <= 2000))
+        && (!('exceededExpectations' in request.resource.data)
+            || request.resource.data.exceededExpectations == null
+            || (request.resource.data.exceededExpectations is string
+                && request.resource.data.exceededExpectations.size() <= 2000))
+        && (!('recommendTo' in request.resource.data)
+            || request.resource.data.recommendTo == null
+            || (request.resource.data.recommendTo is string
+                && request.resource.data.recommendTo.size() <= 2000));
+      allow update: if false;
+      allow delete: if true;
+    }
+
+    // 工場リサーチ管理：リサーチャーはクライアントで自データのみ取得、管理者は全件取得
+    match /factoryResearch/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

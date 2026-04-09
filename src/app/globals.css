@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
+/* 事務感・サイバー感を脱却 — 温かみのあるパレット */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base: #f2f0eb;        /* オフホワイト・グレージュ */
+  --bg-card: #ebe9e4;        /* カード用やや濃いグレージュ */
+  --text: #3d3935;           /* くすんだ黒（真っ黒回避） */
+  --text-muted: #6b6560;     /* 本文補助 */
+  --terracotta: #b8956f;     /* くすんだテラコッタ（秋の風景） */
+  --terracotta-soft: #d4c4b0;
+  --sage: #8b9a7a;           /* 落ち着いたセージグリーン */
+  --sage-soft: #a8b498;
+  --border: #ddd9d2;
+  --radius: 0.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-base: var(--bg-base);
+  --color-terracotta: var(--terracotta);
+  --color-sage: var(--sage);
+  --font-sans-jp: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-serif-jp: "Noto Serif JP", Georgia, serif;
+  --font-sans: var(--font-sans-jp);
+  --font-serif: var(--font-serif-jp);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-base);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+/* スワイプで次のページにすっと進む — フルスクリーンスナップ */
+.snap-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-page {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal; /* 1枚に収まらないセクション内をスクロールできるように */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* 見出しは明朝・セリフで上質に */
+.font-heading {
+  font-family: var(--font-serif);
+}
+
+/* 紙・布のような微細なノイズテクスチャ */
+.texture-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* スクロール時：深呼吸するようにゆっくりふわっと浮き上がる */
+.reveal {
+  opacity: 1;
+  transform: translateY(28px);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ジグザグ用：左から・右から（スクロール連動） */
+.reveal-from-left {
+  opacity: 1;
+  transform: translateX(-40px);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+}
+
+.reveal-from-left.revealed {
+  transform: translateX(0);
+}
+
+.reveal-from-right {
+  opacity: 1;
+  transform: translateX(40px);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s, opacity 0.8s ease 0.1s;
+}
+
+.reveal-from-right.revealed {
+  transform: translateX(0);
+}
+
+/* ヘッダー直下：濃いグレー→透明でロゴ・メニューを常に読めるように */
+.header-area-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 26, 24, 0.92) 0%,
+    rgba(28, 26, 24, 0.5) 40%,
+    transparent 100%
+  );
+}
+
+/* ヒーロー用オーバーレイ（光と影・柔らかく） */
+.img-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(45, 42, 38, 0.5) 0%,
+    rgba(45, 42, 38, 0.12) 45%,
+    transparent 72%
+  );
+}
+
+/* メインコピー背後：テキストを浮かび上がらせる */
+.hero-text-block {
+  background: rgba(20, 18, 16, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* サービス項目ホバー：写真とテキストのマイクロインタラクション */
+.service-item {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-item:hover .service-item-image {
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+.service-item:hover .service-item-text {
+  transform: translateY(-3px);
+}
+
+.service-item-image,
+.service-item-text {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+}
+
+/* ヒーロー背景：パララックス用 */
+.hero-bg-parallax {
+  will-change: transform;
+}
+
+/* 粒子アニメーション（非常に薄い） */
+@keyframes particle-float {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+  33% { transform: translate(4px, -8px) scale(1.1); opacity: 0.2; }
+  66% { transform: translate(-3px, 4px) scale(0.95); opacity: 0.12; }
+}
+
+.particle-dot {
+  animation: particle-float 8s ease-in-out infinite;
+}
+
+/* パートナー帯：流れはゆっくり・落ち着いた速度に */
+.marquee-track {
+  display: inline-block;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.parallax-bg {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .reveal,
+  .reveal-from-left,
+  .reveal-from-right {
+    transition: none;
+  }
+  .particle-dot {
+    animation: none;
+    opacity: 0;
+  }
+  .hero-bg-parallax {
+    transform: none !important;
+  }
 }

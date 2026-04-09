@@ -1,0 +1,75 @@
+/* Closer by divizero — core tokens & base (no custom cursor) */
+.closer-site {
+  --ink: #1a1714;
+  --cream: #f5f1eb;
+  --warm-white: #faf8f5;
+  --sand: #e8e0d4;
+  --gold: #b8965a;
+  --gold-light: #d4b278;
+  --muted: #8a7f72;
+  --faint: #c8bfb2;
+  --accent: #5c4a35;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --nav-h: 68px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.closer-site *,
+.closer-site *::before,
+.closer-site *::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.closer-site) {
+    scroll-behavior: smooth;
+  }
+}
+
+.closer-site::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.4;
+}
+
+.closer-main {
+  padding-top: var(--nav-h);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scanLine {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

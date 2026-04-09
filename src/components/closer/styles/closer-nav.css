@@ -1,0 +1,230 @@
+.closer-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  transition:
+    background 0.5s,
+    border-color 0.5s;
+}
+
+.closer-nav.scrolled {
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sand);
+}
+
+/* Column (/essay): fewer links — logo left, link cluster flush right */
+.closer-nav--essay-column {
+  justify-content: flex-start;
+}
+
+.closer-nav--essay-column .closer-nav-links {
+  margin-left: auto;
+}
+
+.closer-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.closer-nav-logo:hover {
+  opacity: 0.85;
+}
+
+.closer-nav-logo span {
+  color: var(--gold);
+}
+
+.closer-nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.closer-nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.closer-nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--ease-out);
+}
+
+.closer-nav-links a:hover {
+  color: var(--ink);
+}
+
+.closer-nav-links a:hover::after {
+  width: 100%;
+}
+
+.closer-nav-link-bilingual {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0;
+  max-width: 11rem;
+  line-height: 1.35;
+}
+
+.closer-nav-link-en {
+  text-transform: uppercase;
+}
+
+.closer-nav-link-sep {
+  opacity: 0.45;
+  text-transform: none;
+  font-weight: 300;
+}
+
+.closer-nav-link-ja {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-weight: 400;
+  opacity: 0.82;
+}
+
+.closer-nav-cta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2em;
+  flex-wrap: wrap;
+  color: var(--warm-white) !important;
+  background: var(--ink);
+  padding: 8px 20px;
+  border-radius: 2px;
+  transition: background 0.3s !important;
+}
+
+.closer-nav-cta::after {
+  display: none !important;
+}
+
+.closer-nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--warm-white) !important;
+}
+
+.closer-nav-cta-en {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.closer-nav-cta-ja {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+.closer-nav-cta-sep {
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+.closer-nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.closer-nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--ink);
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+}
+
+.closer-mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--warm-white);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.closer-mobile-nav.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.closer-mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.closer-mobile-nav a:hover {
+  color: var(--gold);
+}
+
+@media (max-width: 1024px) {
+  .closer-nav {
+    padding: 0 32px;
+  }
+  .closer-nav-links {
+    display: none;
+  }
+  .closer-nav-hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .closer-site {
+    --nav-h: 56px;
+  }
+  .closer-nav {
+    padding: 0 20px;
+  }
+}

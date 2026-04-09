@@ -1,0 +1,35 @@
+---
+description: Keep site design and copy consistent with brand guide
+alwaysApply: true
+---
+
+# Design Consistency Rule
+
+## Must read first
+- Always read `docs/brand-style-guide.md` before editing UI/copy.
+
+## Visual constraints
+- Reuse existing CSS variables in `src/app/globals.css`.
+- Do not introduce new color tokens unless user explicitly asks.
+- Keep typography pairing: heading serif, body sans.
+- Prefer whitespace and text hierarchy over heavy cards/borders.
+
+## Interaction constraints
+- Keep motion subtle and purposeful.
+- Preserve reduced-motion behavior.
+- Keep primary CTA prominence (`terracotta`), secondary CTA subdued.
+
+## Content constraints
+- Keep bilingual nav format (`English / 日本語`).
+- Maintain brand tone: warm, editorial, trustworthy, not flashy.
+- Avoid overclaiming; keep copy specific and honest.
+
+## Structural constraints
+- Company page must keep legal links (`/tokusho`, `/privacy-policy`).
+- Contact page keeps email-first policy and LINE as secondary channel.
+- Home page remains fixed hero style unless user explicitly requests change.
+
+## Before finishing
+- Verify responsive layout on mobile assumptions.
+- Check lints on touched files.
+- Report how the change preserved consistency in 3 bullets.

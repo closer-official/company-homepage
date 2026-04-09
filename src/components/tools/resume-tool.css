@@ -1,0 +1,616 @@
+/* Resume / 職務経歴 — A4 preview (~794×1123 @96dpi), Closer tokens */
+.rt-shell {
+  padding: 48px 40px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.rt-hero {
+  margin-bottom: 40px;
+  max-width: 720px;
+}
+
+.rt-hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.rt-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.rt-hero-lead {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 0 0 16px;
+}
+
+.rt-privacy {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.75;
+  padding: 14px 18px;
+  border: 1px solid var(--sand);
+  background: rgba(250, 248, 245, 0.6);
+  margin: 0;
+}
+
+.rt-workspace {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(380px, 1.1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .rt-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rt-panel-title {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.rt-mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.rt-mode-tab {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  padding: 10px 18px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.rt-mode-tab:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.rt-mode-tab.active {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.rt-template-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.rt-template-opt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid var(--sand);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.rt-template-opt:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(184, 150, 90, 0.06);
+}
+
+.rt-template-opt input {
+  margin-top: 4px;
+}
+
+.rt-template-opt strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.rt-template-opt span {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.rt-field-group {
+  margin-bottom: 22px;
+}
+
+.rt-field-group h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.rt-field {
+  margin-bottom: 12px;
+}
+
+.rt-field label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.rt-field input[type="text"],
+.rt-field input[type="email"],
+.rt-field input[type="tel"],
+.rt-field input[type="date"],
+.rt-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  border: 1px solid var(--sand);
+  background: var(--warm-white);
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+.rt-field textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.rt-field input:focus,
+.rt-field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.rt-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.rt-block-card {
+  border: 1px solid var(--sand);
+  padding: 16px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.rt-block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.rt-block-head span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.rt-btn-ghost {
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.rt-btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.rt-btn-danger {
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border: 1px solid rgba(138, 60, 60, 0.35);
+  background: transparent;
+  color: #8a3c3c;
+  cursor: pointer;
+}
+
+.rt-preview-panel {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+}
+
+.rt-preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rt-btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rt-btn-primary:hover:not(:disabled) {
+  background: var(--gold);
+}
+
+.rt-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rt-btn-secondary {
+  font-size: 0.72rem;
+  padding: 10px 16px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.rt-btn-secondary:hover {
+  border-color: var(--gold);
+}
+
+.rt-preview-scroll {
+  max-height: min(78vh, 900px);
+  overflow: auto;
+  padding: 20px;
+  background: var(--sand);
+  border: 1px solid var(--sand);
+}
+
+/* Capturable sheet wrapper */
+.rt-doc-outer {
+  display: inline-block;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(26, 23, 20, 0.08);
+}
+
+.rt-doc {
+  width: 794px;
+  min-height: 1123px;
+  box-sizing: border-box;
+  padding: 36px 40px 48px;
+  background: #fff;
+  color: #1a1714;
+  font-family: "Noto Sans JP", var(--font-body), sans-serif;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.rt-doc-title {
+  font-family: "Noto Serif JP", var(--font-display), serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.rt-doc-sub {
+  font-size: 9px;
+  color: #888;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.rt-doc-head {
+  margin-bottom: 16px;
+}
+
+.rt-f-label {
+  display: inline-block;
+  min-width: 5.5em;
+  font-size: 10px;
+  color: #555;
+  border-right: 1px solid #ccc;
+  padding-right: 8px;
+  margin-right: 8px;
+  vertical-align: top;
+}
+
+.rt-f-val {
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.rt-f-val-sm {
+  font-size: 10px;
+}
+
+.rt-f-row {
+  border-bottom: 1px solid #222;
+  padding: 8px 4px;
+  min-height: 2.2em;
+}
+
+.rt-f-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.rt-photo-ph {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: #f3f0eb;
+  border: 1px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #999;
+  object-fit: cover;
+}
+
+/* mhlw */
+.rt-resume-mhlw .rt-mhlw-top {
+  display: grid;
+  grid-template-columns: 1fr 132px;
+  gap: 0;
+  border: 2px solid #1a1714;
+}
+
+.rt-mhlw-main {
+  border-right: 2px solid #1a1714;
+}
+
+.rt-mhlw-main .rt-f-row:last-child {
+  border-bottom: none;
+}
+
+.rt-mhlw-photo {
+  display: flex;
+  align-items: stretch;
+  padding: 8px;
+  background: #fafafa;
+}
+
+.rt-mhlw-photo-img {
+  width: 100%;
+  height: auto;
+  min-height: 160px;
+  object-fit: cover;
+}
+
+/* simple */
+.rt-resume-simple .rt-simple-photo-wrap {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.rt-simple-photo-img,
+.rt-simple-photo-wrap .rt-photo-ph {
+  width: 120px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.rt-simple-body .rt-f-row {
+  border-bottom: 1px solid #ccc;
+}
+
+.rt-simple-body .rt-f-row:last-child {
+  border-bottom: 2px solid #1a1714;
+}
+
+/* photo left */
+.rt-pleft-grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 24px;
+  margin-top: 20px;
+  align-items: start;
+}
+
+.rt-pleft-photo,
+.rt-pleft-photo.rt-photo-ph {
+  width: 130px;
+  min-height: 170px;
+}
+
+.rt-pleft-fields .rt-f-row {
+  border-bottom: 1px solid #333;
+}
+
+/* career shared */
+.rt-career-hd {
+  border-bottom: 2px solid #1a1714;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.rt-career-hd .rt-doc-title {
+  text-align: left;
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+
+.rt-career-hd-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rt-career-hd-photo {
+  width: 56px;
+  height: 70px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.rt-career-sec {
+  margin-bottom: 20px;
+}
+
+.rt-career-h2 {
+  font-size: 13px;
+  font-weight: 700;
+  border-left: 3px solid #1a1714;
+  padding-left: 10px;
+  margin: 0 0 12px;
+}
+
+.rt-career-period {
+  font-size: 11px;
+  font-weight: 400;
+  color: #555;
+}
+
+.rt-career-p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.rt-cf-item {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dotted #ccc;
+}
+
+.rt-cf-label {
+  font-size: 9px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.rt-cf-val {
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* timeline */
+.rt-tl-track {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid #ddd;
+  margin-left: 8px;
+}
+
+.rt-tl-node {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.rt-tl-dot {
+  position: absolute;
+  left: -27px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  background: #1a1714;
+  border-radius: 50%;
+}
+
+.rt-tl-co {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.rt-tl-period {
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.rt-career-sum {
+  margin-bottom: 16px;
+}
+
+/* compact */
+.rt-cp-sum {
+  font-size: 11px;
+  line-height: 1.75;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+}
+
+.rt-cp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.rt-cp-td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  vertical-align: top;
+}
+
+.rt-cp-muted {
+  color: #666;
+  font-size: 9px;
+}
+
+.rt-career-compact .rt-cf-item {
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+}
+
+.rt-career-compact .rt-cf-label {
+  font-size: 8px;
+}
+
+.rt-career-compact .rt-cf-val {
+  font-size: 10px;
+}
+
+@media (max-width: 900px) {
+  .rt-doc {
+    width: 100%;
+    max-width: 794px;
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt-mode-tab,
+  .rt-btn-primary,
+  .rt-template-opt {
+    transition: none;
+  }
+}
