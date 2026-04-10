@@ -536,22 +536,31 @@
   margin: 0;
 }
 
-.rt-career-co-line {
+.rt-career-co-name {
   font-family: "Noto Serif JP", var(--font-display), serif;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   margin: 0 0 6px;
-  line-height: 1.45;
+  line-height: 1.4;
   letter-spacing: 0.02em;
 }
 
-.rt-career-block--compact .rt-career-co-line {
-  font-size: 11px;
+.rt-career-block--compact .rt-career-co-name {
+  font-size: 11.5px;
 }
 
-.rt-career-role {
-  margin: 0 0 10px;
+.rt-career-meta {
+  margin: 0 0 12px;
+}
+
+.rt-career-meta:empty {
+  display: none;
+}
+
+.rt-career-meta-line {
+  margin: 0 0 3px;
   font-size: 10.5px;
+  line-height: 1.55;
   color: #444;
 }
 
@@ -582,13 +591,41 @@
   font-size: 10px;
 }
 
-.rt-career-li-metric {
-  list-style-type: square;
+.rt-career-subsec--prose .rt-career-ul {
+  margin-top: 0;
 }
 
-.rt-career-metric-strong {
+.rt-career-p--tight {
+  margin: 0;
+  line-height: 1.75;
+}
+
+.rt-career-h3 {
+  font-size: 11px;
   font-weight: 700;
+  margin: 0 0 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #e0ddd8;
   color: #1a1714;
+}
+
+.rt-career-bridge {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid #dcd9d4;
+}
+
+.rt-career-bridge-block {
+  margin-bottom: 12px;
+}
+
+.rt-career-bridge-block:last-child {
+  margin-bottom: 0;
+}
+
+.rt-career-bridge + .rt-career-global-pr {
+  border-top-width: 1px;
+  padding-top: 12px;
 }
 
 .rt-career-global-pr {
@@ -638,7 +675,7 @@
   border-radius: 50%;
 }
 
-.rt-tl-card .rt-career-co-line {
+.rt-tl-card .rt-career-co-name {
   margin-top: 0;
 }
 

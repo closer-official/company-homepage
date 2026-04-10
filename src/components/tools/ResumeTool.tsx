@@ -36,7 +36,11 @@ const CAREER_FIELD_DEFS: {
   { key: "mgmtCount", label: "マネジメント人数" },
   { key: "customerCases", label: "顧客対応件数" },
   { key: "processImprovement", label: "改善した業務フロー", rows: 2 },
-  { key: "jobStrength", label: "志望職種に合わせた強み", rows: 2 },
+  {
+    key: "jobStrength",
+    label: "志望職種に合わせた強み（勤務先ごと）",
+    rows: 2,
+  },
   {
     key: "selfPr",
     label: "自己PR（ブロック別・任意）",
@@ -309,6 +313,58 @@ export default function ResumeTool() {
                     }
                     rows={5}
                     placeholder="キャリアの要約を記入（3〜5行程度の例文イメージ）"
+                  />
+                </div>
+              </div>
+              <div className="rt-field-group">
+                <h3>自己PRの手前（任意）</h3>
+                <p className="rt-field-hint">
+                  書類後半で「自己PR」につながる補足として表示されます。改行で複数行にすると、プレビューでは箇条書きになります。「志望職種に活かせる点（全体）」が空のときは、勤務先ごとの「志望職種に合わせた強み」を自動でまとめて表示します。
+                </p>
+                <div className="rt-field">
+                  <label htmlFor="rt-career-pre-exp">活かせる経験</label>
+                  <textarea
+                    id="rt-career-pre-exp"
+                    value={data.careerPrePrExperience}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        careerPrePrExperience: e.target.value,
+                      }))
+                    }
+                    rows={3}
+                    placeholder="例：接客・数値管理・チーム運営など"
+                  />
+                </div>
+                <div className="rt-field">
+                  <label htmlFor="rt-career-pre-str">強み</label>
+                  <textarea
+                    id="rt-career-pre-str"
+                    value={data.careerPrePrStrength}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        careerPrePrStrength: e.target.value,
+                      }))
+                    }
+                    rows={3}
+                  />
+                </div>
+                <div className="rt-field">
+                  <label htmlFor="rt-career-pre-job">
+                    志望職種に活かせる点（全体）
+                  </label>
+                  <textarea
+                    id="rt-career-pre-job"
+                    value={data.careerPrePrJobFit}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        careerPrePrJobFit: e.target.value,
+                      }))
+                    }
+                    rows={3}
+                    placeholder="空欄なら勤務先ブロックの「志望職種に合わせた強み」から自動整形"
                   />
                 </div>
               </div>

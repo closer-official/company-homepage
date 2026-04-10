@@ -56,15 +56,116 @@ function splitLines(raw: string): string[] {
     .filter(Boolean);
 }
 
+function isCareerBlockEmpty(b: CareerBlock): boolean {
+  const vals: string[] = [
+    b.company,
+    b.period,
+    b.employmentType,
+    b.businessDesc,
+    b.duties,
+    b.roleTitle,
+    b.achievements,
+    b.improvements,
+    b.tools,
+    b.selfPr,
+    b.awards,
+    b.numericResults,
+    b.mgmtCount,
+    b.customerCases,
+    b.processImprovement,
+    b.jobStrength,
+  ];
+  return vals.every((v) => !v.trim());
+}
+
+function getFilledCareerBlockEntries(
+  blocks: CareerBlock[],
+): { block: CareerBlock; index: number }[] {
+  return blocks
+    .map((block, index) => ({ block, index }))
+    .filter(({ block }) => !isCareerBlockEmpty(block));
+}
+
+function aggregateJobStrengthBullets(blocks: CareerBlock[]): string[] {
+  const filled = blocks.filter((b) => !isCareerBlockEmpty(b));
+  const withStrength = filled.filter((b) => splitLines(b.jobStrength).length > 0);
+  const multi = withStrength.length > 1;
+  const out: string[] = [];
+  for (const b of withStrength) {
+    const co = b.company.trim();
+    const lines = splitLines(b.jobStrength);
+    for (const line of lines) {
+      out.push(multi && co ? `${co}：${line}` : line);
+    }
+  }
+  return out;
+}
+
+/** 改行が1行のみなら段落、複数行なら箇条書き */
+function ProseOrList({ text }: { text: string }) {
+  const lines = splitLines(text);
+  if (lines.length === 0) return null;
+  if (lines.length === 1) {
+    return <p className="rt-career-p rt-career-p--tight">{lines[0]}</p>;
+  }
+  return (
+    <ul className="rt-career-ul">
+      {lines.map((line, i) => (
+        <li key={i}>{line}</li>
+      ))}
+    </ul>
+  );
+}
+
+function CareerBridgeBeforePr({ data }: { data: ResumeFormData }) {
+  const exp = data.careerPrePrExperience.trim();
+  const str = data.careerPrePrStrength.trim();
+  const jobFitManual = data.careerPrePrJobFit.trim();
+  const agg = !jobFitManual ? aggregateJobStrengthBullets(data.careerBlocks) : [];
+
+  if (!exp && !str && !jobFitManual && agg.length === 0) return null;
+
+  return (
+    <section className="rt-career-sec rt-career-bridge" aria-label="補足">
+      {exp ? (
+        <div className="rt-career-bridge-block">
+          <h3 className="rt-career-h3">活かせる経験</h3>
+          <ProseOrList text={data.careerPrePrExperience} />
+        </div>
+      ) : null}
+      {str ? (
+        <div className="rt-career-bridge-block">
+          <h3 className="rt-career-h3">強み</h3>
+          <ProseOrList text={data.careerPrePrStrength} />
+        </div>
+      ) : null}
+      {jobFitManual || agg.length > 0 ? (
+        <div className="rt-career-bridge-block">
+          <h3 className="rt-career-h3">志望職種に活かせる点</h3>
+          {jobFitManual ? (
+            <ProseOrList text={data.careerPrePrJobFit} />
+          ) : (
+            <ul className="rt-career-ul">
+              {agg.map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
 function CareerBlockStructured({
   b,
-  index,
+  displayIndex,
   showBlockSelfPr,
   density,
   titleAs,
 }: {
   b: CareerBlock;
-  index: number;
+  displayIndex: number;
   showBlockSelfPr: boolean;
   density: "normal" | "compact";
   titleAs: "h2" | "h3";
@@ -74,11 +175,7 @@ function CareerBlockStructured({
       ? "rt-career-block rt-career-block--compact"
       : "rt-career-block";
 
-  const headerParts = [b.company.trim(), b.period.trim(), b.employmentType.trim()].filter(
-    Boolean,
-  );
-  const headerText =
-    headerParts.length > 0 ? headerParts.join("｜") : `勤務先 ${index + 1}`;
+  const companyTitle = b.company.trim() || `勤務先 ${displayIndex}`;
 
   const dutyLines = splitLines(b.duties);
   const achLines = splitLines(b.achievements);
@@ -88,7 +185,7 @@ function CareerBlockStructured({
     ...splitLines(b.improvements),
     ...splitLines(b.processImprovement),
   ];
-  const skillLines = [...splitLines(b.tools), ...splitLines(b.jobStrength)];
+  const skillLines = splitLines(b.tools);
 
   const hasAchievementSection =
     achLines.length +
@@ -102,14 +199,22 @@ function CareerBlockStructured({
 
   return (
     <div className={rootClass}>
-      <TitleTag className="rt-career-co-line">{headerText}</TitleTag>
-      {b.roleTitle.trim() ? (
-        <p className="rt-career-role">{b.roleTitle}</p>
-      ) : null}
+      <TitleTag className="rt-career-co-name">{companyTitle}</TitleTag>
+      <div className="rt-career-meta">
+        {b.period.trim() ? (
+          <p className="rt-career-meta-line">在籍期間：{b.period}</p>
+        ) : null}
+        {b.employmentType.trim() ? (
+          <p className="rt-career-meta-line">雇用形態：{b.employmentType}</p>
+        ) : null}
+        {b.roleTitle.trim() ? (
+          <p className="rt-career-meta-line">役職・役割：{b.roleTitle}</p>
+        ) : null}
+      </div>
       {b.businessDesc.trim() ? (
-        <div className="rt-career-subsec">
+        <div className="rt-career-subsec rt-career-subsec--prose">
           <h4 className="rt-career-h4">事業内容</h4>
-          <p className="rt-career-p">{b.businessDesc}</p>
+          <ProseOrList text={b.businessDesc} />
         </div>
       ) : null}
       {dutyLines.length ? (
@@ -133,10 +238,7 @@ function CareerBlockStructured({
               <li key={`w-${i}`}>{line}</li>
             ))}
             {numLines.map((line, i) => (
-              <li key={`n-${i}`} className="rt-career-li-metric">
-                <strong className="rt-career-metric-strong">数字成果：</strong>
-                {line}
-              </li>
+              <li key={`n-${i}`}>数字成果：{line}</li>
             ))}
             {b.mgmtCount.trim() ? (
               <li>マネジメント人数：{b.mgmtCount}</li>
@@ -277,25 +379,29 @@ function CareerHeader({ data }: { data: ResumeFormData }) {
 function CareerDetailed({ data }: { data: ResumeFormData }) {
   const globalPr = data.careerGlobalSelfPr.trim();
   const showBlockSelfPr = !globalPr;
+  const entries = getFilledCareerBlockEntries(data.careerBlocks);
 
   return (
     <div className="rt-doc rt-doc-career rt-career-detailed">
       <CareerHeader data={data} />
       <CareerSummary text={data.careerSummary} />
-      <section className="rt-career-sec rt-career-history-sec">
-        <h2 className="rt-career-h2">職務経歴</h2>
-        {data.careerBlocks.map((b, i) => (
-          <div key={i} className="rt-career-company-wrap">
-            <CareerBlockStructured
-              b={b}
-              index={i}
-              showBlockSelfPr={showBlockSelfPr}
-              density="normal"
-              titleAs="h3"
-            />
-          </div>
-        ))}
-      </section>
+      {entries.length > 0 ? (
+        <section className="rt-career-sec rt-career-history-sec">
+          <h2 className="rt-career-h2">職務経歴</h2>
+          {entries.map(({ block, index }, vi) => (
+            <div key={index} className="rt-career-company-wrap">
+              <CareerBlockStructured
+                b={block}
+                displayIndex={vi + 1}
+                showBlockSelfPr={showBlockSelfPr}
+                density="normal"
+                titleAs="h3"
+              />
+            </div>
+          ))}
+        </section>
+      ) : null}
+      <CareerBridgeBeforePr data={data} />
       <CareerGlobalSelfPr text={data.careerGlobalSelfPr} />
     </div>
   );
@@ -304,28 +410,34 @@ function CareerDetailed({ data }: { data: ResumeFormData }) {
 function CareerTimeline({ data }: { data: ResumeFormData }) {
   const globalPr = data.careerGlobalSelfPr.trim();
   const showBlockSelfPr = !globalPr;
+  const entries = getFilledCareerBlockEntries(data.careerBlocks);
 
   return (
     <div className="rt-doc rt-doc-career rt-career-timeline">
       <CareerHeader data={data} />
       <CareerSummary text={data.careerSummary} className="rt-career-sum-wrap" />
-      <h2 className="rt-career-h2 rt-career-h2--inline">職務経歴</h2>
-      <div className="rt-tl-track">
-        {data.careerBlocks.map((b, i) => (
-          <div key={i} className="rt-tl-node">
-            <div className="rt-tl-dot" />
-            <div className="rt-tl-card">
-              <CareerBlockStructured
-                b={b}
-                index={i}
-                showBlockSelfPr={showBlockSelfPr}
-                density="normal"
-                titleAs="h3"
-              />
-            </div>
+      {entries.length > 0 ? (
+        <>
+          <h2 className="rt-career-h2 rt-career-h2--inline">職務経歴</h2>
+          <div className="rt-tl-track">
+            {entries.map(({ block, index }, vi) => (
+              <div key={index} className="rt-tl-node">
+                <div className="rt-tl-dot" />
+                <div className="rt-tl-card">
+                  <CareerBlockStructured
+                    b={block}
+                    displayIndex={vi + 1}
+                    showBlockSelfPr={showBlockSelfPr}
+                    density="normal"
+                    titleAs="h3"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      ) : null}
+      <CareerBridgeBeforePr data={data} />
       <CareerGlobalSelfPr text={data.careerGlobalSelfPr} />
     </div>
   );
@@ -334,29 +446,35 @@ function CareerTimeline({ data }: { data: ResumeFormData }) {
 function CareerCompact({ data }: { data: ResumeFormData }) {
   const globalPr = data.careerGlobalSelfPr.trim();
   const showBlockSelfPr = !globalPr;
+  const entries = getFilledCareerBlockEntries(data.careerBlocks);
 
   return (
     <div className="rt-doc rt-doc-career rt-career-compact">
       <CareerHeader data={data} />
       <CareerSummary text={data.careerSummary} className="rt-career-sec--cp" />
-      <h2 className="rt-career-h2 rt-career-h2--inline">職務経歴</h2>
-      <table className="rt-cp-table">
-        <tbody>
-          {data.careerBlocks.map((b, i) => (
-            <tr key={i}>
-              <td className="rt-cp-td">
-                <CareerBlockStructured
-                  b={b}
-                  index={i}
-                  showBlockSelfPr={showBlockSelfPr}
-                  density="compact"
-                  titleAs="h3"
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {entries.length > 0 ? (
+        <>
+          <h2 className="rt-career-h2 rt-career-h2--inline">職務経歴</h2>
+          <table className="rt-cp-table">
+            <tbody>
+              {entries.map(({ block, index }, vi) => (
+                <tr key={index}>
+                  <td className="rt-cp-td">
+                    <CareerBlockStructured
+                      b={block}
+                      displayIndex={vi + 1}
+                      showBlockSelfPr={showBlockSelfPr}
+                      density="compact"
+                      titleAs="h3"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : null}
+      <CareerBridgeBeforePr data={data} />
       <CareerGlobalSelfPr text={data.careerGlobalSelfPr} />
     </div>
   );

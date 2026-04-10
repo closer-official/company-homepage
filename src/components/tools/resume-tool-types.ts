@@ -36,6 +36,11 @@ export type ResumeFormData = {
   careerSummary: string;
   /** 職務経歴書末尾の自己PR（推奨）。入力時は勤務先ごとの自己PRはプレビューに出しません */
   careerGlobalSelfPr: string;
+  /** 自己PRの直前に表示（任意）。改行で複数行にするとプレビューでは箇条書きになります */
+  careerPrePrExperience: string;
+  careerPrePrStrength: string;
+  /** 入力がある場合、勤務先ブロックの「志望職種に合わせた強み」の自動集約は出しません */
+  careerPrePrJobFit: string;
   base: BaseProfile;
   careerShowPhoto: boolean;
   careerBlocks: CareerBlock[];
@@ -66,6 +71,9 @@ export const initialFormData = (): ResumeFormData => ({
   careerTemplate: "detailed",
   careerSummary: "",
   careerGlobalSelfPr: "",
+  careerPrePrExperience: "",
+  careerPrePrStrength: "",
+  careerPrePrJobFit: "",
   base: {
     name: "",
     address: "",
