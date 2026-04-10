@@ -894,6 +894,19 @@ a.closer-contact-switch:hover {
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.closer-tool-badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  opacity: 0.8;
+  text-transform: none;
 }
 
 .closer-essay-card-title {
