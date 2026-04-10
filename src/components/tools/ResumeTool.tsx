@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   useCallback,
   useMemo,
@@ -184,8 +186,22 @@ function QuickChips({
   );
 }
 
-export default function ResumeTool() {
-  const [data, setData] = useState<ResumeFormData>(initialFormData);
+export type ResumeToolProps = {
+  /** URL から開いたときの初期タブ（未指定は履歴書） */
+  initialDocMode?: "resume" | "career";
+};
+
+export default function ResumeTool({
+  initialDocMode,
+}: ResumeToolProps = {}) {
+  const pathname = usePathname();
+  const [data, setData] = useState<ResumeFormData>(() => {
+    const d = initialFormData();
+    if (initialDocMode) {
+      d.docMode = initialDocMode;
+    }
+    return d;
+  });
   const [exporting, setExporting] = useState(false);
   const captureRef = useRef<HTMLDivElement>(null);
 
@@ -311,6 +327,39 @@ export default function ResumeTool() {
           <strong>プライバシー：</strong>
           入力内容・写真はすべてお使いのブラウザ内だけで処理され、サーバーへの送信や保存は行いません。タブを閉じると消えます。
         </p>
+        <nav className="rt-seo-links" aria-label="無料ツールの関連ページ">
+          <Link
+            href="/tools/rireki"
+            className={pathname === "/tools/rireki" ? "active" : undefined}
+            aria-current={pathname === "/tools/rireki" ? "page" : undefined}
+          >
+            無料・履歴書をつくる
+          </Link>
+          <span className="rt-seo-links-sep" aria-hidden>
+            ・
+          </span>
+          <Link
+            href="/tools/shokumu-keirekisho"
+            className={
+              pathname === "/tools/shokumu-keirekisho" ? "active" : undefined
+            }
+            aria-current={
+              pathname === "/tools/shokumu-keirekisho" ? "page" : undefined
+            }
+          >
+            無料・職務経歴書をつくる
+          </Link>
+          <span className="rt-seo-links-sep" aria-hidden>
+            ・
+          </span>
+          <Link
+            href="/tools"
+            className={pathname === "/tools" ? "active" : undefined}
+            aria-current={pathname === "/tools" ? "page" : undefined}
+          >
+            両方まとめて
+          </Link>
+        </nav>
       </header>
 
       <div className="rt-workspace">

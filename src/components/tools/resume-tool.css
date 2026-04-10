@@ -45,6 +45,38 @@
   margin: 0;
 }
 
+.rt-seo-links {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--sand);
+}
+
+.rt-seo-links a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.rt-seo-links a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+}
+
+.rt-seo-links a.active {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.rt-seo-links-sep {
+  color: var(--sand);
+  margin: 0 0.15em;
+}
+
 .rt-workspace {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(380px, 1.1fr);
