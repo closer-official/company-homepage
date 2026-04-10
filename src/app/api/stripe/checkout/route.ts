@@ -1,12 +1,11 @@
 /**
  * POST /api/stripe/checkout
  *
- * Creates a Stripe Checkout Session for the PDF converter monthly plan (¥300/mo).
+ * PDF 変換ツール有料プラン（月額）の Checkout Session を作成。
+ * リクエスト JSON: { "firebaseUid": "<Firebase Auth uid>" } 必須（アカウント紐付け）
  *
- * Environment variables needed:
- *   STRIPE_SECRET_KEY        — Stripe secret key (sk_live_... or sk_test_...)
- *   STRIPE_PRICE_ID          — Stripe Price ID for the ¥300/mo recurring plan
- *   NEXT_PUBLIC_SITE_URL     — e.g. https://divizero.jp
+ * 環境変数:
+ *   STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_SITE_URL
  */
 
 import { NextResponse } from "next/server";
@@ -14,6 +13,14 @@ import { NextResponse } from "next/server";
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY ?? "";
 const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID ?? "";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://divizero.jp";
+
+function isValidFirebaseUid(uid: string): boolean {
+  return (
+    uid.length >= 10 &&
+    uid.length <= 128 &&
+    /^[A-Za-z0-9_-]+$/.test(uid)
+  );
+}
 
 export async function POST(request: Request) {
   if (!STRIPE_SECRET_KEY || !STRIPE_PRICE_ID) {
@@ -23,29 +30,38 @@ export async function POST(request: Request) {
     );
   }
 
-  // Optional: read metadata from the request body
-  let customerId: string | undefined;
+  let firebaseUid: string | undefined;
   try {
-    const body = await request.json().catch(() => ({}));
-    customerId = typeof body.customerId === "string" ? body.customerId : undefined;
+    const body = (await request.json().catch(() => ({}))) as {
+      firebaseUid?: unknown;
+    };
+    firebaseUid =
+      typeof body.firebaseUid === "string" ? body.firebaseUid : undefined;
   } catch {
-    // ignore parse errors
+    firebaseUid = undefined;
   }
 
-  // Build the Stripe Checkout Session via the REST API (no SDK dependency)
+  if (!firebaseUid || !isValidFirebaseUid(firebaseUid)) {
+    return NextResponse.json(
+      { error: "firebaseUid is required for checkout." },
+      { status: 400 },
+    );
+  }
+
   const params = new URLSearchParams({
     "line_items[0][price]": STRIPE_PRICE_ID,
     "line_items[0][quantity]": "1",
     mode: "subscription",
     success_url: `${SITE_URL}/tools/pdf-converter?upgraded=1`,
     cancel_url: `${SITE_URL}/tools/pdf-converter?cancelled=1`,
-    "locale": "ja",
+    locale: "ja",
     "payment_method_types[0]": "card",
+    client_reference_id: firebaseUid,
   });
-
-  if (customerId) {
-    params.set("customer", customerId);
-  }
+  params.set(
+    "subscription_data[metadata][firebaseUid]",
+    firebaseUid,
+  );
 
   const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {
     method: "POST",
@@ -66,11 +82,9 @@ export async function POST(request: Request) {
   }
 
   const session = (await stripeRes.json()) as { url: string };
-
-  return NextResponse.redirect(session.url, 303);
+  return NextResponse.json({ url: session.url });
 }
 
-/** HEAD / OPTIONS for preflight */
 export async function GET() {
   return NextResponse.redirect(`${SITE_URL}/tools/pdf-converter`, 302);
 }

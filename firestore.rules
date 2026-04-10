@@ -58,5 +58,11 @@ service cloud.firestore {
     match /factoryResearch/{docId} {
       allow read, write: if true;
     }
+
+    // PDF 変換ツール：有料プラン状態（Stripe Webhook がサーバーから書き込み）
+    match /pdfConverterSubscribers/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
   }
 }

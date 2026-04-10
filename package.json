@@ -10,12 +10,15 @@
     "deploy": "node scripts/deploy.cjs"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.1",
     "firebase": "^12.9.0",
+    "firebase-admin": "^13.8.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "stripe": "^22.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

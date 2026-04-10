@@ -1,7 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  verifyPasswordResetCode,
+  type User,
+} from "firebase/auth";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { db, firebaseAuth, isFirebaseAuthEnabled } from "@/lib/firebase";
 import "./pdf-converter.css";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -18,14 +30,14 @@ type HistoryEntry = {
   id: string;
   filename: string;
   fileCount: number;
-  createdAt: number; // epoch ms
-  pdfDataUrl: string; // base64 data URL
+  createdAt: number;
+  pdfDataUrl: string;
 };
 
 const FREE_LIMIT = 1;
 const PAID_LIMIT = 20;
 const HISTORY_STORAGE_KEY = "divisero_pdf_history";
-const PLAN_STORAGE_KEY = "divisero_pdf_plan"; // "free" | "paid"
+const PLAN_STORAGE_KEY = "divisero_pdf_plan";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -49,12 +61,10 @@ function formatSize(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-/** Returns true if the file is a supported image type */
 function isImageFile(file: File) {
   return file.type.startsWith("image/");
 }
 
-/** Load image file as HTMLImageElement */
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -64,11 +74,9 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
-/** Convert an array of image files → single PDF data URL using jsPDF */
 async function imagesToPdfDataUrl(files: File[]): Promise<string> {
   const { jsPDF } = await import("jspdf");
 
-  // Read all files as data URLs
   const dataUrls = await Promise.all(
     files.map(
       (f) =>
@@ -120,11 +128,10 @@ function triggerDownload(dataUrl: string, filename: string) {
   a.click();
 }
 
-// ─── Local storage helpers ────────────────────────────────────────────────────
-
-function loadHistory(): HistoryEntry[] {
+function loadHistory(storageKey: string | null): HistoryEntry[] {
+  if (!storageKey) return [];
   try {
-    const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+    const raw = localStorage.getItem(storageKey);
     if (!raw) return [];
     return JSON.parse(raw) as HistoryEntry[];
   } catch {
@@ -132,15 +139,16 @@ function loadHistory(): HistoryEntry[] {
   }
 }
 
-function saveHistory(entries: HistoryEntry[]) {
+function saveHistory(storageKey: string | null, entries: HistoryEntry[]) {
+  if (!storageKey) return;
   try {
-    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(entries));
+    localStorage.setItem(storageKey, JSON.stringify(entries));
   } catch {
-    // QuotaExceededError — silently skip
+    // QuotaExceededError
   }
 }
 
-function loadPlan(): "free" | "paid" {
+function loadLegacyPlan(): "free" | "paid" {
   try {
     const raw = localStorage.getItem(PLAN_STORAGE_KEY);
     return raw === "paid" ? "paid" : "free";
@@ -149,10 +157,18 @@ function loadPlan(): "free" | "paid" {
   }
 }
 
+type AuthModalMode = "login" | "register" | "forgot";
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PdfConverterTool() {
-  const [plan, setPlan] = useState<"free" | "paid">("free");
+  const authEnabled = isFirebaseAuthEnabled();
+
+  const [user, setUser] = useState<User | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+  const [subscriptionActive, setSubscriptionActive] = useState(false);
+  const [legacyPaid, setLegacyPaid] = useState(false);
+
   const [files, setFiles] = useState<ConvertFile[]>([]);
   const [converting, setConverting] = useState(false);
   const [resultDataUrl, setResultDataUrl] = useState<string | null>(null);
@@ -161,16 +177,99 @@ export default function PdfConverterTool() {
   const [tab, setTab] = useState<"convert" | "history">("convert");
   const [dragOver, setDragOver] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const [authModalMode, setAuthModalMode] = useState<AuthModalMode>("login");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authPassword2, setAuthPassword2] = useState("");
+  const [authBusy, setAuthBusy] = useState(false);
+  const [authMessage, setAuthMessage] = useState<string | null>(null);
+
+  const [resetOobCode, setResetOobCode] = useState<string | null>(null);
+  const [resetEmailPreview, setResetEmailPreview] = useState<string | null>(
+    null,
+  );
+  const [resetNewPassword, setResetNewPassword] = useState("");
+  const [resetNewPassword2, setResetNewPassword2] = useState("");
+  const [resetBusy, setResetBusy] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const historyKeyRef = useRef<string | null>(null);
 
-  const limit = plan === "paid" ? PAID_LIMIT : FREE_LIMIT;
+  const isPaid = authEnabled ? subscriptionActive : legacyPaid;
 
+  const historyStorageKey = useMemo(() => {
+    if (!authEnabled) return HISTORY_STORAGE_KEY;
+    if (user && subscriptionActive) {
+      return `${HISTORY_STORAGE_KEY}_${user.uid}`;
+    }
+    return null;
+  }, [authEnabled, user, subscriptionActive]);
+
+  historyKeyRef.current = historyStorageKey;
+
+  const limit = isPaid ? PAID_LIMIT : FREE_LIMIT;
+
+  // Firebase Auth
   useEffect(() => {
-    setPlan(loadPlan());
-    setHistory(loadHistory());
+    if (!firebaseAuth) {
+      setAuthReady(true);
+      return;
+    }
+    const unsub = onAuthStateChanged(firebaseAuth, (u) => {
+      setUser(u);
+      setAuthReady(true);
+    });
+    return () => unsub();
   }, []);
 
-  // ── File management ──────────────────────────────────────────────────────
+  // Subscription doc
+  useEffect(() => {
+    if (!authEnabled || !user) {
+      setSubscriptionActive(false);
+      return;
+    }
+    const ref = doc(db, "pdfConverterSubscribers", user.uid);
+    const unsub = onSnapshot(
+      ref,
+      (snap) => {
+        const d = snap.data() as { active?: boolean } | undefined;
+        setSubscriptionActive(d?.active === true);
+      },
+      (err) => console.error("[pdf-converter] subscriber snapshot", err),
+    );
+    return () => unsub();
+  }, [authEnabled, user]);
+
+  // Legacy plan (no Firebase Auth configured)
+  useEffect(() => {
+    if (!authEnabled) {
+      setLegacyPaid(loadLegacyPlan() === "paid");
+    }
+  }, [authEnabled]);
+
+  // Load history when key changes
+  useEffect(() => {
+    setHistory(loadHistory(historyStorageKey));
+  }, [historyStorageKey]);
+
+  // Password reset deep link (?mode=resetPassword&oobCode=...)
+  useEffect(() => {
+    if (typeof window === "undefined" || !firebaseAuth) return;
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    const code = params.get("oobCode");
+    if (mode === "resetPassword" && code) {
+      setResetOobCode(code);
+      verifyPasswordResetCode(firebaseAuth, code)
+        .then((email) => setResetEmailPreview(email))
+        .catch(() => {
+          setAuthMessage("リセットリンクが無効か期限切れです。もう一度お試しください。");
+          setResetOobCode(null);
+        });
+    }
+  }, []);
 
   const addFiles = useCallback(
     (incoming: FileList | File[]) => {
@@ -182,10 +281,18 @@ export default function PdfConverterTool() {
         return;
       }
       setFiles((prev) => {
-        const combined = [...prev, ...arr.map((f) => ({ id: uid(), file: f, previewUrl: null, status: "idle" as const }))];
+        const combined = [
+          ...prev,
+          ...arr.map((f) => ({
+            id: uid(),
+            file: f,
+            previewUrl: null,
+            status: "idle" as const,
+          })),
+        ];
         if (combined.length > limit) {
-          const planLabel = plan === "free" ? "無料プラン" : "有料プラン";
-          const limitNum = plan === "free" ? FREE_LIMIT : PAID_LIMIT;
+          const planLabel = isPaid ? "有料プラン" : "無料プラン";
+          const limitNum = isPaid ? PAID_LIMIT : FREE_LIMIT;
           window.alert(
             `${planLabel}では一度に最大 ${limitNum} ファイルまでです。\n先頭 ${limitNum} ファイルのみ追加しました。`,
           );
@@ -193,7 +300,6 @@ export default function PdfConverterTool() {
         }
         return combined;
       });
-      // Generate previews
       arr.forEach((f) => {
         const url = URL.createObjectURL(f);
         setFiles((prev) =>
@@ -203,7 +309,7 @@ export default function PdfConverterTool() {
         );
       });
     },
-    [limit, plan],
+    [limit, isPaid],
   );
 
   const removeFile = useCallback((id: string) => {
@@ -216,13 +322,13 @@ export default function PdfConverterTool() {
 
   const clearAll = useCallback(() => {
     setFiles((prev) => {
-      prev.forEach((f) => { if (f.previewUrl) URL.revokeObjectURL(f.previewUrl); });
+      prev.forEach((f) => {
+        if (f.previewUrl) URL.revokeObjectURL(f.previewUrl);
+      });
       return [];
     });
     setResultDataUrl(null);
   }, []);
-
-  // ── Conversion ───────────────────────────────────────────────────────────
 
   const convert = useCallback(async () => {
     if (files.length === 0) return;
@@ -239,20 +345,22 @@ export default function PdfConverterTool() {
       setResultDataUrl(dataUrl);
       setResultFilename(fname);
 
-      // Save to history (paid plan only)
-      if (plan === "paid") {
-        const entry: HistoryEntry = {
-          id: uid(),
-          filename: fname,
-          fileCount: files.length,
-          createdAt: Date.now(),
-          pdfDataUrl: dataUrl,
-        };
-        setHistory((prev) => {
-          const next = [entry, ...prev].slice(0, 50); // keep last 50
-          saveHistory(next);
-          return next;
-        });
+      if (isPaid) {
+        const key = historyKeyRef.current;
+        if (key) {
+          const entry: HistoryEntry = {
+            id: uid(),
+            filename: fname,
+            fileCount: files.length,
+            createdAt: Date.now(),
+            pdfDataUrl: dataUrl,
+          };
+          setHistory((prev) => {
+            const next = [entry, ...prev].slice(0, 50);
+            saveHistory(key, next);
+            return next;
+          });
+        }
       }
     } catch (err) {
       console.error(err);
@@ -260,9 +368,7 @@ export default function PdfConverterTool() {
     } finally {
       setConverting(false);
     }
-  }, [files, plan]);
-
-  // ── Drag & drop ──────────────────────────────────────────────────────────
+  }, [files, isPaid]);
 
   const onDrop = useCallback(
     (e: React.DragEvent) => {
@@ -280,82 +386,279 @@ export default function PdfConverterTool() {
 
   const onDragLeave = useCallback(() => setDragOver(false), []);
 
-  // ── Plan management ──────────────────────────────────────────────────────
-
   const upgradeFlow = useCallback(() => {
+    setAuthMessage(null);
+    setAuthModalMode(user ? "login" : "login");
     setShowPlanModal(true);
-  }, []);
+  }, [user]);
 
-  // Demo toggle (remove in production — real upgrade goes through Stripe)
   const activatePaidDemo = useCallback(() => {
     localStorage.setItem(PLAN_STORAGE_KEY, "paid");
-    setPlan("paid");
+    setLegacyPaid(true);
     setShowPlanModal(false);
   }, []);
 
   const downgradeToFree = useCallback(() => {
+    if (authEnabled) {
+      window.alert(
+        "有料プランの解約は、Stripe の顧客ポータル（お支払いメールのリンク等）からお手続きください。解約後、次回反映まで少し時間がかかる場合があります。",
+      );
+      return;
+    }
     localStorage.setItem(PLAN_STORAGE_KEY, "free");
-    setPlan("free");
-  }, []);
+    setLegacyPaid(false);
+  }, [authEnabled]);
 
   const deleteHistoryEntry = useCallback((id: string) => {
+    const key = historyKeyRef.current;
     setHistory((prev) => {
       const next = prev.filter((h) => h.id !== id);
-      saveHistory(next);
+      saveHistory(key, next);
       return next;
     });
   }, []);
 
-  // ── Render ───────────────────────────────────────────────────────────────
+  const startStripeCheckout = useCallback(async (u: User) => {
+    setCheckoutLoading(true);
+    setAuthMessage(null);
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firebaseUid: u.uid }),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        url?: string;
+        error?: string;
+      };
+      if (!res.ok) {
+        throw new Error(data.error ?? "checkout failed");
+      }
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error("No checkout URL");
+    } catch (e) {
+      console.error(e);
+      setAuthMessage(
+        "決済画面を開けませんでした。Stripe の環境変数を確認するか、しばらくしてからお試しください。",
+      );
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }, []);
+
+  const handleRegister = useCallback(async () => {
+    if (!firebaseAuth) return;
+    setAuthBusy(true);
+    setAuthMessage(null);
+    try {
+      if (authPassword !== authPassword2) {
+        setAuthMessage("パスワードが一致しません。");
+        return;
+      }
+      if (authPassword.length < 8) {
+        setAuthMessage("パスワードは8文字以上にしてください。");
+        return;
+      }
+      await createUserWithEmailAndPassword(
+        firebaseAuth,
+        authEmail.trim(),
+        authPassword,
+      );
+      // 確認メールは送らない（要件どおり）
+      setAuthPassword("");
+      setAuthPassword2("");
+    } catch (e: unknown) {
+      const code = (e as { code?: string })?.code;
+      if (code === "auth/email-already-in-use") {
+        setAuthMessage("このメールアドレスは既に登録されています。ログインへ切り替えてください。");
+      } else {
+        setAuthMessage("登録に失敗しました。メール形式とパスワードをご確認ください。");
+      }
+    } finally {
+      setAuthBusy(false);
+    }
+  }, [authEmail, authPassword, authPassword2]);
+
+  const handleLogin = useCallback(async () => {
+    if (!firebaseAuth) return;
+    setAuthBusy(true);
+    setAuthMessage(null);
+    try {
+      await signInWithEmailAndPassword(
+        firebaseAuth,
+        authEmail.trim(),
+        authPassword,
+      );
+      setAuthPassword("");
+    } catch {
+      setAuthMessage("ログインに失敗しました。メールアドレスとパスワードをご確認ください。");
+    } finally {
+      setAuthBusy(false);
+    }
+  }, [authEmail, authPassword]);
+
+  const handleForgot = useCallback(async () => {
+    if (!firebaseAuth) return;
+    setAuthBusy(true);
+    setAuthMessage(null);
+    try {
+      const origin =
+        process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+        (typeof window !== "undefined" ? window.location.origin : "");
+      await sendPasswordResetEmail(firebaseAuth, authEmail.trim(), {
+        url: `${origin}/tools/pdf-converter`,
+        handleCodeInApp: false,
+      });
+      setAuthMessage(
+        "パスワード再設定用のメールを送信しました。受信トレイをご確認ください。",
+      );
+    } catch {
+      setAuthMessage(
+        "送信に失敗しました。メールアドレスをご確認ください（登録のないアドレスでもエラーに見える場合があります）。",
+      );
+    } finally {
+      setAuthBusy(false);
+    }
+  }, [authEmail]);
+
+  const handleLogout = useCallback(async () => {
+    if (!firebaseAuth) return;
+    await signOut(firebaseAuth);
+  }, []);
+
+  const handleResetSubmit = useCallback(async () => {
+    if (!firebaseAuth || !resetOobCode) return;
+    if (resetNewPassword !== resetNewPassword2) {
+      window.alert("パスワードが一致しません。");
+      return;
+    }
+    if (resetNewPassword.length < 8) {
+      window.alert("パスワードは8文字以上にしてください。");
+      return;
+    }
+    setResetBusy(true);
+    try {
+      await confirmPasswordReset(firebaseAuth, resetOobCode, resetNewPassword);
+      window.alert("パスワードを更新しました。ログインしてください。");
+      window.history.replaceState({}, "", "/tools/pdf-converter");
+      setResetOobCode(null);
+      setResetEmailPreview(null);
+      setResetNewPassword("");
+      setResetNewPassword2("");
+    } catch {
+      window.alert("更新に失敗しました。リンクの有効期限をご確認ください。");
+    } finally {
+      setResetBusy(false);
+    }
+  }, [resetNewPassword, resetNewPassword2, resetOobCode]);
+
+  if (!authReady) {
+    return (
+      <div className="pc-shell">
+        <p className="pc-auth-wait">読み込み中…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="pc-shell">
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
       <header className="pc-hero">
         <p className="pc-hero-label">Tools / ツール</p>
         <h1>無料 PDF 変換ツール</h1>
         <p className="pc-hero-lead">
           画像ファイル（JPEG・PNG・WebP など）をブラウザ上で PDF に変換してダウンロード。
           無料プランでは 1 ファイルずつ変換できます。有料プランでは最大 20
-          ファイルを一括変換＆過去の PDF を見返せます。
+          ファイルを一括変換＆ログイン後に変換履歴を端末内に保存できます。
         </p>
         <p className="pc-privacy">
           <strong>プライバシー：</strong>
-          ファイルはすべてブラウザ内で処理されます。サーバーへの送信・保存は行いません。
+          画像の変換はブラウザ内で行い、画像ファイルをサーバーにアップロードしません。
+          有料プランはアカウントと決済状態の同期にのみサーバーを使います。
         </p>
 
-        {/* ── Nav links ──────────────────────────────────────────────── */}
         <nav className="pc-seo-links" aria-label="関連ツール">
           <Link href="/tools/pdf-converter" aria-current="page">
             無料 PDF 変換
           </Link>
-          <span className="pc-sep" aria-hidden>·</span>
+          <span className="pc-sep" aria-hidden>
+            ·
+          </span>
           <Link href="/tools/rireki">無料・履歴書をつくる</Link>
-          <span className="pc-sep" aria-hidden>·</span>
+          <span className="pc-sep" aria-hidden>
+            ·
+          </span>
           <Link href="/tools/shokumu-keirekisho">無料・職務経歴書をつくる</Link>
-          <span className="pc-sep" aria-hidden>·</span>
+          <span className="pc-sep" aria-hidden>
+            ·
+          </span>
           <Link href="/tools">すべてのツール</Link>
         </nav>
 
-        {/* ── Plan badge ─────────────────────────────────────────────── */}
+        {resetOobCode && resetEmailPreview && firebaseAuth ? (
+          <div className="pc-reset-banner" role="region" aria-label="パスワード再設定">
+            <p className="pc-reset-title">パスワードを再設定</p>
+            <p className="pc-reset-email">{resetEmailPreview}</p>
+            <label className="pc-auth-label" htmlFor="pc-reset-pw">
+              新しいパスワード（8文字以上）
+            </label>
+            <input
+              id="pc-reset-pw"
+              type="password"
+              className="pc-auth-input"
+              value={resetNewPassword}
+              onChange={(e) => setResetNewPassword(e.target.value)}
+              autoComplete="new-password"
+            />
+            <label className="pc-auth-label" htmlFor="pc-reset-pw2">
+              確認
+            </label>
+            <input
+              id="pc-reset-pw2"
+              type="password"
+              className="pc-auth-input"
+              value={resetNewPassword2}
+              onChange={(e) => setResetNewPassword2(e.target.value)}
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              className="pc-btn-primary"
+              disabled={resetBusy}
+              onClick={handleResetSubmit}
+            >
+              {resetBusy ? "更新中…" : "パスワードを更新"}
+            </button>
+          </div>
+        ) : null}
+
         <div className="pc-plan-row">
-          <span className={`pc-plan-badge ${plan}`}>
-            {plan === "paid" ? "有料プラン（月額 ¥300）" : "無料プラン"}
+          <span className={`pc-plan-badge ${isPaid ? "paid" : ""}`}>
+            {isPaid ? "有料プラン（月額 ¥300）" : "無料プラン"}
           </span>
-          {plan === "free" ? (
+          {authEnabled && user ? (
+            <span className="pc-account-email">{user.email}</span>
+          ) : null}
+          {authEnabled && user ? (
+            <button type="button" className="pc-btn-ghost" onClick={handleLogout}>
+              ログアウト
+            </button>
+          ) : null}
+          {!isPaid ? (
             <button type="button" className="pc-btn-upgrade" onClick={upgradeFlow}>
               有料プランにアップグレード
             </button>
           ) : (
             <button type="button" className="pc-btn-ghost" onClick={downgradeToFree}>
-              無料プランに戻す
+              {authEnabled ? "解約について" : "無料プランに戻す"}
             </button>
           )}
         </div>
       </header>
 
-      {/* ── Tabs ─────────────────────────────────────────────────────── */}
-      {plan === "paid" && (
+      {isPaid && (
         <div className="pc-tabs" role="tablist">
           <button
             type="button"
@@ -381,10 +684,8 @@ export default function PdfConverterTool() {
         </div>
       )}
 
-      {/* ── Convert tab ──────────────────────────────────────────────── */}
       {tab === "convert" && (
         <div className="pc-workspace">
-          {/* Drop zone */}
           <div
             className={`pc-dropzone${dragOver ? " drag-over" : ""}${files.length > 0 ? " has-files" : ""}`}
             onDrop={onDrop}
@@ -400,7 +701,15 @@ export default function PdfConverterTool() {
           >
             {files.length === 0 ? (
               <div className="pc-dropzone-empty">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  aria-hidden
+                >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="17 8 12 3 7 8" />
                   <line x1="12" y1="3" x2="12" y2="15" />
@@ -411,7 +720,7 @@ export default function PdfConverterTool() {
                 </p>
                 <p className="pc-dropzone-hint">
                   対応形式：JPEG / PNG / WebP / GIF / BMP
-                  {plan === "free"
+                  {!isPaid
                     ? "　｜　無料プランは 1 ファイルずつ"
                     : `　｜　有料プランは最大 ${PAID_LIMIT} ファイル一括`}
                 </p>
@@ -434,7 +743,9 @@ export default function PdfConverterTool() {
                       <span className="pc-file-name" title={item.file.name}>
                         {item.file.name}
                       </span>
-                      <span className="pc-file-size">{formatSize(item.file.size)}</span>
+                      <span className="pc-file-size">
+                        {formatSize(item.file.size)}
+                      </span>
                     </div>
                     <button
                       type="button"
@@ -457,7 +768,7 @@ export default function PdfConverterTool() {
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            multiple={plan === "paid"}
+            multiple={isPaid}
             className="pc-file-input-hidden"
             onChange={(e) => {
               if (e.target.files) addFiles(e.target.files);
@@ -465,7 +776,6 @@ export default function PdfConverterTool() {
             }}
           />
 
-          {/* Actions */}
           <div className="pc-actions">
             {files.length === 0 ? (
               <button
@@ -485,7 +795,7 @@ export default function PdfConverterTool() {
                 >
                   {converting ? "変換中…" : `PDF に変換（${files.length} ファイル）`}
                 </button>
-                {plan === "paid" && files.length < PAID_LIMIT && (
+                {isPaid && files.length < PAID_LIMIT && (
                   <button
                     type="button"
                     className="pc-btn-secondary"
@@ -506,11 +816,18 @@ export default function PdfConverterTool() {
             )}
           </div>
 
-          {/* Result */}
           {resultDataUrl && (
             <div className="pc-result">
               <div className="pc-result-inner">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  aria-hidden
+                >
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <div>
@@ -528,14 +845,13 @@ export default function PdfConverterTool() {
             </div>
           )}
 
-          {/* Upsell (free plan) */}
-          {plan === "free" && (
+          {!isPaid && (
             <div className="pc-upsell">
               <div className="pc-upsell-inner">
                 <p className="pc-upsell-title">有料プランでできること</p>
                 <ul className="pc-upsell-list">
                   <li>最大 20 ファイルを一括 PDF 変換</li>
-                  <li>変換した PDF の履歴を保存・再ダウンロード</li>
+                  <li>アカウントに紐づけて変換履歴を端末内に保存・再ダウンロード</li>
                   <li>複数の画像を 1 つの PDF にまとめる</li>
                 </ul>
                 <p className="pc-upsell-price">月額 ¥300（税込）— Stripe で安全に決済</p>
@@ -548,8 +864,7 @@ export default function PdfConverterTool() {
         </div>
       )}
 
-      {/* ── History tab (paid only) ───────────────────────────────────── */}
-      {tab === "history" && plan === "paid" && (
+      {tab === "history" && isPaid && (
         <div className="pc-history">
           {history.length === 0 ? (
             <p className="pc-history-empty">
@@ -560,7 +875,14 @@ export default function PdfConverterTool() {
               {history.map((h) => (
                 <li key={h.id} className="pc-history-item">
                   <div className="pc-history-icon" aria-hidden>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                     </svg>
@@ -595,7 +917,6 @@ export default function PdfConverterTool() {
         </div>
       )}
 
-      {/* ── Plan upgrade modal ────────────────────────────────────────── */}
       {showPlanModal && (
         <div
           className="pc-modal-overlay"
@@ -603,7 +924,12 @@ export default function PdfConverterTool() {
             if (e.target === e.currentTarget) setShowPlanModal(false);
           }}
         >
-          <div className="pc-modal" role="dialog" aria-modal aria-label="有料プランへのアップグレード">
+          <div
+            className="pc-modal"
+            role="dialog"
+            aria-modal
+            aria-label="有料プランへのアップグレード"
+          >
             <button
               type="button"
               className="pc-modal-close"
@@ -616,33 +942,169 @@ export default function PdfConverterTool() {
             <h2 className="pc-modal-title">有料プラン — 月額 ¥300</h2>
             <ul className="pc-modal-features">
               <li>最大 20 ファイルを一括 PDF 変換</li>
-              <li>変換履歴を保存・再ダウンロード</li>
-              <li>複数画像を 1 つの PDF にまとめる</li>
-              <li>優先サポート</li>
+              <li>アカウント登録後、変換履歴を端末内に保存</li>
+              <li>新規登録時は確認メールを送りません（パスワード忘れのときのみメール送信）</li>
             </ul>
-            <p className="pc-modal-note">
-              Stripe（クレジットカード・Apple Pay・Google Pay）で安全に決済。いつでもキャンセル可能。
-            </p>
-            {/* Stripe checkout: replace href with your actual Stripe Payment Link */}
-            <a
-              href="/api/stripe/checkout"
-              className="pc-btn-primary pc-btn-block"
-              onClick={(e) => {
-                // In demo mode, activate paid without Stripe
-                e.preventDefault();
-                activatePaidDemo();
-              }}
-            >
-              月額 ¥300 でアップグレード（Stripe 決済）
-            </a>
-            <p className="pc-modal-demo-note">
-              ※ 現在デモモードです。実際の決済は設定後に有効になります。
-            </p>
+
+            {!authEnabled ? (
+              <>
+                <p className="pc-modal-note">
+                  この環境では Firebase 認証が未設定です。本番では
+                  NEXT_PUBLIC_FIREBASE_* と Webhook 用のサービスアカウントを設定してください。
+                </p>
+                {process.env.NODE_ENV === "development" ? (
+                  <>
+                    <button
+                      type="button"
+                      className="pc-btn-primary pc-btn-block"
+                      onClick={activatePaidDemo}
+                    >
+                      開発用：有料プランを試す（ローカルのみ）
+                    </button>
+                  </>
+                ) : null}
+              </>
+            ) : user ? (
+              <>
+                <p className="pc-modal-note">
+                  ログイン中：{user.email}
+                  <br />
+                  Stripe で決済すると、このアカウントに有料プランが紐づきます。
+                </p>
+                <button
+                  type="button"
+                  className="pc-btn-primary pc-btn-block"
+                  disabled={checkoutLoading}
+                  onClick={() => startStripeCheckout(user)}
+                >
+                  {checkoutLoading ? "接続中…" : "月額 ¥300 で Stripe 決済へ"}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="pc-auth-tabs" role="tablist">
+                  <button
+                    type="button"
+                    className={`pc-auth-tab${authModalMode === "login" ? " active" : ""}`}
+                    onClick={() => {
+                      setAuthModalMode("login");
+                      setAuthMessage(null);
+                    }}
+                  >
+                    ログイン
+                  </button>
+                  <button
+                    type="button"
+                    className={`pc-auth-tab${authModalMode === "register" ? " active" : ""}`}
+                    onClick={() => {
+                      setAuthModalMode("register");
+                      setAuthMessage(null);
+                    }}
+                  >
+                    新規登録
+                  </button>
+                  <button
+                    type="button"
+                    className={`pc-auth-tab${authModalMode === "forgot" ? " active" : ""}`}
+                    onClick={() => {
+                      setAuthModalMode("forgot");
+                      setAuthMessage(null);
+                    }}
+                  >
+                    パスワード忘れ
+                  </button>
+                </div>
+
+                <label className="pc-auth-label" htmlFor="pc-auth-email">
+                  メールアドレス
+                </label>
+                <input
+                  id="pc-auth-email"
+                  type="email"
+                  className="pc-auth-input"
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  autoComplete="email"
+                />
+
+                {authModalMode !== "forgot" ? (
+                  <>
+                    <label className="pc-auth-label" htmlFor="pc-auth-pw">
+                      パスワード（8文字以上）
+                    </label>
+                    <input
+                      id="pc-auth-pw"
+                      type="password"
+                      className="pc-auth-input"
+                      value={authPassword}
+                      onChange={(e) => setAuthPassword(e.target.value)}
+                      autoComplete={
+                        authModalMode === "register"
+                          ? "new-password"
+                          : "current-password"
+                      }
+                    />
+                  </>
+                ) : null}
+
+                {authModalMode === "register" ? (
+                  <>
+                    <label className="pc-auth-label" htmlFor="pc-auth-pw2">
+                      パスワード（確認）
+                    </label>
+                    <input
+                      id="pc-auth-pw2"
+                      type="password"
+                      className="pc-auth-input"
+                      value={authPassword2}
+                      onChange={(e) => setAuthPassword2(e.target.value)}
+                      autoComplete="new-password"
+                    />
+                  </>
+                ) : null}
+
+                {authMessage ? (
+                  <p className="pc-auth-message" role="status">
+                    {authMessage}
+                  </p>
+                ) : null}
+
+                {authModalMode === "login" ? (
+                  <button
+                    type="button"
+                    className="pc-btn-primary pc-btn-block"
+                    disabled={authBusy}
+                    onClick={handleLogin}
+                  >
+                    {authBusy ? "処理中…" : "ログイン"}
+                  </button>
+                ) : null}
+                {authModalMode === "register" ? (
+                  <button
+                    type="button"
+                    className="pc-btn-primary pc-btn-block"
+                    disabled={authBusy}
+                    onClick={handleRegister}
+                  >
+                    {authBusy ? "処理中…" : "登録する（確認メールは送りません）"}
+                  </button>
+                ) : null}
+                {authModalMode === "forgot" ? (
+                  <button
+                    type="button"
+                    className="pc-btn-primary pc-btn-block"
+                    disabled={authBusy}
+                    onClick={handleForgot}
+                  >
+                    {authBusy ? "送信中…" : "再設定メールを送信"}
+                  </button>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
       )}
 
-      {/* ── SEO article ──────────────────────────────────────────────── */}
       <section className="pc-seo-article">
         <h2>無料 PDF 変換ツールについて</h2>
         <p>
@@ -662,7 +1124,7 @@ export default function PdfConverterTool() {
         </p>
         <h3>プライバシーについて</h3>
         <p>
-          ファイルはすべてお使いの端末（ブラウザ）内で処理されます。サーバーへのアップロードや外部への送信は一切行いません。
+          画像の変換はお使いの端末（ブラウザ）内で処理されます。有料プランではアカウント情報と決済状態の同期のためのみサーバーを利用します。
         </p>
       </section>
     </div>
