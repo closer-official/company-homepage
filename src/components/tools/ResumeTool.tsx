@@ -2,12 +2,19 @@
 
 import {
   useCallback,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
 } from "react";
 import ResumeDoc from "./ResumeDoc";
 import "./resume-tool.css";
+import {
+  EMPLOYMENT_TYPE_CHIPS,
+  mergeCareerPreviewData,
+  ROLE_TITLE_CHIPS,
+  SKILL_CHIPS,
+} from "./career-demo-sample";
 import {
   CAREER_TEMPLATE_OPTIONS,
   RESUME_TEMPLATE_OPTIONS,
@@ -17,41 +24,167 @@ import {
   type ResumeFormData,
 } from "./resume-tool-types";
 
-const CAREER_FIELD_DEFS: {
+type CareerFieldDef = {
   key: keyof CareerBlock;
   label: string;
   rows?: number;
-}[] = [
-  { key: "company", label: "勤務先名" },
-  { key: "period", label: "在籍期間" },
-  { key: "employmentType", label: "雇用形態" },
-  { key: "businessDesc", label: "事業内容", rows: 2 },
-  { key: "duties", label: "担当業務", rows: 3 },
-  { key: "roleTitle", label: "役職・役割" },
-  { key: "achievements", label: "実績", rows: 3 },
-  { key: "improvements", label: "工夫したこと", rows: 2 },
-  { key: "tools", label: "使用ツール・スキル", rows: 2 },
-  { key: "awards", label: "表彰歴", rows: 2 },
-  { key: "numericResults", label: "数字成果", rows: 2 },
-  { key: "mgmtCount", label: "マネジメント人数" },
-  { key: "customerCases", label: "顧客対応件数" },
-  { key: "processImprovement", label: "改善した業務フロー", rows: 2 },
+  placeholder: string;
+  hint: string;
+  chips?: "employment" | "role" | "skills";
+};
+
+const CAREER_FIELD_DEFS: CareerFieldDef[] = [
+  {
+    key: "company",
+    label: "勤務先名",
+    placeholder: "〇〇カフェ 渋谷店",
+    hint: "働いていた店名や会社名を書きます。",
+  },
+  {
+    key: "period",
+    label: "在籍期間",
+    placeholder: "2023年4月 ～ 2025年3月",
+    hint: "年と月まで分かれば十分です。在籍中なら「現在に至る」でもよいです。",
+  },
+  {
+    key: "employmentType",
+    label: "雇用形態",
+    placeholder: "アルバイト",
+    hint: "アルバイト・パートなど、実際の契約に近い形で書きます。",
+    chips: "employment",
+  },
+  {
+    key: "businessDesc",
+    label: "事業内容",
+    rows: 2,
+    placeholder:
+      "カフェ業態の飲食店として、店内飲食とテイクアウトを提供。学生や会社員を中心に来店する店舗。",
+    hint: "どんなお店かを1文で簡単に書いてください。",
+  },
+  {
+    key: "duties",
+    label: "担当業務",
+    rows: 3,
+    placeholder:
+      "来店されたお客様の案内、注文受付、料理・ドリンクの提供、レジ対応、店内清掃、開店準備・閉店作業を担当。",
+    hint: "普段やっていた仕事を具体的に書いてください。複数ある場合は改行で分けても大丈夫です。",
+  },
+  {
+    key: "roleTitle",
+    label: "役職・役割",
+    placeholder: "ホールスタッフ",
+    hint: "肩書きがなければ、実際に担当していた立場を書いてください。",
+    chips: "role",
+  },
+  {
+    key: "achievements",
+    label: "実績",
+    rows: 3,
+    placeholder:
+      "繁忙時間帯のホール対応を任されることが多く、新人スタッフへの業務説明も担当しました。",
+    hint: "評価されたこと、任されたこと、周囲よりできていたことを書いてください。大きな実績でなくても大丈夫です。",
+  },
+  {
+    key: "improvements",
+    label: "工夫したこと",
+    rows: 2,
+    placeholder:
+      "混雑時でもお客様をお待たせしすぎないよう、周囲と声を掛け合いながら優先順位を意識して行動しました。",
+    hint: "忙しいときに意識していたこと、ミスを防ぐために工夫したことを書いてください。",
+  },
+  {
+    key: "tools",
+    label: "使用ツール・スキル",
+    rows: 2,
+    placeholder:
+      "接客対応、丁寧な言葉遣い、周囲との連携、レジ対応、忙しい時間帯での優先順位判断",
+    hint: "仕事を通じて身についた力や、応募先で活かせそうな経験を書いてください。飲食バイトなら対人スキル中心で大丈夫です。",
+    chips: "skills",
+  },
+  {
+    key: "awards",
+    label: "表彰歴",
+    rows: 2,
+    placeholder: "新人教育を任されました。",
+    hint: "表彰がなくても、評価された経験があれば書いて大丈夫です。なければ空欄で問題ありません。",
+  },
+  {
+    key: "numericResults",
+    label: "数字成果",
+    rows: 2,
+    placeholder:
+      "週3〜4日勤務を継続／1日平均50〜80名程度のお客様対応　など",
+    hint: "件数・人数・日数・期間など、数字で表せる内容があれば書いてください。なければ空欄でもよいです。",
+  },
+  {
+    key: "mgmtCount",
+    label: "マネジメント人数",
+    placeholder: "2名",
+    hint: "新人教育やまとめ役の経験があれば人数を書いてください。なければ空欄でも大丈夫です。",
+  },
+  {
+    key: "customerCases",
+    label: "顧客対応件数",
+    placeholder: "1日あたり30〜50組程度",
+    hint: "正確でなくても、おおよその目安で大丈夫です。",
+  },
+  {
+    key: "processImprovement",
+    label: "改善した業務フロー",
+    rows: 2,
+    placeholder:
+      "混雑時の配膳や片付けが重ならないよう、周囲と役割を確認しながら動くようにしました。",
+    hint: "仕事を進めやすくするために、自分なりに工夫した流れや改善を書いてください。",
+  },
   {
     key: "jobStrength",
     label: "志望職種に合わせた強み（勤務先ごと）",
     rows: 2,
+    placeholder:
+      "相手に合わせた丁寧な対応力と、忙しい場面でも周囲と連携しながら動ける点を活かせます。",
+    hint: "応募先で活かせそうな強みを簡潔にまとめます。全体欄が空のときは書類後半に自動でまとまります。",
   },
   {
     key: "selfPr",
     label: "自己PR（ブロック別・任意）",
     rows: 3,
+    placeholder:
+      "私の強みは、丁寧な接客を継続できる点です。飲食店では…（全体の自己PR欄を使う場合は空欄でも可）",
+    hint: "自分の強み → アルバイトでの具体例 → 今後どう活かしたいか、の順で書くと自然です。",
   },
 ];
+
+function QuickChips({
+  ariaLabel,
+  labels,
+  onPick,
+}: {
+  ariaLabel: string;
+  labels: readonly string[];
+  onPick: (value: string) => void;
+}) {
+  return (
+    <div className="rt-chips" role="group" aria-label={ariaLabel}>
+      {labels.map((label) => (
+        <button
+          key={label}
+          type="button"
+          className="rt-chip"
+          onClick={() => onPick(label)}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function ResumeTool() {
   const [data, setData] = useState<ResumeFormData>(initialFormData);
   const [exporting, setExporting] = useState(false);
   const captureRef = useRef<HTMLDivElement>(null);
+
+  const previewData = useMemo(() => mergeCareerPreviewData(data), [data]);
 
   const setBase = useCallback(
     (key: keyof ResumeFormData["base"], value: string) => {
@@ -217,9 +350,16 @@ export default function ResumeTool() {
             <h3>基本情報</h3>
             <div className="rt-field">
               <label htmlFor="rt-name">氏名</label>
+              <p className="rt-field-hint rt-field-hint--field">
+                本人の氏名を書きます。
+                {data.docMode === "career"
+                  ? "職務経歴書の冒頭にも使われます。"
+                  : null}
+              </p>
               <input
                 id="rt-name"
                 type="text"
+                placeholder="山田 太郎"
                 value={data.base.name}
                 onChange={(e) => setBase("name", e.target.value)}
                 autoComplete="name"
@@ -305,16 +445,26 @@ export default function ResumeTool() {
               </div>
               <div className="rt-field-group">
                 <h3>職務要約</h3>
+                <p className="rt-field-hint">
+                  アルバイトでどんな仕事をしていたかを2〜4文でまとめます。勤務期間・担当業務・強みが入ると自然です。
+                </p>
                 <div className="rt-field">
+                  <label className="rt-sr-only" htmlFor="rt-career-summary">
+                    職務要約
+                  </label>
                   <textarea
+                    id="rt-career-summary"
                     value={data.careerSummary}
                     onChange={(e) =>
                       setData((d) => ({ ...d, careerSummary: e.target.value }))
                     }
                     rows={5}
-                    placeholder="キャリアの要約を記入（3〜5行程度の例文イメージ）"
+                    placeholder="飲食店のホールスタッフとして約2年間勤務し、接客、注文対応、配膳、レジ対応を担当しました。忙しい時間帯でも周囲と連携しながら、丁寧でスムーズな接客を心がけてきました。"
                   />
                 </div>
+                <p className="rt-field-hint rt-field-hint--after">
+                  勤務期間・担当業務・強みを2〜4文で書いてください。
+                </p>
               </div>
               <div className="rt-field-group">
                 <h3>自己PRの手前（任意）</h3>
@@ -323,6 +473,9 @@ export default function ResumeTool() {
                 </p>
                 <div className="rt-field">
                   <label htmlFor="rt-career-pre-exp">活かせる経験</label>
+                  <p className="rt-field-hint rt-field-hint--field">
+                    応募先に伝えたい経験を短く。改行するとプレビューで箇条書きになります。
+                  </p>
                   <textarea
                     id="rt-career-pre-exp"
                     value={data.careerPrePrExperience}
@@ -333,11 +486,14 @@ export default function ResumeTool() {
                       }))
                     }
                     rows={3}
-                    placeholder="例：接客・数値管理・チーム運営など"
+                    placeholder="接客、レジ対応、ピーク時のホール業務など"
                   />
                 </div>
                 <div className="rt-field">
                   <label htmlFor="rt-career-pre-str">強み</label>
+                  <p className="rt-field-hint rt-field-hint--field">
+                    自分の強みを1〜2文で。改行するとプレビューで箇条書きになります。
+                  </p>
                   <textarea
                     id="rt-career-pre-str"
                     value={data.careerPrePrStrength}
@@ -348,12 +504,16 @@ export default function ResumeTool() {
                       }))
                     }
                     rows={3}
+                    placeholder="忙しい場面でも落ち着いて対応し、周囲と声を掛け合いながら動けること"
                   />
                 </div>
                 <div className="rt-field">
                   <label htmlFor="rt-career-pre-job">
                     志望職種に活かせる点（全体）
                   </label>
+                  <p className="rt-field-hint rt-field-hint--field">
+                    空欄のときは、勤務先ごとの「志望職種に合わせた強み」を書類後半にまとめて表示します。
+                  </p>
                   <textarea
                     id="rt-career-pre-job"
                     value={data.careerPrePrJobFit}
@@ -364,7 +524,7 @@ export default function ResumeTool() {
                       }))
                     }
                     rows={3}
-                    placeholder="空欄なら勤務先ブロックの「志望職種に合わせた強み」から自動整形"
+                    placeholder="接客で培った対人対応力を活かせます。　など（空欄なら勤務先欄から自動）"
                   />
                 </div>
               </div>
@@ -375,6 +535,9 @@ export default function ResumeTool() {
                 </p>
                 <div className="rt-field">
                   <label htmlFor="rt-career-global-pr">全体の自己PR</label>
+                  <p className="rt-field-hint rt-field-hint--field">
+                    強み → アルバイトでの具体例 → 今後どう活かしたいか、の順で書くと自然です。
+                  </p>
                   <textarea
                     id="rt-career-global-pr"
                     value={data.careerGlobalSelfPr}
@@ -385,7 +548,7 @@ export default function ResumeTool() {
                       }))
                     }
                     rows={5}
-                    placeholder="志向・強み・活かせる経験など"
+                    placeholder="私の強みは、状況を見ながら周囲と連携して行動できる点です。飲食店のアルバイトでは、忙しい時間帯でも落ち着いて接客や配膳を行い、店舗全体が円滑に回るよう努めてきました。今後も相手に合わせた丁寧な対応を心がけ、周囲と協力しながら業務に取り組みたいと考えています。"
                   />
                 </div>
               </div>
@@ -402,26 +565,66 @@ export default function ResumeTool() {
                       削除
                     </button>
                   </div>
-                  {CAREER_FIELD_DEFS.map(({ key, label, rows }) => (
-                    <div key={key} className="rt-field">
-                      <label htmlFor={`rt-${i}-${key}`}>{label}</label>
-                      {rows ? (
-                        <textarea
-                          id={`rt-${i}-${key}`}
-                          value={block[key]}
-                          onChange={(e) => patchBlock(i, { [key]: e.target.value })}
-                          rows={rows}
-                        />
-                      ) : (
-                        <input
-                          id={`rt-${i}-${key}`}
-                          type="text"
-                          value={block[key]}
-                          onChange={(e) => patchBlock(i, { [key]: e.target.value })}
-                        />
-                      )}
-                    </div>
-                  ))}
+                  {CAREER_FIELD_DEFS.map((def) => {
+                    const { key, label, rows, placeholder, hint, chips } = def;
+                    return (
+                      <div key={key} className="rt-field">
+                        <label htmlFor={`rt-${i}-${key}`}>{label}</label>
+                        <p className="rt-field-hint rt-field-hint--field">
+                          {hint}
+                        </p>
+                        {rows ? (
+                          <textarea
+                            id={`rt-${i}-${key}`}
+                            value={block[key]}
+                            placeholder={placeholder}
+                            onChange={(e) =>
+                              patchBlock(i, { [key]: e.target.value })
+                            }
+                            rows={rows}
+                          />
+                        ) : (
+                          <input
+                            id={`rt-${i}-${key}`}
+                            type="text"
+                            value={block[key]}
+                            placeholder={placeholder}
+                            onChange={(e) =>
+                              patchBlock(i, { [key]: e.target.value })
+                            }
+                          />
+                        )}
+                        {chips === "employment" ? (
+                          <QuickChips
+                            ariaLabel="雇用形態の候補"
+                            labels={EMPLOYMENT_TYPE_CHIPS}
+                            onPick={(v) =>
+                              patchBlock(i, { employmentType: v })
+                            }
+                          />
+                        ) : null}
+                        {chips === "role" ? (
+                          <QuickChips
+                            ariaLabel="役職・役割の候補"
+                            labels={ROLE_TITLE_CHIPS}
+                            onPick={(v) => patchBlock(i, { roleTitle: v })}
+                          />
+                        ) : null}
+                        {chips === "skills" ? (
+                          <QuickChips
+                            ariaLabel="スキル・経験の候補"
+                            labels={SKILL_CHIPS}
+                            onPick={(v) => {
+                              const cur = block.tools.trim();
+                              patchBlock(i, {
+                                tools: cur ? `${cur}\n${v}` : v,
+                              });
+                            }}
+                          />
+                        ) : null}
+                      </div>
+                    );
+                  })}
                 </div>
               ))}
               <button type="button" className="rt-btn-secondary" onClick={addBlock}>
@@ -439,6 +642,11 @@ export default function ResumeTool() {
 
         <div className="rt-preview-panel">
           <p className="rt-panel-title">プレビュー（この枠を画像化します）</p>
+          {data.docMode === "career" ? (
+            <p className="rt-preview-demo-note">
+              職務経歴書では、未入力の欄に飲食店アルバイト向けの例が表示されます。入力した内容がその部分を置き換えます。
+            </p>
+          ) : null}
           <div className="rt-preview-toolbar">
             <button
               type="button"
@@ -450,7 +658,7 @@ export default function ResumeTool() {
             </button>
           </div>
           <div className="rt-preview-scroll">
-            <ResumeDoc ref={captureRef} data={data} />
+            <ResumeDoc ref={captureRef} data={previewData} />
           </div>
         </div>
       </div>
