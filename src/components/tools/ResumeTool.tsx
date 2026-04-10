@@ -359,6 +359,16 @@ export default function ResumeTool({
           >
             両方まとめて
           </Link>
+          <span className="rt-seo-links-sep" aria-hidden>
+            ・
+          </span>
+          <Link
+            href="/tools/pdf-converter"
+            className={pathname === "/tools/pdf-converter" ? "active" : undefined}
+            aria-current={pathname === "/tools/pdf-converter" ? "page" : undefined}
+          >
+            無料 PDF 変換
+          </Link>
         </nav>
       </header>
 

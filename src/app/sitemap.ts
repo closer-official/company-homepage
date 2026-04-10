@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools",
     "/tools/rireki",
     "/tools/shokumu-keirekisho",
+    "/tools/pdf-converter",
     "/services/works",
     "/services/plan",
     "/services/toeic-casino",

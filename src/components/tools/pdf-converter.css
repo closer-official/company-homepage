@@ -1,0 +1,681 @@
+/* ─── PDF Converter Tool — Closer design tokens ─────────────────────── */
+
+.pc-shell {
+  padding: 48px 40px 100px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────── */
+.pc-hero {
+  margin-bottom: 40px;
+}
+
+.pc-hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pc-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.pc-hero-lead {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 0 0 16px;
+}
+
+.pc-privacy {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.75;
+  padding: 14px 18px;
+  border: 1px solid var(--sand);
+  background: rgba(250, 248, 245, 0.6);
+  margin: 0 0 20px;
+}
+
+/* ── SEO nav links ──────────────────────────────────────────────────── */
+.pc-seo-links {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sand);
+}
+
+.pc-seo-links a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pc-seo-links a:hover,
+.pc-seo-links a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+}
+
+.pc-sep {
+  color: var(--sand);
+  margin: 0 0.5em;
+}
+
+/* ── Plan badge row ─────────────────────────────────────────────────── */
+.pc-plan-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.pc-plan-badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border: 1px solid var(--sand);
+  color: var(--muted);
+}
+
+.pc-plan-badge.paid {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(184, 150, 90, 0.06);
+}
+
+/* ── Tabs ───────────────────────────────────────────────────────────── */
+.pc-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.pc-tab {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  padding: 10px 18px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-tab:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.pc-tab.active {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.pc-tab-count {
+  background: var(--gold);
+  color: var(--cream);
+  font-size: 0.62rem;
+  padding: 1px 5px;
+  border-radius: 20px;
+  line-height: 1.4;
+}
+
+/* ── Workspace ──────────────────────────────────────────────────────── */
+.pc-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Drop zone ──────────────────────────────────────────────────────── */
+.pc-dropzone {
+  border: 2px dashed var(--sand);
+  padding: 48px 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+
+.pc-dropzone:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(184, 150, 90, 0.25);
+}
+
+.pc-dropzone:hover,
+.pc-dropzone.drag-over {
+  border-color: var(--gold);
+  background: rgba(184, 150, 90, 0.04);
+}
+
+.pc-dropzone.has-files {
+  cursor: default;
+  padding: 24px;
+  text-align: left;
+}
+
+.pc-dropzone-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.pc-dropzone-empty svg {
+  opacity: 0.4;
+}
+
+.pc-dropzone-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pc-dropzone-title span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.pc-dropzone-hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── File grid ──────────────────────────────────────────────────────── */
+.pc-file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+.pc-file-card {
+  position: relative;
+  border: 1px solid var(--sand);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.pc-file-card:hover {
+  border-color: var(--gold);
+}
+
+.pc-file-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: rgba(250, 248, 245, 0.8);
+}
+
+.pc-file-thumb--placeholder {
+  aspect-ratio: 1 / 1;
+  background: var(--sand);
+  opacity: 0.3;
+}
+
+.pc-file-info {
+  padding: 8px 10px;
+}
+
+.pc-file-name {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.pc-file-size {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.pc-file-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.pc-file-card:hover .pc-file-remove {
+  opacity: 1;
+}
+
+/* ── Hidden file input ──────────────────────────────────────────────── */
+.pc-file-input-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Actions row ────────────────────────────────────────────────────── */
+.pc-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+.pc-btn-primary,
+.pc-btn-secondary,
+.pc-btn-ghost,
+.pc-btn-upgrade,
+.pc-btn-download {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 12px 22px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.pc-btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.pc-btn-primary:hover:not(:disabled) {
+  background: var(--gold);
+}
+
+.pc-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pc-btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--sand);
+}
+
+.pc-btn-secondary:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.pc-btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  font-size: 0.78rem;
+}
+
+.pc-btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--sand);
+}
+
+.pc-btn-upgrade {
+  background: var(--gold);
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.pc-btn-upgrade:hover {
+  background: var(--ink);
+}
+
+.pc-btn-download {
+  background: var(--gold);
+  color: var(--cream);
+  white-space: nowrap;
+}
+
+.pc-btn-download:hover {
+  background: var(--ink);
+}
+
+.pc-btn-block {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Result box ─────────────────────────────────────────────────────── */
+.pc-result {
+  border: 1px solid rgba(184, 150, 90, 0.4);
+  background: rgba(184, 150, 90, 0.05);
+  padding: 20px 24px;
+}
+
+.pc-result-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pc-result-inner svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.pc-result-title {
+  font-weight: 500;
+  font-size: 0.88rem;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+
+.pc-result-file {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin: 0;
+}
+
+.pc-result-inner .pc-btn-download {
+  margin-left: auto;
+}
+
+/* ── Upsell box ─────────────────────────────────────────────────────── */
+.pc-upsell {
+  border: 1px solid var(--sand);
+  padding: 28px 32px;
+  margin-top: 8px;
+}
+
+.pc-upsell-inner {
+  max-width: 520px;
+}
+
+.pc-upsell-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.pc-upsell-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pc-upsell-list li {
+  font-size: 0.82rem;
+  color: var(--muted);
+  padding-left: 18px;
+  position: relative;
+}
+
+.pc-upsell-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.pc-upsell-price {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+/* ── History ────────────────────────────────────────────────────────── */
+.pc-history {
+  padding-top: 8px;
+}
+
+.pc-history-empty {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.8;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.pc-history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pc-history-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--sand);
+  flex-wrap: wrap;
+}
+
+.pc-history-icon {
+  flex-shrink: 0;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.pc-history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-history-name {
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 500;
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pc-history-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin: 0;
+}
+
+.pc-history-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────── */
+.pc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.6);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.pc-modal {
+  background: var(--cream);
+  border: 1px solid var(--sand);
+  padding: 40px 36px 36px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+}
+
+.pc-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.pc-modal-close:hover {
+  color: var(--ink);
+}
+
+.pc-modal-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 10px;
+}
+
+.pc-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.pc-modal-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pc-modal-features li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding-left: 20px;
+  position: relative;
+}
+
+.pc-modal-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.pc-modal-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.pc-modal-demo-note {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin: 10px 0 0;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ── SEO article ────────────────────────────────────────────────────── */
+.pc-seo-article {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--sand);
+  max-width: 640px;
+}
+
+.pc-seo-article h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.pc-seo-article h3 {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 24px 0 8px;
+}
+
+.pc-seo-article p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pc-shell {
+    padding: 32px 20px 80px;
+  }
+
+  .pc-dropzone {
+    padding: 36px 20px;
+  }
+
+  .pc-modal {
+    padding: 32px 24px 28px;
+  }
+
+  .pc-file-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+
+  .pc-result-inner .pc-btn-download {
+    margin-left: 0;
+    width: 100%;
+  }
+}
