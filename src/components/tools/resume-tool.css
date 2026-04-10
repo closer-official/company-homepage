@@ -820,7 +820,8 @@
     width: 100%;
   }
 
-  .rt-btn-primary {
+  .rt-preview-toolbar .rt-btn-primary,
+  .rt-preview-toolbar .rt-btn-secondary {
     display: flex;
     align-items: center;
     justify-content: center;

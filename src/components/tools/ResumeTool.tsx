@@ -16,6 +16,11 @@ import {
   SKILL_CHIPS,
 } from "./career-demo-sample";
 import {
+  capturePreviewToCanvas,
+  downloadCanvasAsPdf,
+  downloadDataUrlPng,
+} from "./resume-export";
+import {
   CAREER_TEMPLATE_OPTIONS,
   RESUME_TEMPLATE_OPTIONS,
   emptyCareerBlock,
@@ -254,22 +259,39 @@ export default function ResumeTool() {
     if (!el) return;
     setExporting(true);
     try {
-      const html2canvas = (await import("html2canvas")).default;
-      const canvas = await html2canvas(el, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        logging: false,
-      });
-      const a = document.createElement("a");
-      a.href = canvas.toDataURL("image/png");
-      a.download =
-        data.docMode === "resume" ? "履歴書_preview.png" : "職務経歴書_preview.png";
-      a.click();
+      const canvas = await capturePreviewToCanvas(el);
+      downloadDataUrlPng(
+        canvas.toDataURL("image/png"),
+        data.docMode === "resume"
+          ? "履歴書_preview.png"
+          : "職務経歴書_preview.png",
+      );
     } catch (err) {
       console.error(err);
       window.alert(
         "画像の生成に失敗しました。別ブラウザでお試しください。",
+      );
+    } finally {
+      setExporting(false);
+    }
+  }, [data.docMode]);
+
+  const downloadPdf = useCallback(async () => {
+    const el = captureRef.current;
+    if (!el) return;
+    setExporting(true);
+    try {
+      const canvas = await capturePreviewToCanvas(el);
+      await downloadCanvasAsPdf(
+        canvas,
+        data.docMode === "resume"
+          ? "履歴書_preview.pdf"
+          : "職務経歴書_preview.pdf",
+      );
+    } catch (err) {
+      console.error(err);
+      window.alert(
+        "PDFの生成に失敗しました。別ブラウザでお試しください。",
       );
     } finally {
       setExporting(false);
@@ -283,7 +305,7 @@ export default function ResumeTool() {
         <h1>履歴書・職務経歴書ビルダー</h1>
         <p className="rt-hero-lead">
           職務経歴書や履歴書のひな型を選び、入力した内容をその場でプレビュー。PNG
-          としてダウンロードしたり、スクショ用にご利用いただけます。
+          または PDF としてダウンロードしたり、スクショ用にご利用いただけます。
         </p>
         <p className="rt-privacy">
           <strong>プライバシー：</strong>
@@ -655,6 +677,14 @@ export default function ResumeTool() {
               disabled={exporting}
             >
               {exporting ? "生成中…" : "PNGでダウンロード（無料）"}
+            </button>
+            <button
+              type="button"
+              className="rt-btn-secondary"
+              onClick={downloadPdf}
+              disabled={exporting}
+            >
+              {exporting ? "生成中…" : "PDFでダウンロード（無料）"}
             </button>
           </div>
           <div className="rt-preview-scroll">
