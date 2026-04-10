@@ -161,6 +161,13 @@
   margin-bottom: 6px;
 }
 
+.rt-field-hint {
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
 .rt-field input[type="text"],
 .rt-field input[type="email"],
 .rt-field input[type="tel"],
@@ -505,22 +512,107 @@
   white-space: pre-wrap;
 }
 
-.rt-cf-item {
+/* 職務経歴：提出向けの構造化ブロック */
+.rt-career-history-sec {
   margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px dotted #ccc;
 }
 
-.rt-cf-label {
-  font-size: 9px;
-  color: #666;
-  margin-bottom: 2px;
+.rt-career-history-sec > .rt-career-h2 {
+  margin-bottom: 14px;
 }
 
-.rt-cf-val {
+.rt-career-company-wrap {
+  padding-top: 12px;
+  margin-bottom: 18px;
+  border-top: 1px solid #e8e6e3;
+}
+
+.rt-career-company-wrap:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.rt-career-block {
+  margin: 0;
+}
+
+.rt-career-co-line {
+  font-family: "Noto Serif JP", var(--font-display), serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+
+.rt-career-block--compact .rt-career-co-line {
   font-size: 11px;
-  white-space: pre-wrap;
-  word-break: break-word;
+}
+
+.rt-career-role {
+  margin: 0 0 10px;
+  font-size: 10.5px;
+  color: #444;
+}
+
+.rt-career-subsec {
+  margin-bottom: 10px;
+}
+
+.rt-career-h4 {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #555;
+  margin: 0 0 4px;
+  letter-spacing: 0.04em;
+}
+
+.rt-career-ul {
+  margin: 0;
+  padding-left: 1.15em;
+}
+
+.rt-career-ul li {
+  margin-bottom: 3px;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.rt-career-block--compact .rt-career-ul li {
+  font-size: 10px;
+}
+
+.rt-career-li-metric {
+  list-style-type: square;
+}
+
+.rt-career-metric-strong {
+  font-weight: 700;
+  color: #1a1714;
+}
+
+.rt-career-global-pr {
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 2px solid #1a1714;
+}
+
+.rt-career-h2--inline {
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.rt-career-sum-wrap {
+  margin-bottom: 8px;
+}
+
+.rt-career-sec--cp .rt-career-h2 {
+  font-size: 12px;
+}
+
+.rt-career-sec--cp .rt-career-p {
+  font-size: 10px;
+  line-height: 1.75;
 }
 
 /* timeline */
@@ -546,29 +638,15 @@
   border-radius: 50%;
 }
 
-.rt-tl-co {
-  font-weight: 700;
-  font-size: 12px;
+.rt-tl-card .rt-career-co-line {
+  margin-top: 0;
 }
 
-.rt-tl-period {
-  font-size: 10px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.rt-career-sum {
-  margin-bottom: 16px;
+.rt-tl-card {
+  padding-bottom: 2px;
 }
 
 /* compact */
-.rt-cp-sum {
-  font-size: 11px;
-  line-height: 1.75;
-  margin: 0 0 12px;
-  white-space: pre-wrap;
-}
-
 .rt-cp-table {
   width: 100%;
   border-collapse: collapse;
@@ -586,24 +664,90 @@
   font-size: 9px;
 }
 
-.rt-career-compact .rt-cf-item {
-  margin-bottom: 6px;
-  padding-bottom: 4px;
-}
-
-.rt-career-compact .rt-cf-label {
-  font-size: 8px;
-}
-
-.rt-career-compact .rt-cf-val {
-  font-size: 10px;
-}
-
 @media (max-width: 900px) {
   .rt-doc {
     width: 100%;
     max-width: 794px;
     min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .rt-shell {
+    padding: 24px 18px 80px;
+  }
+
+  .rt-hero {
+    margin-bottom: 28px;
+  }
+
+  .rt-workspace {
+    gap: 28px;
+  }
+
+  .rt-mode-tabs {
+    display: flex;
+    gap: 6px;
+  }
+
+  .rt-mode-tab {
+    flex: 1;
+    min-height: 44px;
+    padding: 12px 14px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .rt-template-opt {
+    padding: 14px 16px;
+    min-height: 48px;
+    align-items: center;
+  }
+
+  .rt-field input[type="text"],
+  .rt-field input[type="email"],
+  .rt-field input[type="tel"],
+  .rt-field input[type="date"],
+  .rt-field textarea {
+    font-size: 16px;
+  }
+
+  .rt-preview-scroll {
+    max-height: min(52vh, 520px);
+    padding: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rt-preview-panel {
+    position: static;
+  }
+
+  .rt-preview-toolbar {
+    width: 100%;
+  }
+
+  .rt-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    width: 100%;
+  }
+
+  .rt-block-head .rt-btn-danger {
+    min-height: 40px;
+    padding: 8px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rt-doc {
+    padding: 24px 18px 36px;
+    font-size: 10px;
+  }
+
+  .rt-doc-title {
+    font-size: clamp(16px, 5vw, 22px);
   }
 }
 

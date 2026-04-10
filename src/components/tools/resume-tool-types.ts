@@ -34,6 +34,8 @@ export type ResumeFormData = {
   resumeTemplate: ResumeTemplateId;
   careerTemplate: CareerTemplateId;
   careerSummary: string;
+  /** 職務経歴書末尾の自己PR（推奨）。入力時は勤務先ごとの自己PRはプレビューに出しません */
+  careerGlobalSelfPr: string;
   base: BaseProfile;
   careerShowPhoto: boolean;
   careerBlocks: CareerBlock[];
@@ -63,6 +65,7 @@ export const initialFormData = (): ResumeFormData => ({
   resumeTemplate: "mhlw",
   careerTemplate: "detailed",
   careerSummary: "",
+  careerGlobalSelfPr: "",
   base: {
     name: "",
     address: "",
@@ -104,17 +107,17 @@ export const CAREER_TEMPLATE_OPTIONS: {
 }[] = [
   {
     id: "detailed",
-    label: "詳細（見出し＋箇条書き風）",
-    desc: "項目ごとに区切り、面接用に読みやすい",
+    label: "提出向け（推奨）",
+    desc: "見出し・箇条書きで読み手が掴みやすい一般的な職務経歴の見た目",
   },
   {
     id: "timeline",
     label: "時系列ライン",
-    desc: "勤務先を縦のラインでつなぐレイアウト",
+    desc: "同じ構成をタイムライン装飾で表示",
   },
   {
     id: "compact",
-    label: "コンパクト表形式",
-    desc: "1ページにまとめやすい高密度",
+    label: "コンパクト",
+    desc: "同じ構成で文字サイズを詰め、1枚に収めやすく",
   },
 ];

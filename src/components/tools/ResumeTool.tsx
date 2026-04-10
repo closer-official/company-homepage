@@ -31,13 +31,17 @@ const CAREER_FIELD_DEFS: {
   { key: "achievements", label: "実績", rows: 3 },
   { key: "improvements", label: "工夫したこと", rows: 2 },
   { key: "tools", label: "使用ツール・スキル", rows: 2 },
-  { key: "selfPr", label: "自己PR", rows: 3 },
   { key: "awards", label: "表彰歴", rows: 2 },
   { key: "numericResults", label: "数字成果", rows: 2 },
   { key: "mgmtCount", label: "マネジメント人数" },
   { key: "customerCases", label: "顧客対応件数" },
   { key: "processImprovement", label: "改善した業務フロー", rows: 2 },
   { key: "jobStrength", label: "志望職種に合わせた強み", rows: 2 },
+  {
+    key: "selfPr",
+    label: "自己PR（ブロック別・任意）",
+    rows: 3,
+  },
 ];
 
 export default function ResumeTool() {
@@ -304,7 +308,28 @@ export default function ResumeTool() {
                       setData((d) => ({ ...d, careerSummary: e.target.value }))
                     }
                     rows={5}
-                    placeholder="キャリアの要約を記入"
+                    placeholder="キャリアの要約を記入（3〜5行程度の例文イメージ）"
+                  />
+                </div>
+              </div>
+              <div className="rt-field-group">
+                <h3>自己PR（書類の末尾）</h3>
+                <p className="rt-field-hint">
+                  提出用ではここにまとめると読み手が強みを掴みやすくなります。入力がある場合、勤務先ブロックの「自己PR」はプレビューでは表示されません（入力内容はフォームに残ります）。
+                </p>
+                <div className="rt-field">
+                  <label htmlFor="rt-career-global-pr">全体の自己PR</label>
+                  <textarea
+                    id="rt-career-global-pr"
+                    value={data.careerGlobalSelfPr}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        careerGlobalSelfPr: e.target.value,
+                      }))
+                    }
+                    rows={5}
+                    placeholder="志向・強み・活かせる経験など"
                   />
                 </div>
               </div>
