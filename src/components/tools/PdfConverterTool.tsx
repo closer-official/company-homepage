@@ -178,6 +178,7 @@ export default function PdfConverterTool() {
   const [dragOver, setDragOver] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   const [authModalMode, setAuthModalMode] = useState<AuthModalMode>("login");
   const [authEmail, setAuthEmail] = useState("");
@@ -376,6 +377,24 @@ export default function PdfConverterTool() {
     };
   }, [authEnabled, user, firebaseAuth]);
 
+  // Stripe 顧客ポータルからの戻り
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("subscription_portal") !== "1") return;
+    setAuthMessage(
+      "Stripe の画面から戻りました。解約した場合、無料プランへの反映は Webhook 経由のため数分かかることがあります。",
+    );
+    const next = new URLSearchParams(window.location.search);
+    next.delete("subscription_portal");
+    const q = next.toString();
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}${q ? `?${q}` : ""}${window.location.hash}`,
+    );
+  }, []);
+
   const addFiles = useCallback(
     (incoming: FileList | File[]) => {
       const arr = Array.from(incoming).filter(isImageFile);
@@ -503,16 +522,50 @@ export default function PdfConverterTool() {
     setShowPlanModal(false);
   }, []);
 
+  const openBillingPortal = useCallback(async () => {
+    if (!firebaseAuth || !user) {
+      setAuthMessage("プランの管理・解約にはログインが必要です。");
+      return;
+    }
+    setAuthMessage(null);
+    setPortalLoading(true);
+    try {
+      const idToken = await user.getIdToken();
+      const res = await fetch("/api/stripe/billing-portal", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        url?: string;
+        error?: string;
+      };
+      if (!res.ok) {
+        setAuthMessage(data.error ?? "顧客ポータルを開けませんでした。");
+        return;
+      }
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setAuthMessage("顧客ポータルの URL を取得できませんでした。");
+    } catch (e) {
+      console.error(e);
+      setAuthMessage(
+        "通信に失敗しました。しばらくしてから再度お試しください。",
+      );
+    } finally {
+      setPortalLoading(false);
+    }
+  }, [firebaseAuth, user]);
+
   const downgradeToFree = useCallback(() => {
     if (authEnabled) {
-      window.alert(
-        "有料プランの解約は、Stripe の顧客ポータル（お支払いメールのリンク等）からお手続きください。解約後、次回反映まで少し時間がかかる場合があります。",
-      );
+      void openBillingPortal();
       return;
     }
     localStorage.setItem(PLAN_STORAGE_KEY, "free");
     setLegacyPaid(false);
-  }, [authEnabled]);
+  }, [authEnabled, openBillingPortal]);
 
   const deleteHistoryEntry = useCallback((id: string) => {
     const key = historyKeyRef.current;
@@ -756,11 +809,25 @@ export default function PdfConverterTool() {
               有料プランにアップグレード
             </button>
           ) : (
-            <button type="button" className="pc-btn-ghost" onClick={downgradeToFree}>
-              {authEnabled ? "解約について" : "無料プランに戻す"}
+            <button
+              type="button"
+              className="pc-btn-ghost"
+              onClick={downgradeToFree}
+              disabled={authEnabled && portalLoading}
+            >
+              {authEnabled
+                ? portalLoading
+                  ? "接続中…"
+                  : "プランの管理・解約"
+                : "無料プランに戻す"}
             </button>
           )}
         </div>
+        {authEnabled && authMessage && !showPlanModal ? (
+          <p className="pc-inline-notice" role="status">
+            {authMessage}
+          </p>
+        ) : null}
       </header>
 
       {isPaid && (
