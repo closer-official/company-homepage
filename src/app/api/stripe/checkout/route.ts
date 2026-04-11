@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     "line_items[0][price]": STRIPE_PRICE_ID,
     "line_items[0][quantity]": "1",
     mode: "subscription",
-    success_url: `${SITE_URL}/tools/pdf-converter?upgraded=1`,
+    success_url: `${SITE_URL}/tools/pdf-converter?upgraded=1&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${SITE_URL}/tools/pdf-converter?cancelled=1`,
     locale: "ja",
     "payment_method_types[0]": "card",

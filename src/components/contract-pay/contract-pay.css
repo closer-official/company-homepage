@@ -1,18 +1,19 @@
-/* 契約・支払い案内（非公開URL専用・スコープ隔離） */
+/* 契約・支払い案内（非公開URL専用・スコープ隔離）
+   アクセントは globals の terracotta 系に寄せる（ページ内ローカル変数で上書きのみ） */
 .contract-pay-page {
-  --color-bg: #f7f5f2;
-  --color-surface: #fff;
-  --color-border: #e3ddd6;
-  --color-border-soft: #ede9e4;
-  --color-text-main: #1c1a18;
-  --color-text-sub: #6b6560;
-  --color-text-light: #9c9590;
-  --color-accent: #2d4a3e;
-  --color-accent-soft: #e8efe9;
-  --color-warn: #7a4a2a;
-  --color-warn-bg: #fbf3ee;
-  --color-cta: #2d4a3e;
-  --color-cta-hover: #1e3229;
+  --color-bg: var(--bg-base);
+  --color-surface: color-mix(in srgb, var(--bg-base) 10%, white 90%);
+  --color-border: var(--border);
+  --color-border-soft: color-mix(in srgb, var(--border) 45%, var(--bg-base));
+  --color-text-main: var(--text);
+  --color-text-sub: var(--text-muted);
+  --color-text-light: color-mix(in srgb, var(--text-muted) 72%, var(--bg-base));
+  --color-accent: var(--terracotta);
+  --color-accent-soft: var(--terracotta-soft);
+  --color-warn: color-mix(in srgb, var(--terracotta) 45%, var(--text));
+  --color-warn-bg: color-mix(in srgb, var(--terracotta-soft) 55%, var(--bg-base));
+  --color-cta: var(--terracotta);
+  --color-cta-hover: color-mix(in srgb, var(--terracotta) 78%, var(--text));
   --font-serif: "Noto Serif JP", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
   --font-display: "Cormorant Garamond", "Noto Serif JP", serif;

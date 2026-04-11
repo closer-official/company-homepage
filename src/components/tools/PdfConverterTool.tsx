@@ -271,6 +271,111 @@ export default function PdfConverterTool() {
     }
   }, []);
 
+  // Stripe Checkout 成功・キャンセル戻り（Webhook 未到達時は session_id で Firestore を同期）
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!authEnabled || !firebaseAuth) return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("cancelled") === "1") {
+      if (!sessionStorage.getItem("pdf_checkout_cancel_toast")) {
+        sessionStorage.setItem("pdf_checkout_cancel_toast", "1");
+        setAuthMessage("決済は完了していません。また必要になったらアップグレードからお進みください。");
+      }
+      const next = new URLSearchParams(window.location.search);
+      next.delete("cancelled");
+      const q = next.toString();
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}${q ? `?${q}` : ""}${window.location.hash}`,
+      );
+      return;
+    }
+
+    if (params.get("upgraded") !== "1") return;
+
+    const sessionId = params.get("session_id");
+    const stripCheckoutParams = () => {
+      const next = new URLSearchParams(window.location.search);
+      next.delete("upgraded");
+      next.delete("session_id");
+      const q = next.toString();
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}${q ? `?${q}` : ""}${window.location.hash}`,
+      );
+    };
+
+    if (!sessionId) {
+      if (!sessionStorage.getItem("pdf_upgrade_no_session_hint")) {
+        sessionStorage.setItem("pdf_upgrade_no_session_hint", "1");
+        setAuthMessage(
+          "このURLには決済セッション情報がありません。Stripe の Webhook（/api/stripe/webhook）が届いていれば数秒で反映されます。反映されない場合は Webhook の設定をご確認ください。",
+        );
+      }
+      stripCheckoutParams();
+      return;
+    }
+
+    if (!user) {
+      if (!sessionStorage.getItem(`pdf_stripe_need_login_${sessionId}`)) {
+        sessionStorage.setItem(`pdf_stripe_need_login_${sessionId}`, "1");
+        setAuthMessage(
+          "決済後の反映には、お支払い時と同じアカウントでログインしてください。",
+        );
+      }
+      return;
+    }
+
+    const doneKey = `pdf_stripe_confirm_done_${sessionId}`;
+    if (sessionStorage.getItem(doneKey)) {
+      stripCheckoutParams();
+      return;
+    }
+
+    let cancelledReq = false;
+    (async () => {
+      try {
+        const idToken = await user.getIdToken();
+        const res = await fetch("/api/stripe/confirm-session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({ sessionId }),
+        });
+        const data = (await res.json().catch(() => ({}))) as { error?: string };
+        if (cancelledReq) return;
+        if (res.ok) {
+          sessionStorage.setItem(doneKey, "1");
+          stripCheckoutParams();
+          setAuthMessage("有料プランを反映しました。");
+        } else {
+          console.error("[pdf-converter] confirm-session", res.status, data);
+          setAuthMessage(
+            data.error ??
+              "決済の確認に失敗しました。Stripe のダッシュボードでお支払いが完了しているか、サーバー環境変数をご確認ください。",
+          );
+        }
+      } catch (e) {
+        if (!cancelledReq) {
+          console.error(e);
+          setAuthMessage(
+            "決済の確認通信に失敗しました。しばらくしてからページを再読み込みしてください。",
+          );
+        }
+      }
+    })();
+
+    return () => {
+      cancelledReq = true;
+    };
+  }, [authEnabled, user, firebaseAuth]);
+
   const addFiles = useCallback(
     (incoming: FileList | File[]) => {
       const arr = Array.from(incoming).filter(isImageFile);

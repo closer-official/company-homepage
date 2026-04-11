@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
+import ConditionalAdsense from "@/components/ConditionalAdsense";
 import ConditionalHeader from "@/components/ConditionalHeader";
-
-const ADSENSE_CLIENT = "ca-pub-4502709909190086";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://divizero.jp";
 
@@ -135,12 +133,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <Script
-          id="adsense-init"
-          strategy="afterInteractive"
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
-          crossOrigin="anonymous"
-        />
+        <ConditionalAdsense />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
