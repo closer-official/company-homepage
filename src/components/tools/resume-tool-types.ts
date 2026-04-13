@@ -1,6 +1,27 @@
 export type ResumeTemplateId = "mhlw" | "simple" | "photoLeft";
 export type CareerTemplateId = "detailed" | "timeline" | "compact";
 
+/** 学歴・職歴・免許などの年月行 */
+export type ResumeTimelineRow = {
+  year: string;
+  month: string;
+  content: string;
+};
+
+export const emptyResumeTimelineRow = (): ResumeTimelineRow => ({
+  year: "",
+  month: "",
+  content: "",
+});
+
+const makeTimelineRows = (n: number): ResumeTimelineRow[] =>
+  Array.from({ length: n }, () => emptyResumeTimelineRow());
+
+/** 学歴・職歴の行数（帳票の密度用） */
+export const RESUME_EDUCATION_ROW_COUNT = 6;
+export const RESUME_WORK_ROW_COUNT = 8;
+export const RESUME_LICENSE_ROW_COUNT = 4;
+
 export type CareerBlock = {
   company: string;
   period: string;
@@ -22,6 +43,12 @@ export type CareerBlock = {
 
 export type BaseProfile = {
   name: string;
+  /** 氏名ふりがな */
+  furigana: string;
+  /** 省略可。空欄ならプレビューでは罫線のみ */
+  gender: string;
+  /** 満年齢など（例：22） */
+  age: string;
   address: string;
   phone: string;
   email: string;
@@ -42,6 +69,13 @@ export type ResumeFormData = {
   /** 入力がある場合、勤務先ブロックの「志望職種に合わせた強み」の自動集約は出しません */
   careerPrePrJobFit: string;
   base: BaseProfile;
+  /** 履歴書右上の「○年○月○日現在」 */
+  resumeIssuedDate: string;
+  resumeEducationRows: ResumeTimelineRow[];
+  resumeWorkRows: ResumeTimelineRow[];
+  resumeLicenseRows: ResumeTimelineRow[];
+  resumeMotivation: string;
+  resumeRequests: string;
   careerShowPhoto: boolean;
   careerBlocks: CareerBlock[];
 };
@@ -76,12 +110,21 @@ export const initialFormData = (): ResumeFormData => ({
   careerPrePrJobFit: "",
   base: {
     name: "",
+    furigana: "",
+    gender: "",
+    age: "",
     address: "",
     phone: "",
     email: "",
     birthDate: "",
     photoDataUrl: "",
   },
+  resumeIssuedDate: "",
+  resumeEducationRows: makeTimelineRows(RESUME_EDUCATION_ROW_COUNT),
+  resumeWorkRows: makeTimelineRows(RESUME_WORK_ROW_COUNT),
+  resumeLicenseRows: makeTimelineRows(RESUME_LICENSE_ROW_COUNT),
+  resumeMotivation: "",
+  resumeRequests: "",
   careerShowPhoto: false,
   careerBlocks: [emptyCareerBlock()],
 });

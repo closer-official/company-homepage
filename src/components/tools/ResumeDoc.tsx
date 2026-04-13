@@ -19,32 +19,191 @@ function PhotoOrPlaceholder({
   return <div className={`rt-photo-ph ${className ?? ""}`}>写真</div>;
 }
 
-function BaseFields({ data }: { data: ResumeFormData }) {
-  const { base } = data;
+function cellOrSpace(s: string) {
+  const t = s.trim();
+  return t || "\u3000";
+}
+
+/** 基本欄（履歴書テンプレ共通） */
+function ResumePersonalFields({ data }: { data: ResumeFormData }) {
+  const b = data.base;
   return (
     <>
       <div className="rt-f-row">
-        <span className="rt-f-label">氏名</span>
-        <span className="rt-f-val">{base.name || "—"}</span>
+        <span className="rt-f-label">ふりがな</span>
+        <span className="rt-f-val">{cellOrSpace(b.furigana)}</span>
       </div>
-      <div className="rt-f-row">
-        <span className="rt-f-label">住所</span>
-        <span className="rt-f-val">{base.address || "—"}</span>
-      </div>
-      <div className="rt-f-row rt-f-row-split">
-        <span>
-          <span className="rt-f-label">電話</span>
-          <span className="rt-f-val">{base.phone || "—"}</span>
-        </span>
-        <span>
-          <span className="rt-f-label">メール</span>
-          <span className="rt-f-val rt-f-val-sm">{base.email || "—"}</span>
-        </span>
+      <div className="rt-f-row rt-f-row-name">
+        <span className="rt-f-label">氏　名</span>
+        <span className="rt-f-val rt-f-val-strong">{cellOrSpace(b.name)}</span>
       </div>
       <div className="rt-f-row">
         <span className="rt-f-label">生年月日</span>
-        <span className="rt-f-val">{base.birthDate || "—"}</span>
+        <span className="rt-f-val">{cellOrSpace(b.birthDate)}</span>
       </div>
+      <div className="rt-f-row rt-f-row-split">
+        <span className="rt-f-split-cell">
+          <span className="rt-f-label">性別</span>
+          <span className="rt-f-val">{cellOrSpace(b.gender)}</span>
+        </span>
+        <span className="rt-f-split-cell">
+          <span className="rt-f-label">年齢</span>
+          <span className="rt-f-val">
+            {b.age.trim() ? `（満）${b.age}才` : "\u3000"}
+          </span>
+        </span>
+      </div>
+      <div className="rt-f-row">
+        <span className="rt-f-label">住　所</span>
+        <span className="rt-f-val">
+          {b.address.trim() ? b.address : "\u3000"}
+        </span>
+      </div>
+      <div className="rt-f-row rt-f-row-split">
+        <span className="rt-f-split-cell">
+          <span className="rt-f-label">電　話</span>
+          <span className="rt-f-val">{cellOrSpace(b.phone)}</span>
+        </span>
+        <span className="rt-f-split-cell">
+          <span className="rt-f-label">メール</span>
+          <span className="rt-f-val rt-f-val-sm">{cellOrSpace(b.email)}</span>
+        </span>
+      </div>
+    </>
+  );
+}
+
+function ResumeEducationWorkTable({ data }: { data: ResumeFormData }) {
+  return (
+    <table className="rt-res-data-table" aria-label="学歴・職歴">
+      <thead>
+        <tr>
+          <th colSpan={3} scope="colgroup" className="rt-res-sec-head">
+            学歴・職歴
+          </th>
+        </tr>
+        <tr>
+          <th scope="col" className="rt-res-col-y">
+            年
+          </th>
+          <th scope="col" className="rt-res-col-m">
+            月
+          </th>
+          <th scope="col" className="rt-res-col-d">
+            学歴・職歴
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="rt-res-subhead">
+          <td colSpan={3}>学　歴</td>
+        </tr>
+        {data.resumeEducationRows.map((r, i) => (
+          <tr key={`e-${i}`}>
+            <td>{cellOrSpace(r.year)}</td>
+            <td>{cellOrSpace(r.month)}</td>
+            <td>{r.content.trim() ? r.content : "\u3000"}</td>
+          </tr>
+        ))}
+        <tr className="rt-res-subhead">
+          <td colSpan={3}>職　歴</td>
+        </tr>
+        {data.resumeWorkRows.map((r, i) => (
+          <tr key={`w-${i}`}>
+            <td>{cellOrSpace(r.year)}</td>
+            <td>{cellOrSpace(r.month)}</td>
+            <td>{r.content.trim() ? r.content : "\u3000"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function ResumeLicenseTable({ data }: { data: ResumeFormData }) {
+  return (
+    <table
+      className="rt-res-data-table rt-res-data-table--gap"
+      aria-label="免許・資格"
+    >
+      <thead>
+        <tr>
+          <th colSpan={3} className="rt-res-sec-head">
+            免許・資格
+          </th>
+        </tr>
+        <tr>
+          <th scope="col" className="rt-res-col-y">
+            年
+          </th>
+          <th scope="col" className="rt-res-col-m">
+            月
+          </th>
+          <th scope="col" className="rt-res-col-d">
+            免許・資格
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.resumeLicenseRows.map((r, i) => (
+          <tr key={`l-${i}`}>
+            <td>{cellOrSpace(r.year)}</td>
+            <td>{cellOrSpace(r.month)}</td>
+            <td>{r.content.trim() ? r.content : "\u3000"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function ResumeFreeTextTable({
+  heading,
+  text,
+  minHeightEm,
+}: {
+  heading: string;
+  text: string;
+  minHeightEm: number;
+}) {
+  return (
+    <table
+      className="rt-res-data-table rt-res-data-table--gap"
+      aria-label={heading}
+    >
+      <tbody>
+        <tr>
+          <th className="rt-res-sec-head rt-res-free-head">{heading}</th>
+        </tr>
+        <tr>
+          <td
+            className="rt-res-free-body"
+            style={{ minHeight: `${minHeightEm}em` }}
+          >
+            {text.trim() ? text : "\u3000"}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
+/** 学歴以下の帳票ブロック（テンプレ共通） */
+function ResumeStandardLowerHalf({ data }: { data: ResumeFormData }) {
+  return (
+    <>
+      <ResumeEducationWorkTable data={data} />
+      <ResumeLicenseTable data={data} />
+      <ResumeFreeTextTable
+        heading="志望の動機・特技・アピールポイントなど"
+        text={data.resumeMotivation}
+        minHeightEm={7}
+      />
+      <ResumeFreeTextTable
+        heading="本人希望記入欄（給料・職種・勤務時間・勤務地・その他）"
+        text={data.resumeRequests}
+        minHeightEm={5}
+      />
     </>
   );
 }
@@ -302,56 +461,82 @@ function CareerSummary({ text, className }: { text: string; className?: string }
 }
 
 function ResumeMhlw({ data }: { data: ResumeFormData }) {
+  const issued =
+    data.resumeIssuedDate.trim() ||
+    "\u3000\u3000\u3000年\u3000\u3000月\u3000\u3000日現在";
   return (
     <div className="rt-doc rt-doc-resume rt-resume-mhlw">
-      <div className="rt-doc-head">
-        <h1 className="rt-doc-title">履　歴　書</h1>
-        <p className="rt-doc-sub">（※本ツールはブラウザ内のみで表示。保存しません）</p>
-      </div>
-      <div className="rt-mhlw-top">
-        <div className="rt-mhlw-main">
-          <BaseFields data={data} />
+      <div className="rt-mhlw-paper">
+        <header className="rt-mhlw-paper-head">
+          <p className="rt-mhlw-issued">{issued}</p>
+          <h1 className="rt-doc-title">履　歴　書</h1>
+        </header>
+        <div className="rt-mhlw-top">
+          <div className="rt-mhlw-main">
+            <ResumePersonalFields data={data} />
+          </div>
+          <div className="rt-mhlw-photo">
+            <PhotoOrPlaceholder
+              src={data.base.photoDataUrl}
+              className="rt-mhlw-photo-img"
+            />
+          </div>
         </div>
-        <div className="rt-mhlw-photo">
-          <PhotoOrPlaceholder
-            src={data.base.photoDataUrl}
-            className="rt-mhlw-photo-img"
-          />
-        </div>
+        <ResumeStandardLowerHalf data={data} />
       </div>
     </div>
   );
 }
 
 function ResumeSimple({ data }: { data: ResumeFormData }) {
+  const issued =
+    data.resumeIssuedDate.trim() ||
+    "\u3000\u3000\u3000年\u3000\u3000月\u3000\u3000日現在";
   return (
     <div className="rt-doc rt-doc-resume rt-resume-simple">
-      <h1 className="rt-doc-title">履歴書</h1>
-      <div className="rt-simple-photo-wrap">
-        <PhotoOrPlaceholder
-          src={data.base.photoDataUrl}
-          className="rt-simple-photo-img"
-        />
-      </div>
-      <div className="rt-simple-body">
-        <BaseFields data={data} />
+      <div className="rt-mhlw-paper rt-mhlw-paper--simple">
+        <header className="rt-mhlw-paper-head">
+          <p className="rt-mhlw-issued">{issued}</p>
+          <h1 className="rt-doc-title">履　歴　書</h1>
+        </header>
+        <div className="rt-simple-top">
+          <div className="rt-simple-photo-wrap">
+            <PhotoOrPlaceholder
+              src={data.base.photoDataUrl}
+              className="rt-simple-photo-img"
+            />
+          </div>
+          <div className="rt-simple-body">
+            <ResumePersonalFields data={data} />
+          </div>
+        </div>
+        <ResumeStandardLowerHalf data={data} />
       </div>
     </div>
   );
 }
 
 function ResumePhotoLeft({ data }: { data: ResumeFormData }) {
+  const issued =
+    data.resumeIssuedDate.trim() ||
+    "\u3000\u3000\u3000年\u3000\u3000月\u3000\u3000日現在";
   return (
     <div className="rt-doc rt-doc-resume rt-resume-pleft">
-      <h1 className="rt-doc-title">履歴書</h1>
-      <div className="rt-pleft-grid">
-        <PhotoOrPlaceholder
-          src={data.base.photoDataUrl}
-          className="rt-pleft-photo"
-        />
-        <div className="rt-pleft-fields">
-          <BaseFields data={data} />
+      <div className="rt-mhlw-paper rt-mhlw-paper--pleft">
+        <header className="rt-mhlw-paper-head">
+          <p className="rt-mhlw-issued">{issued}</p>
+          <h1 className="rt-doc-title">履　歴　書</h1>
+        </header>
+        <div className="rt-pleft-grid">
+          <PhotoOrPlaceholder
+            src={data.base.photoDataUrl}
+            className="rt-pleft-photo"
+          />
+          <div className="rt-pleft-fields">
+            <ResumePersonalFields data={data} />
+          </div>
         </div>
+        <ResumeStandardLowerHalf data={data} />
       </div>
     </div>
   );

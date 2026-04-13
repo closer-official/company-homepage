@@ -29,6 +29,7 @@ import {
   initialFormData,
   type CareerBlock,
   type ResumeFormData,
+  type ResumeTimelineRow,
 } from "./resume-tool-types";
 
 type CareerFieldDef = {
@@ -225,6 +226,26 @@ export default function ResumeTool({
       ),
     }));
   }, []);
+
+  const patchResumeTimeline = useCallback(
+    (
+      key:
+        | "resumeEducationRows"
+        | "resumeWorkRows"
+        | "resumeLicenseRows",
+      index: number,
+      field: keyof ResumeTimelineRow,
+      value: string,
+    ) => {
+      setData((d) => ({
+        ...d,
+        [key]: d[key].map((row, i) =>
+          i === index ? { ...row, [field]: value } : row,
+        ),
+      }));
+    },
+    [],
+  );
 
   const addBlock = useCallback(() => {
     setData((d) => ({
@@ -430,6 +451,19 @@ export default function ResumeTool({
           <div className="rt-field-group">
             <h3>基本情報</h3>
             <div className="rt-field">
+              <label htmlFor="rt-furi">ふりがな（氏名）</label>
+              <p className="rt-field-hint rt-field-hint--field">
+                氏名の読みをひらがなで書きます。
+              </p>
+              <input
+                id="rt-furi"
+                type="text"
+                placeholder="やまだ たろう"
+                value={data.base.furigana}
+                onChange={(e) => setBase("furigana", e.target.value)}
+              />
+            </div>
+            <div className="rt-field">
               <label htmlFor="rt-name">氏名</label>
               <p className="rt-field-hint rt-field-hint--field">
                 本人の氏名を書きます。
@@ -486,6 +520,51 @@ export default function ResumeTool({
                 onChange={(e) => setBase("birthDate", e.target.value)}
               />
             </div>
+            {data.docMode === "resume" ? (
+              <>
+                <div className="rt-field rt-field-inline-2">
+                  <div>
+                    <label htmlFor="rt-gender">性別（任意）</label>
+                    <input
+                      id="rt-gender"
+                      type="text"
+                      placeholder="例：男"
+                      value={data.base.gender}
+                      onChange={(e) => setBase("gender", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="rt-age">満年齢（任意）</label>
+                    <input
+                      id="rt-age"
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="例：22"
+                      value={data.base.age}
+                      onChange={(e) => setBase("age", e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="rt-field">
+                  <label htmlFor="rt-issued">作成日（履歴書右上）</label>
+                  <p className="rt-field-hint rt-field-hint--field">
+                    例：令和8年4月1日現在。提出直前に合わせて書きます。
+                  </p>
+                  <input
+                    id="rt-issued"
+                    type="text"
+                    placeholder="令和　年　月　日現在"
+                    value={data.resumeIssuedDate}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        resumeIssuedDate: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              </>
+            ) : null}
             <div className="rt-field">
               <label htmlFor="rt-photo">写真（任意・履歴書テンプレでは枠に表示）</label>
               <input
@@ -505,6 +584,202 @@ export default function ResumeTool({
                 </button>
               ) : null}
             </div>
+            {data.docMode === "resume" ? (
+              <>
+                <div className="rt-field-group rt-field-group--nested">
+                  <h3>学歴・職歴</h3>
+                  <p className="rt-field-hint">
+                    上から年次順に。空欄行はプレビューでも罫線として残ります。
+                  </p>
+                  <p className="rt-timeline-editor-label">学歴</p>
+                  <div className="rt-timeline-editor" role="group" aria-label="学歴">
+                    {data.resumeEducationRows.map((row, i) => (
+                      <div key={`edu-${i}`} className="rt-timeline-row">
+                        <input
+                          aria-label={`学歴${i + 1} 年`}
+                          placeholder="年"
+                          value={row.year}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeEducationRows",
+                              i,
+                              "year",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`学歴${i + 1} 月`}
+                          placeholder="月"
+                          value={row.month}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeEducationRows",
+                              i,
+                              "month",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`学歴${i + 1} 内容`}
+                          placeholder="内容（例：〇〇高等学校卒業）"
+                          className="rt-timeline-row-wide"
+                          value={row.content}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeEducationRows",
+                              i,
+                              "content",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <p className="rt-timeline-editor-label">職歴</p>
+                  <div className="rt-timeline-editor" role="group" aria-label="職歴">
+                    {data.resumeWorkRows.map((row, i) => (
+                      <div key={`job-${i}`} className="rt-timeline-row">
+                        <input
+                          aria-label={`職歴${i + 1} 年`}
+                          placeholder="年"
+                          value={row.year}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeWorkRows",
+                              i,
+                              "year",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`職歴${i + 1} 月`}
+                          placeholder="月"
+                          value={row.month}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeWorkRows",
+                              i,
+                              "month",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`職歴${i + 1} 内容`}
+                          placeholder="内容（例：〇〇株式会社　入社）"
+                          className="rt-timeline-row-wide"
+                          value={row.content}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeWorkRows",
+                              i,
+                              "content",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="rt-field-group rt-field-group--nested">
+                  <h3>免許・資格</h3>
+                  <div className="rt-timeline-editor" role="group" aria-label="免許・資格">
+                    {data.resumeLicenseRows.map((row, i) => (
+                      <div key={`lic-${i}`} className="rt-timeline-row">
+                        <input
+                          aria-label={`資格${i + 1} 年`}
+                          placeholder="年"
+                          value={row.year}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeLicenseRows",
+                              i,
+                              "year",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`資格${i + 1} 月`}
+                          placeholder="月"
+                          value={row.month}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeLicenseRows",
+                              i,
+                              "month",
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <input
+                          aria-label={`資格${i + 1} 名称`}
+                          placeholder="名称（例：普通自動車第一種）"
+                          className="rt-timeline-row-wide"
+                          value={row.content}
+                          onChange={(e) =>
+                            patchResumeTimeline(
+                              "resumeLicenseRows",
+                              i,
+                              "content",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="rt-field-group rt-field-group--nested">
+                  <h3>志望の動機・特技など</h3>
+                  <div className="rt-field">
+                    <label className="rt-sr-only" htmlFor="rt-motivation">
+                      志望の動機
+                    </label>
+                    <textarea
+                      id="rt-motivation"
+                      rows={5}
+                      value={data.resumeMotivation}
+                      onChange={(e) =>
+                        setData((d) => ({
+                          ...d,
+                          resumeMotivation: e.target.value,
+                        }))
+                      }
+                      placeholder="志望理由や特技、アピールしたい点を書きます。"
+                    />
+                  </div>
+                </div>
+                <div className="rt-field-group rt-field-group--nested">
+                  <h3>本人希望記入欄</h3>
+                  <p className="rt-field-hint">
+                    給与・職種・勤務時間・勤務地など、希望があれば記入します。
+                  </p>
+                  <div className="rt-field">
+                    <label className="rt-sr-only" htmlFor="rt-requests">
+                      本人希望記入欄
+                    </label>
+                    <textarea
+                      id="rt-requests"
+                      rows={4}
+                      value={data.resumeRequests}
+                      onChange={(e) =>
+                        setData((d) => ({
+                          ...d,
+                          resumeRequests: e.target.value,
+                        }))
+                      }
+                      placeholder="特になければ「貴社の規定に従います」などでも構いません。"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : null}
           </div>
 
           {data.docMode === "career" ? (
@@ -723,6 +998,12 @@ export default function ResumeTool({
 
         <div className="rt-preview-panel">
           <p className="rt-panel-title">プレビュー（この枠を画像化します）</p>
+          {data.docMode === "resume" ? (
+            <p className="rt-preview-doc-note">
+              履歴書の帳票レイアウトに近い形で表示しています。印刷・保存は下の PNG / PDF
+              から。入力内容はブラウザ内のみで処理され、サーバーには送信されません。
+            </p>
+          ) : null}
           {data.docMode === "career" ? (
             <p className="rt-preview-demo-note">
               職務経歴書では、未入力の欄に飲食店アルバイト向けの例が表示されます。入力した内容がその部分を置き換えます。

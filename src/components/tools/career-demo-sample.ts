@@ -7,6 +7,8 @@ import {
 /** プレビュー用（未入力欄のみ）。飲食アルバイト・大学生向けの薄い例文 */
 export const FOOD_SERVICE_DEMO_NAME = "山田 太郎";
 
+export const FOOD_SERVICE_DEMO_FURIGANA = "やまだ たろう";
+
 export const FOOD_SERVICE_DEMO_CAREER_SUMMARY =
   "飲食店のホールスタッフとして約2年間勤務し、接客、注文対応、配膳、レジ対応を担当しました。忙しい時間帯でも周囲と連携しながら、丁寧でスムーズな接客を心がけてきました。";
 
@@ -142,6 +144,7 @@ export function mergeCareerPreviewData(data: ResumeFormData): ResumeFormData {
     base: {
       ...data.base,
       name: pick(data.base.name, FOOD_SERVICE_DEMO_NAME),
+      furigana: pick(data.base.furigana, FOOD_SERVICE_DEMO_FURIGANA),
     },
     careerSummary: pick(data.careerSummary, FOOD_SERVICE_DEMO_CAREER_SUMMARY),
     careerGlobalSelfPr: pick(

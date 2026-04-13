@@ -220,6 +220,71 @@
   border: 0;
 }
 
+.rt-preview-doc-note {
+  font-size: 0.66rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: -8px 0 12px;
+  opacity: 0.9;
+}
+
+.rt-field-inline-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.rt-field-inline-2 > div {
+  margin-bottom: 0;
+}
+
+.rt-field-group--nested {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--sand);
+}
+
+.rt-field-group--nested h3 {
+  margin-top: 0;
+}
+
+.rt-timeline-editor-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 10px 0 6px;
+}
+
+.rt-timeline-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.rt-timeline-row {
+  display: grid;
+  grid-template-columns: 3.75rem 3.75rem 1fr;
+  gap: 6px;
+  align-items: center;
+}
+
+.rt-timeline-row input {
+  width: 100%;
+  padding: 7px 9px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  border: 1px solid var(--sand);
+  background: var(--warm-white);
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+.rt-timeline-row input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
 .rt-preview-demo-note {
   font-size: 0.72rem;
   line-height: 1.6;
@@ -410,6 +475,10 @@
   text-align: left;
 }
 
+.rt-doc.rt-doc-resume {
+  padding: 22px 26px 28px;
+}
+
 .rt-doc-title {
   font-family: "Noto Serif JP", var(--font-display), serif;
   font-size: 22px;
@@ -419,23 +488,13 @@
   margin: 0 0 8px;
 }
 
-.rt-doc-sub {
-  font-size: 9px;
-  color: #888;
-  text-align: center;
-  margin: 0 0 20px;
-}
-
-.rt-doc-head {
-  margin-bottom: 16px;
-}
-
 .rt-f-label {
   display: inline-block;
   min-width: 5.5em;
   font-size: 10px;
-  color: #555;
-  border-right: 1px solid #ccc;
+  font-weight: 600;
+  color: #333;
+  border-right: 1px solid #222;
   padding-right: 8px;
   margin-right: 8px;
   vertical-align: top;
@@ -443,8 +502,15 @@
 
 .rt-f-val {
   font-size: 11px;
+  font-weight: 400;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.rt-f-val-strong {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .rt-f-val-sm {
@@ -453,15 +519,31 @@
 
 .rt-f-row {
   border-bottom: 1px solid #222;
-  padding: 8px 4px;
-  min-height: 2.2em;
+  padding: 7px 6px;
+  min-height: 2.1em;
+}
+
+.rt-f-row-name {
+  min-height: 2.6em;
 }
 
 .rt-f-row-split {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
-  gap: 12px;
-  align-items: start;
+  gap: 0;
+  align-items: stretch;
+}
+
+.rt-f-split-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 8px;
+  border-right: 1px solid #222;
+}
+
+.rt-f-row-split .rt-f-split-cell:last-child {
+  border-right: none;
 }
 
 .rt-photo-ph {
@@ -478,16 +560,41 @@
   object-fit: cover;
 }
 
-/* mhlw */
+/* 履歴書：外枠＝用紙 */
+.rt-mhlw-paper {
+  border: 2px solid #1a1714;
+  box-sizing: border-box;
+}
+
+.rt-mhlw-paper-head {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #222;
+}
+
+.rt-mhlw-issued {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: right;
+  letter-spacing: 0.06em;
+}
+
+.rt-mhlw-paper-head .rt-doc-title {
+  margin: 0;
+}
+
+/* mhlw 上段：基本＋写真 */
 .rt-resume-mhlw .rt-mhlw-top {
   display: grid;
-  grid-template-columns: 1fr 132px;
+  grid-template-columns: 1fr 128px;
   gap: 0;
-  border: 2px solid #1a1714;
+  border-bottom: 1px solid #222;
 }
 
 .rt-mhlw-main {
-  border-right: 2px solid #1a1714;
+  border-right: 1px solid #222;
 }
 
 .rt-mhlw-main .rt-f-row:last-child {
@@ -497,55 +604,148 @@
 .rt-mhlw-photo {
   display: flex;
   align-items: stretch;
-  padding: 8px;
-  background: #fafafa;
+  padding: 6px;
+  background: #fff;
 }
 
 .rt-mhlw-photo-img {
   width: 100%;
   height: auto;
-  min-height: 160px;
+  min-height: 168px;
   object-fit: cover;
 }
 
+/* 学歴・職歴・免許・自由記入（帳票表） */
+.rt-res-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 10px;
+  margin: 0;
+}
+
+.rt-res-data-table--gap {
+  margin-top: -1px;
+}
+
+.rt-res-data-table th,
+.rt-res-data-table td {
+  border: 1px solid #222;
+  padding: 5px 6px;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.rt-res-sec-head {
+  font-family: "Noto Serif JP", var(--font-display), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-align: center;
+  background: #f4f2ef;
+}
+
+.rt-res-col-y {
+  width: 11%;
+  text-align: center;
+  font-weight: 600;
+  background: #faf9f7;
+}
+
+.rt-res-col-m {
+  width: 9%;
+  text-align: center;
+  font-weight: 600;
+  background: #faf9f7;
+}
+
+.rt-res-col-d {
+  text-align: center;
+  font-weight: 600;
+  background: #faf9f7;
+}
+
+.rt-res-subhead td {
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  font-size: 10px;
+  background: #eceae6;
+  padding: 5px 8px;
+}
+
+.rt-res-free-head {
+  text-align: left;
+  padding: 6px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.rt-res-free-body {
+  white-space: pre-wrap;
+  min-height: 6.5em;
+  padding: 8px 10px;
+  font-size: 10px;
+  line-height: 1.65;
+  vertical-align: top;
+}
+
 /* simple */
+.rt-simple-top {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid #222;
+}
+
 .rt-resume-simple .rt-simple-photo-wrap {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .rt-simple-photo-img,
 .rt-simple-photo-wrap .rt-photo-ph {
-  width: 120px;
-  height: 150px;
+  width: 100%;
+  max-width: 110px;
+  height: 138px;
   margin: 0 auto;
 }
 
 .rt-simple-body .rt-f-row {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #222;
 }
 
 .rt-simple-body .rt-f-row:last-child {
-  border-bottom: 2px solid #1a1714;
+  border-bottom: none;
+}
+
+.rt-mhlw-paper--simple .rt-doc-title {
+  letter-spacing: 0.28em;
 }
 
 /* photo left */
 .rt-pleft-grid {
   display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 24px;
-  margin-top: 20px;
+  grid-template-columns: 124px 1fr;
+  gap: 14px;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid #222;
   align-items: start;
 }
 
 .rt-pleft-photo,
 .rt-pleft-photo.rt-photo-ph {
-  width: 130px;
-  min-height: 170px;
+  width: 124px;
+  min-height: 168px;
 }
 
 .rt-pleft-fields .rt-f-row {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #222;
+}
+
+.rt-pleft-fields .rt-f-row:last-child {
+  border-bottom: none;
 }
 
 /* career shared */
