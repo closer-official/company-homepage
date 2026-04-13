@@ -74,6 +74,33 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
+/** 長辺を抑えて JPEG 化し、PDF 埋め込み容量を削減（ネットプリントの上限対策） */
+async function imageToPdfJpegDataUrl(
+  img: HTMLImageElement,
+  maxLongEdgePx: number,
+  jpegQuality: number,
+): Promise<string> {
+  let w = img.naturalWidth;
+  let h = img.naturalHeight;
+  const longEdge = Math.max(w, h);
+  if (longEdge > maxLongEdgePx) {
+    const s = maxLongEdgePx / longEdge;
+    w = Math.round(w * s);
+    h = Math.round(h * s);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Canvas 2D が利用できません");
+  }
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+  return canvas.toDataURL("image/jpeg", jpegQuality);
+}
+
 async function imagesToPdfDataUrl(files: File[]): Promise<string> {
   const { jsPDF } = await import("jspdf");
 
@@ -101,6 +128,7 @@ async function imagesToPdfDataUrl(files: File[]): Promise<string> {
         orientation: landscape ? "landscape" : "portrait",
         unit: "mm",
         format,
+        compress: true,
       });
     } else {
       pdf!.addPage(format, landscape ? "landscape" : "portrait");
@@ -114,8 +142,8 @@ async function imagesToPdfDataUrl(files: File[]): Promise<string> {
     const x = (pw - w) / 2;
     const y = (ph - h) / 2;
 
-    const mimeType = files[i].type === "image/png" ? "PNG" : "JPEG";
-    pdf!.addImage(dataUrls[i], mimeType, x, y, w, h);
+    const jpegUrl = await imageToPdfJpegDataUrl(img, 2000, 0.82);
+    pdf!.addImage(jpegUrl, "JPEG", x, y, w, h);
   }
 
   return pdf!.output("datauristring");
@@ -730,6 +758,7 @@ export default function PdfConverterTool() {
           画像ファイル（JPEG・PNG・WebP など）をブラウザ上で PDF に変換してダウンロード。
           無料プランでは 1 ファイルずつ変換できます。有料プランでは最大 20
           ファイルを一括変換＆ログイン後に変換履歴を端末内に保存できます。
+          出力 PDF はネットプリント向けに画像を再圧縮しており、ファイルサイズを抑えています。
         </p>
         <p className="pc-privacy">
           <strong>プライバシー：</strong>

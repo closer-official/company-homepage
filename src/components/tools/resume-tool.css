@@ -228,6 +228,14 @@
   opacity: 0.9;
 }
 
+.rt-pdf-size-hint {
+  font-size: 0.65rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 10px 0 12px;
+  max-width: 36rem;
+}
+
 .rt-field-inline-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;

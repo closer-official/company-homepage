@@ -318,7 +318,7 @@ export default function ResumeTool({
     if (!el) return;
     setExporting(true);
     try {
-      const canvas = await capturePreviewToCanvas(el);
+      const canvas = await capturePreviewToCanvas(el, { scale: 1.5 });
       await downloadCanvasAsPdf(
         canvas,
         data.docMode === "resume"
@@ -1027,6 +1027,11 @@ export default function ResumeTool({
               {exporting ? "生成中…" : "PDFでダウンロード（無料）"}
             </button>
           </div>
+          <p className="rt-pdf-size-hint">
+            PDF はプレビューを JPEG 圧縮して埋め込みます。PNG
+            よりファイルが小さくなり、コンビニのネットプリント（例：10MB
+            上限）でも通りやすくなります。
+          </p>
           <div className="rt-preview-scroll">
             <ResumeDoc ref={captureRef} data={previewData} />
           </div>
