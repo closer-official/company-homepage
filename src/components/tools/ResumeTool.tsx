@@ -390,6 +390,16 @@ export default function ResumeTool({
           >
             無料 PDF 変換
           </Link>
+          <span className="rt-seo-links-sep" aria-hidden>
+            ・
+          </span>
+          <Link
+            href="/tools/photo-resize"
+            className={pathname === "/tools/photo-resize" ? "active" : undefined}
+            aria-current={pathname === "/tools/photo-resize" ? "page" : undefined}
+          >
+            写真サイズ変更
+          </Link>
         </nav>
       </header>
 

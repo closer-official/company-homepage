@@ -773,6 +773,10 @@ export default function PdfConverterTool() {
           <span className="pc-sep" aria-hidden>
             ·
           </span>
+          <Link href="/tools/photo-resize">写真サイズ変更</Link>
+          <span className="pc-sep" aria-hidden>
+            ·
+          </span>
           <Link href="/tools/rireki">無料・履歴書をつくる</Link>
           <span className="pc-sep" aria-hidden>
             ·

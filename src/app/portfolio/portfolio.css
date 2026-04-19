@@ -1,0 +1,871 @@
+/* Personal portfolio — scoped under .portfolio-root to avoid site globals */
+
+@keyframes pf-fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pf-fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pf-scrollAnim {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.portfolio-root {
+  --ink: #1a1714;
+  --paper: #f5f1ec;
+  --paper-2: #ede8e0;
+  --accent: #c4490a;
+  --accent-soft: #e8a07a;
+  --muted: #7a7268;
+  --line: rgba(26, 23, 20, 0.12);
+
+  font-family: var(--font-portfolio-dm, "DM Sans"), ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+.portfolio-root *,
+.portfolio-root *::before,
+.portfolio-root *::after {
+  box-sizing: border-box;
+}
+
+.portfolio-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.portfolio-root nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 3.5rem;
+  background: rgba(245, 241, 236, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-root .nav-logo {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.portfolio-root .nav-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.portfolio-root .nav-links a {
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.portfolio-root .nav-links a:hover {
+  color: var(--ink);
+}
+
+.portfolio-root .hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-root .hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 4rem 6rem 3.5rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: pf-fadeUp 0.9s 0.2s forwards;
+}
+
+.portfolio-root .hero-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.portfolio-root .hero-tag::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.portfolio-root .hero-name {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.3rem;
+}
+
+.portfolio-root .hero-name span {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.portfolio-root .hero-sub {
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 2.2rem;
+}
+
+.portfolio-root .hero-tagline {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 420px;
+  border-left: 2px solid var(--accent);
+  padding-left: 1.2rem;
+  margin: 0 0 3rem;
+  font-weight: 300;
+}
+
+.portfolio-root .hero-cta {
+  display: flex;
+  gap: 1rem;
+}
+
+.portfolio-root .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  transition: all 0.25s;
+  cursor: pointer;
+  background: transparent;
+  font-family: inherit;
+}
+
+.portfolio-root .btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.portfolio-root .btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.portfolio-root .btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.portfolio-root .hero-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: pf-fadeIn 1s 0.5s forwards;
+}
+
+.portfolio-root .hero-bg-text {
+  position: absolute;
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 22vw;
+  font-weight: 300;
+  color: rgba(26, 23, 20, 0.04);
+  letter-spacing: -0.05em;
+  user-select: none;
+  white-space: nowrap;
+  right: -2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-style: italic;
+}
+
+.portfolio-root .photo-wrapper {
+  position: relative;
+  width: 340px;
+  height: 420px;
+}
+
+.portfolio-root .photo-frame {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--line);
+  transform: translate(12px, 12px);
+}
+
+.portfolio-root .photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border: 1.5px solid var(--accent-soft);
+  opacity: 0.4;
+  transform: translate(-6px, -6px);
+}
+
+.portfolio-root .hero-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(15%) contrast(1.05);
+}
+
+.portfolio-root .hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: pf-fadeIn 1s 1s forwards;
+}
+
+.portfolio-root .scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--muted);
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-root .scroll-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: translateX(-100%);
+  animation: pf-scrollAnim 2s 1.5s infinite;
+}
+
+.portfolio-root .section {
+  padding: 7rem 3.5rem;
+}
+
+.portfolio-root .section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.portfolio-root .section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  max-width: 60px;
+}
+
+.portfolio-root .section-title {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 3rem;
+  max-width: 480px;
+}
+
+.portfolio-root .section-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.portfolio-root .strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: var(--line);
+  border: 1.5px solid var(--line);
+}
+
+.portfolio-root .strength-card {
+  background: var(--paper);
+  padding: 2.4rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.portfolio-root .strength-card:hover {
+  background: var(--paper-2);
+}
+
+.portfolio-root .strength-num {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 4rem;
+  font-weight: 300;
+  color: rgba(26, 23, 20, 0.07);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.portfolio-root .strength-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+}
+
+.portfolio-root .strength-body {
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.portfolio-root .projects {
+  padding: 7rem 3.5rem;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-root .project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--line);
+}
+
+.portfolio-root .project-item {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  border-bottom: 1.5px solid var(--line);
+  background: var(--paper);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.portfolio-root .project-item:last-child {
+  border-bottom: none;
+}
+
+.portfolio-root .project-item:hover {
+  background: #f0ebe2;
+}
+
+.portfolio-root .project-item.open {
+  background: #f0ebe2;
+}
+
+.portfolio-root .project-main {
+  padding: 2.2rem 2.5rem;
+  border-right: 1.5px solid var(--line);
+}
+
+.portfolio-root .project-meta {
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.portfolio-root .project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  gap: 1rem;
+}
+
+.portfolio-root .project-name {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.portfolio-root .project-name small {
+  font-family: var(--font-portfolio-dm, "DM Sans"), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.portfolio-root .project-toggle {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--muted);
+  transition: all 0.2s;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 2px;
+}
+
+.portfolio-root .project-item.open .project-toggle {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.portfolio-root .project-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.portfolio-root .project-detail {
+  display: none;
+  padding: 0 2.5rem 2rem;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-column: 1 / -1;
+}
+
+.portfolio-root .project-item.open .project-detail {
+  display: grid;
+}
+
+.portfolio-root .detail-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-root .detail-text {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.portfolio-root .project-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.portfolio-root .project-badge.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(196, 73, 10, 0.06);
+}
+
+.portfolio-root .project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.portfolio-root .skill-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  background: var(--paper-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+.portfolio-root .experience {
+  padding: 7rem 3.5rem;
+}
+
+.portfolio-root .exp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5px;
+  background: var(--line);
+  border: 1.5px solid var(--line);
+}
+
+.portfolio-root .exp-card {
+  background: var(--paper);
+  padding: 2.4rem 2rem;
+}
+
+.portfolio-root .exp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.portfolio-root .exp-title {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.portfolio-root .exp-title small {
+  font-family: var(--font-portfolio-dm, "DM Sans"), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.portfolio-root .exp-period {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.portfolio-root .exp-result {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.portfolio-root .exp-body {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.portfolio-root .exp-stat {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  gap: 0.5rem;
+}
+
+.portfolio-root .stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.portfolio-root .stat-num {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.portfolio-root .stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.portfolio-root .about {
+  padding: 7rem 3.5rem;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.portfolio-root .about .section-label {
+  color: var(--accent-soft);
+}
+
+.portfolio-root .about .section-label::after {
+  background: rgba(245, 241, 236, 0.15);
+}
+
+.portfolio-root .about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.portfolio-root .about-text {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245, 241, 236, 0.88);
+  margin: 0;
+}
+
+.portfolio-root .about-text em {
+  color: var(--accent-soft);
+  font-style: italic;
+}
+
+.portfolio-root .about-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.portfolio-root .fact-item {
+  padding: 1.2rem;
+  border: 1px solid rgba(245, 241, 236, 0.15);
+}
+
+.portfolio-root .fact-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 0.4rem;
+}
+
+.portfolio-root .fact-value {
+  font-size: 0.9rem;
+  color: var(--paper);
+  line-height: 1.5;
+}
+
+.portfolio-root .contact {
+  padding: 7rem 3.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.portfolio-root .contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+}
+
+.portfolio-root .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.portfolio-root .contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.portfolio-root .contact-row a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+
+.portfolio-root .contact-row a:hover {
+  border-color: var(--accent);
+}
+
+.portfolio-root .contact-icon {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.portfolio-root .contact-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+.portfolio-root footer {
+  padding: 1.8rem 3.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.portfolio-root .footer-left {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.portfolio-root .footer-right {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.portfolio-root .pf-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+
+.portfolio-root .pf-reveal.pf-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .portfolio-root nav {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .portfolio-root .nav-links {
+    display: none;
+  }
+
+  .portfolio-root .hero {
+    grid-template-columns: 1fr;
+    padding-top: 4.5rem;
+  }
+
+  .portfolio-root .hero-right {
+    display: none;
+  }
+
+  .portfolio-root .hero-left {
+    padding: 4rem 1.5rem;
+  }
+
+  .portfolio-root .section,
+  .portfolio-root .projects,
+  .portfolio-root .experience,
+  .portfolio-root .about,
+  .portfolio-root .contact {
+    padding: 4rem 1.5rem;
+  }
+
+  .portfolio-root .strengths-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root .exp-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root .contact-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root .project-item {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root .project-meta {
+    border-top: 1.5px solid var(--line);
+  }
+
+  .portfolio-root .project-main {
+    border-right: none;
+  }
+
+  .portfolio-root .project-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-root footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-root .hero-left,
+  .portfolio-root .hero-right,
+  .portfolio-root .hero-scroll {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .portfolio-root .scroll-line::after {
+    animation: none !important;
+  }
+
+  .portfolio-root .pf-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

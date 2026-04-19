@@ -18,6 +18,14 @@ const TOOL_ENTRIES: ToolEntry[] = [
     badge: "無料",
   },
   {
+    href: "/tools/photo-resize",
+    tag: "Tool / 画像",
+    title: "無料・写真サイズ変更",
+    description:
+      "写真をアップロードし、比率プリセットまたは幅×高さ（px）で出力サイズを指定。ドラッグとズームで枠内に合わせ、JPEG・PNGでダウンロード。ブラウザ内のみで処理。",
+    badge: "無料",
+  },
+  {
     href: "/tools/rireki",
     tag: "Tool / 履歴書",
     title: "無料 履歴書ビルダー",

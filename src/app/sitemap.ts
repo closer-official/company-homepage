@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/rireki",
     "/tools/shokumu-keirekisho",
     "/tools/pdf-converter",
+    "/tools/photo-resize",
     "/services/works",
     "/services/plan",
     "/services/toeic-casino",
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/essay",
     "/essay/fulcomm-sales-intern",
     "/essay/effort-without-growth",
+    "/portfolio",
   ];
   return routes.map((path) => ({
     url: `${BASE}${path || "/"}`,
