@@ -177,6 +177,14 @@
   font-weight: 300;
 }
 
+.portfolio-root .hero-proof {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 0 1.3rem;
+}
+
 .portfolio-root .hero-cta {
   display: flex;
   gap: 1rem;
@@ -481,6 +489,15 @@
   color: var(--muted);
   line-height: 1.6;
   margin: 0;
+}
+
+.portfolio-root .project-summary-line {
+  margin-top: 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  border-left: 2px solid var(--accent-soft);
+  padding-left: 0.65rem;
 }
 
 .portfolio-root .project-detail {

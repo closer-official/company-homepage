@@ -85,7 +85,7 @@ export default function PortfolioClient({
 
       <section className="hero">
         <div className="hero-left">
-          <div className="hero-tag">企画 / PM 志望 — Portfolio 2025</div>
+          <div className="hero-tag">企画 / PM / 事業開発 志望</div>
           <h1 className="hero-name">
             小林
             <br />
@@ -93,9 +93,14 @@ export default function PortfolioClient({
           </h1>
           <p className="hero-sub">Kobayashi Kanosuke</p>
           <p className="hero-tagline">
-            課題を見つけ、仕組みにし、
+            顧客課題の発見から、
             <br />
-            現場で動かせる人。
+            仮説設計・仕組み化・初期検証までを、
+            <br />
+            現場起点で回せる人。
+          </p>
+          <p className="hero-proof">
+            営業・接客・自社プロダクト開発を通じて、課題発見と初期実装、運用設計まで経験。
           </p>
           <div className="hero-cta">
             <a href="#projects" className="btn btn-primary">
@@ -141,23 +146,23 @@ export default function PortfolioClient({
         >
           <div className="strength-card">
             <div className="strength-num">01</div>
-            <div className="strength-title">課題発見・仮説設計力</div>
+              <div className="strength-title">曖昧な課題を言語化できる</div>
             <div className="strength-body">
-              現場や業界構造の違和感から「誰のどんな問題か」を言語化し、解くべき仮説に落とし込む。アフィリエイト市場の中抜き構造、アパレルの在庫リスク、Web営業の歩留まりなど、複数の領域で課題を先に見つけてきた。
+                現場の違和感をそのままにせず、「誰の、どんな不便か」「なぜ既存手段では足りないか」まで分解し、解くべき論点を整理できる。
             </div>
           </div>
           <div className="strength-card">
             <div className="strength-num">02</div>
-            <div className="strength-title">事業視点・採算判断力</div>
+              <div className="strength-title">企画を採算で判断できる</div>
             <div className="strength-body">
-              「作れる」だけで終わらず、APIコストと成約率から採算性を計算し用途を判断するなど、実運用・収益性まで見据えて意思決定できる。開発前に「継続可能か」を問う習慣がある。
+                面白さだけで進めず、成約率・運用負荷・APIコスト・継続性まで見て、やる / やらないを判断できる。
             </div>
           </div>
           <div className="strength-card">
             <div className="strength-num">03</div>
-            <div className="strength-title">仕組み化・運用設計力</div>
+              <div className="strength-title">仕組みに落として再現できる</div>
             <div className="strength-body">
-              個人の頑張りではなく「誰でも再現できる形」を先に設計する。Web制作の2分デモ生成、受注生産と自動分配の仕組みなど、属人的な工程を構造ごと変えてきた。
+                属人的な努力に依存せず、テンプレート化・導線設計・運用ルール化によって、他人でも回せる状態まで設計する。
             </div>
           </div>
         </div>
@@ -204,6 +209,9 @@ export default function PortfolioClient({
               <p className="project-desc">
                 DM営業はほぼ断られる前提で、1件ごとに時間をかけると成立しない。店舗情報を入力するだけで2分でデモサイトを生成できる仕組みを構築し、提案速度と再現性を改善しようとした。
               </p>
+              <div className="project-summary-line">
+                店舗営業の低反応率に対し、提案工数を下げるデモ生成導線を設計
+              </div>
             </div>
             <div className="project-meta">
               <span className="project-badge highlight">現在進行中</span>
@@ -239,6 +247,16 @@ export default function PortfolioClient({
                   提案品質より、低反応率のチャネルに合った工数設計が不可欠。誰でも再現できる仕組みを先に作ることで、事業としての継続性が生まれると実感した。
                 </div>
               </div>
+              <div>
+                <div className="detail-label">自分が担当したこと</div>
+                <div className="detail-text">
+                  課題設定、要件整理、画面構成、導線設計、実装・検証、改善判断までを担当。
+                </div>
+              </div>
+              <div>
+                <div className="detail-label">参考</div>
+                <div className="detail-text">デモ画面 / 設計資料は面談時に共有可能。</div>
+              </div>
             </div>
           </div>
 
@@ -269,6 +287,9 @@ export default function PortfolioClient({
               <p className="project-desc">
                 DM・メール営業では、相手ごとに文面を最適化した方が反応率は上がりやすい。一方で、個別生成を人力で行うと工数が重すぎるため、企業情報をもとに営業文面を自動生成する仕組みを試作した。その後、APIコストと成約率を試算し、用途を限定すべきだと判断した。
               </p>
+              <div className="project-summary-line">
+                営業文面の個別最適化を自動化し、採算試算まで行って展開範囲を判断
+              </div>
             </div>
             <div className="project-meta">
               <span className="project-badge">補助事例</span>
@@ -304,6 +325,16 @@ export default function PortfolioClient({
                   実装できることと、事業として成立することは別だと学んだ。作って終わりにせず、収益構造まで含めて撤退・限定の判断ができることも、企画や事業開発では重要だと考えている。
                 </div>
               </div>
+              <div>
+                <div className="detail-label">自分が担当したこと</div>
+                <div className="detail-text">
+                  課題設定、要件整理、画面構成、導線設計、実装・検証、改善判断までを担当。
+                </div>
+              </div>
+              <div>
+                <div className="detail-label">参考</div>
+                <div className="detail-text">検証画面 / 設計メモは面談時に共有可能。</div>
+              </div>
             </div>
           </div>
 
@@ -338,6 +369,9 @@ export default function PortfolioClient({
               <p className="project-desc">
                 小規模アパレルの在庫リスク・初期費用・発注業務の重さを解消するため、Printfulの受注生産とStripe決済を組み合わせた自動運用アプリを企画・開発した。
               </p>
+              <div className="project-summary-line">
+                在庫リスクの高い小規模EC向けに、受注生産と収益分配を自動化する運用を設計
+              </div>
             </div>
             <div className="project-meta">
               <span className="project-badge">開発済み</span>
@@ -373,6 +407,16 @@ export default function PortfolioClient({
                   ユーザー向けの見た目だけでなく、業務フローや収益分配まで含めて設計できたが、ビジネス立ち上げには需要側と供給側の同時獲得が課題だと実感した。
                 </div>
               </div>
+              <div>
+                <div className="detail-label">自分が担当したこと</div>
+                <div className="detail-text">
+                  課題設定、要件整理、画面構成、導線設計、実装・検証、改善判断までを担当。
+                </div>
+              </div>
+              <div>
+                <div className="detail-label">参考</div>
+                <div className="detail-text">デモ画面 / 設計資料は面談時に共有可能。</div>
+              </div>
             </div>
           </div>
 
@@ -407,6 +451,9 @@ export default function PortfolioClient({
               <p className="project-desc">
                 アフィリエイターと商品提供者をつなぐプラットフォーム。既存の低単価・中間コスト問題に対し、高報酬設計と既存決済基盤の維持で参入障壁を下げる構造を設計した。
               </p>
+              <div className="project-summary-line">
+                信頼形成が難しい初期市場で、報酬設計と供給側の統一条件を検証した事例
+              </div>
             </div>
             <div className="project-meta">
               <span className="project-badge">開発済み</span>
@@ -435,6 +482,16 @@ export default function PortfolioClient({
                   報酬条件の良さだけでなく、初期市場における信頼設計と供給側の質の統一が最重要。実績がない段階で参入すべき構造ではなかったと、事後的に判断できた。
                 </div>
               </div>
+              <div>
+                <div className="detail-label">自分が担当したこと</div>
+                <div className="detail-text">
+                  課題設定、要件整理、画面構成、導線設計、実装・検証、改善判断までを担当。
+                </div>
+              </div>
+              <div>
+                <div className="detail-label">参考</div>
+                <div className="detail-text">仕様整理メモ / 検証ログは面談時に共有可能。</div>
+              </div>
             </div>
           </div>
         </div>
@@ -462,6 +519,9 @@ export default function PortfolioClient({
             <div className="exp-result">顧客評価 全国1位 / 会員取得 全国上位5位 × 複数回</div>
             <div className="exp-body">
               服装・表情・声色・歩くスピード・視線など、非言語情報から相手が「何を求めているか」を推測し、個別に対応を変えていた。全員に同じ接客をするのではなく、仮説と観察による個別最適化が高評価につながった。
+              <br />
+              <br />
+              この経験から、表面的な要望ではなく、ユーザーの文脈を観察して対応を変える重要性を学んだ。
             </div>
             <div className="exp-stat">
               <div className="stat-row">
@@ -487,6 +547,9 @@ export default function PortfolioClient({
             <div className="exp-result">社内売上 3 位 / 後輩育成 3 名全員契約</div>
             <div className="exp-body">
               アポインターからスタートし、10ヶ月目に催事店舗リーダーへ。動線設計・場所取り・店舗との連携・在庫管理まで担当。「商談を聞く意味を残す期待設計」を意識し、売りにいく前に相手の次の行動を設計していた。
+              <br />
+              <br />
+              この経験から、目の前の会話だけでなく、顧客の次の行動まで含めて設計する視点を身につけた。
             </div>
             <div className="exp-stat">
               <div className="stat-row">
@@ -503,43 +566,44 @@ export default function PortfolioClient({
       </section>
 
       <section className="about" id="about">
-        <div className="section-label">自己紹介</div>
+        <div className="section-label">できること</div>
         <div className="about-grid pf-reveal" ref={(el) => setRevealRef(el, 6)}>
           <div>
             <p className="about-text">
-              私は、現場で感じた<em>非効率や課題</em>を、単なるアイデアで終わらせず、
-              <em>仕組みとして形にすること</em>を強みとしています。
+              私は、現場の違和感や業務上の非効率を起点に、<em>課題の言語化</em>、
+              <em>仮説設計</em>、<em>仕組み化</em>、<em>初期検証</em>
+              までを一気通貫で進めることができます。
               <br />
               <br />
-              作って終わりではなく、実運用・採算性まで含めて検証し、継続可能かどうかを判断してきました。
+              特に、営業・接客・自社開発の経験を通じて、ユーザーの行動や現場負荷を踏まえた設計ができる点が強みです。
               <br />
               <br />
-              開発、営業、接客の経験を通じて、ユーザー視点・現場視点・事業視点を行き来しながら改善できる点が自分の特徴だと考えています。
+              企画だけで終わらず、実装や運用まで見据えて前に進める役割で価値を出したいと考えています。
             </p>
           </div>
           <div className="about-facts">
             <div className="fact-item">
-              <div className="fact-label">志望職種</div>
+              <div className="fact-label">任せてほしい領域</div>
               <div className="fact-value">
-                企画 / プロダクトマネージャー
+                課題整理 / 仮説設計 / 要件定義
                 <br />
-                事業開発 / UXデザイン
+                導線改善 / 初期検証 / 運用設計
               </div>
             </div>
             <div className="fact-item">
-              <div className="fact-label">関心領域</div>
+              <div className="fact-label">得意なテーマ</div>
               <div className="fact-value">
-                業務効率化ツール / 飲食・小売業のDX
+                業務効率化 / 店舗DX / 顧客導線設計
                 <br />
-                消費者向けアプリ / EC
+                小規模事業の仕組み化 / 初期プロダクト検証
               </div>
             </div>
             <div className="fact-item">
-              <div className="fact-label">スキル</div>
+              <div className="fact-label">扱えること</div>
               <div className="fact-value">
-                要件定義 / 業務設計 / UI設計
+                要件整理 / UI設計 / HTML / CSS / JS
                 <br />
-                HTML / CSS / JS / API連携
+                Firebase / Stripe / API連携 / 検証設計
               </div>
             </div>
           </div>
@@ -557,7 +621,9 @@ export default function PortfolioClient({
               ご連絡お待ち<em>しています</em>
             </h2>
             <p className="contact-note pf-reveal" ref={(el) => setRevealRef(el, 8)}>
-              企画・PM・事業開発職への就職活動中です。お気軽にご連絡ください。
+              企画・PM・事業開発職を中心に見ています。
+              <br />
+              顧客課題の整理、仮説設計、導線改善、初期プロダクト検証などの領域で貢献できます。
             </p>
             <div className="contact-info pf-reveal" ref={(el) => setRevealRef(el, 9)}>
               <div className="contact-row">
