@@ -14,21 +14,21 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Tadanosuke Kobayashi — Portfolio",
+  title: "Kanosuke Kobayashi — Portfolio",
   description:
-    "小林忠之介（Tadanosuke Kobayashi）のポートフォリオ。企画・PM志望。課題発見から仕組み化、実務経験と主要プロジェクトをまとめています。",
+    "小林薫之介（Kanosuke Kobayashi）のポートフォリオ。企画・PM志望。課題発見から仕組み化、実務経験と主要プロジェクトをまとめています。",
   alternates: { canonical },
   openGraph: {
     type: "website",
     locale: "ja_JP",
     url: canonical,
-    title: "Tadanosuke Kobayashi — Portfolio",
+    title: "Kanosuke Kobayashi — Portfolio",
     description:
       "企画・PM志望。課題を仕組みにし、現場で動かせる設計を重視したポートフォリオ。",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tadanosuke Kobayashi — Portfolio",
+    title: "Kanosuke Kobayashi — Portfolio",
     description:
       "企画・PM志望。課題を仕組みにし、現場で動かせる設計を重視したポートフォリオ。",
   },

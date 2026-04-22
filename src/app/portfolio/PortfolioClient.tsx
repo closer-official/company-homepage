@@ -63,7 +63,7 @@ export default function PortfolioClient({
   return (
     <div className={`portfolio-root ${fontVariableClass}`.trim()}>
       <nav>
-        <div className="nav-logo">Tadanosuke Kobayashi</div>
+        <div className="nav-logo">Kanosuke Kobayashi</div>
         <ul className="nav-links">
           <li>
             <a href="#strengths">強み</a>
@@ -89,9 +89,9 @@ export default function PortfolioClient({
           <h1 className="hero-name">
             小林
             <br />
-            <span>忠之介</span>
+            <span>薫之介</span>
           </h1>
-          <p className="hero-sub">Kobayashi Tadanosuke</p>
+          <p className="hero-sub">Kobayashi Kanosuke</p>
           <p className="hero-tagline">
             課題を見つけ、仕組みにし、
             <br />
@@ -111,12 +111,12 @@ export default function PortfolioClient({
           </div>
         </div>
         <div className="hero-right">
-          <div className="hero-bg-text">T</div>
+          <div className="hero-bg-text">K</div>
           <div className="photo-wrapper">
             <div className="photo-frame" />
             <Image
-              src="/portfolio-hero.jpg"
-              alt="小林忠之介"
+              src="/portfolio-hero.png"
+              alt="小林薫之介"
               width={340}
               height={420}
               className="hero-photo"
@@ -256,7 +256,7 @@ export default function PortfolioClient({
           >
             <div className="project-main">
               <div className="project-header">
-                <div className="project-name">AI 営業文面生成ツール</div>
+                <div className="project-name">営業文面生成の検証</div>
                 <button
                   type="button"
                   className="project-toggle"
@@ -267,40 +267,41 @@ export default function PortfolioClient({
                 </button>
               </div>
               <p className="project-desc">
-                DM・メール営業の低反応率は、定型文が相手に刺さらないことが一因。企業情報をAIでリサーチし、個別最適化した文面を自動生成するツールを制作。その後、APIコスト試算から用途を限定した。
+                DM・メール営業では、相手ごとに文面を最適化した方が反応率は上がりやすい。一方で、個別生成を人力で行うと工数が重すぎるため、企業情報をもとに営業文面を自動生成する仕組みを試作した。その後、APIコストと成約率を試算し、用途を限定すべきだと判断した。
               </p>
             </div>
             <div className="project-meta">
               <span className="project-badge">補助事例</span>
               <div className="project-skills">
-                <span className="skill-tag">Anthropic API</span>
+                <span className="skill-tag">AI活用</span>
                 <span className="skill-tag">業務効率化</span>
                 <span className="skill-tag">採算分析</span>
+                <span className="skill-tag">検証設計</span>
               </div>
             </div>
             <div className="project-detail">
               <div>
                 <div className="detail-label">背景・課題</div>
                 <div className="detail-text">
-                  定型文の営業では相手に合わせた提案ができず、返信率が低い。企業ごとにカスタマイズした文面を自動生成する仕組みを構築した。
+                  営業文面は定型化すると反応率が下がりやすく、相手ごとに調整しようとすると今度は工数が重くなるという課題があった。そこで、企業情報をもとに文面を自動生成し、個別最適化の初速を上げる仕組みを試作した。
                 </div>
               </div>
               <div>
-                <div className="detail-label">採算判断のプロセス</div>
+                <div className="detail-label">検証内容</div>
                 <div className="detail-text">
-                  一般的な成約率0.5〜2%とAPIコストを計算した結果、商材単価が2桁万円以上でないと赤字になることが判明。個人利用では成立しないと判断し、企業への提供用途に絞った。
+                  企業情報をAIで整理し、それをもとにDM・メール文面を自動生成する形を検証した。狙いは、営業担当者がゼロから考える時間を減らしつつ、定型文よりも相手に合わせた提案文を短時間で作れる状態をつくることだった。
                 </div>
               </div>
               <div>
-                <div className="detail-label">評価ポイント</div>
+                <div className="detail-label">判断・結論</div>
                 <div className="detail-text">
-                  「作った」で終わらず、採算性を計算して用途を限定した判断プロセスが強み。開発物の価値を市場文脈で評価できる事業視点の証拠として位置づける。
+                  一般的な返信率や成約率とAPIコストを試算した結果、低単価商材や個人利用では採算が合いにくいと判断した。そのため、汎用ツールとして広く展開するのではなく、単価やLTVの高い用途に限定すべきだと結論づけた。
                 </div>
               </div>
               <div>
                 <div className="detail-label">学び</div>
                 <div className="detail-text">
-                  技術を実装することと、ビジネスとして成立させることは別。固定費コスト構造の企業向けであれば有効性が高く、対象ユーザーの設計が先決だと学んだ。
+                  実装できることと、事業として成立することは別だと学んだ。作って終わりにせず、収益構造まで含めて撤退・限定の判断ができることも、企画や事業開発では重要だと考えている。
                 </div>
               </div>
             </div>
@@ -582,7 +583,7 @@ export default function PortfolioClient({
       </section>
 
       <footer>
-        <div className="footer-left">Kobayashi Tadanosuke — Portfolio 2025</div>
+        <div className="footer-left">Kobayashi Kanosuke — Portfolio 2025</div>
         <div className="footer-right">企画 / PM 志望</div>
       </footer>
     </div>
