@@ -63,7 +63,7 @@ export default function PortfolioClient({
   return (
     <div className={`portfolio-root ${fontVariableClass}`.trim()}>
       <nav>
-        <div className="nav-logo">Kanosuke Kobayashi</div>
+        <div className="nav-logo">Tadanosuke Kobayashi</div>
         <ul className="nav-links">
           <li>
             <a href="#strengths">強み</a>
@@ -89,9 +89,9 @@ export default function PortfolioClient({
           <h1 className="hero-name">
             小林
             <br />
-            <span>薫之介</span>
+            <span>忠之介</span>
           </h1>
-          <p className="hero-sub">Kobayashi Kanosuke</p>
+          <p className="hero-sub">Kobayashi Tadanosuke</p>
           <p className="hero-tagline">
             顧客課題の発見から、
             <br />
@@ -116,12 +116,12 @@ export default function PortfolioClient({
           </div>
         </div>
         <div className="hero-right">
-          <div className="hero-bg-text">K</div>
+          <div className="hero-bg-text">T</div>
           <div className="photo-wrapper">
             <div className="photo-frame" />
             <Image
               src="/portfolio-hero.png"
-              alt="小林薫之介"
+              alt="小林忠之介"
               width={340}
               height={420}
               className="hero-photo"
@@ -255,7 +255,13 @@ export default function PortfolioClient({
               </div>
               <div>
                 <div className="detail-label">参考</div>
-                <div className="detail-text">デモ画面 / 設計資料は面談時に共有可能。</div>
+                <div className="detail-text">
+                  Web制作URL:
+                  {" "}
+                  <a href="https://www.divizero.jp/" target="_blank" rel="noreferrer">
+                    https://www.divizero.jp/
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -415,7 +421,13 @@ export default function PortfolioClient({
               </div>
               <div>
                 <div className="detail-label">参考</div>
-                <div className="detail-text">デモ画面 / 設計資料は面談時に共有可能。</div>
+                <div className="detail-text">
+                  BrandOS URL:
+                  {" "}
+                  <a href="https://brandos.closer-official.com/" target="_blank" rel="noreferrer">
+                    https://brandos.closer-official.com/
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -490,7 +502,13 @@ export default function PortfolioClient({
               </div>
               <div>
                 <div className="detail-label">参考</div>
-                <div className="detail-text">仕様整理メモ / 検証ログは面談時に共有可能。</div>
+                <div className="detail-text">
+                  Closer URL:
+                  {" "}
+                  <a href="https://sell.closer-official.com/" target="_blank" rel="noreferrer">
+                    https://sell.closer-official.com/
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -649,7 +667,7 @@ export default function PortfolioClient({
       </section>
 
       <footer>
-        <div className="footer-left">Kobayashi Kanosuke — Portfolio 2025</div>
+        <div className="footer-left">Kobayashi Tadanosuke — Portfolio 2025</div>
         <div className="footer-right">企画 / PM 志望</div>
       </footer>
     </div>
