@@ -277,6 +277,10 @@
   align-items: center;
 }
 
+.rt-timeline-row--deletable {
+  grid-template-columns: 3.75rem 3.75rem 1fr auto;
+}
+
 .rt-timeline-row input {
   width: 100%;
   padding: 7px 9px;
@@ -291,6 +295,20 @@
 .rt-timeline-row input:focus {
   outline: none;
   border-color: var(--gold);
+}
+
+.rt-timeline-row-delete {
+  font-size: 0.68rem;
+  padding: 6px 10px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.rt-timeline-row-delete:hover {
+  border-color: rgba(138, 60, 60, 0.35);
+  color: #8a3c3c;
 }
 
 .rt-preview-demo-note {

@@ -105,16 +105,20 @@ function ResumeEducationWorkTable({ data }: { data: ResumeFormData }) {
             <td>{r.content.trim() ? r.content : "\u3000"}</td>
           </tr>
         ))}
-        <tr className="rt-res-subhead">
-          <td colSpan={3}>職　歴</td>
-        </tr>
-        {data.resumeWorkRows.map((r, i) => (
-          <tr key={`w-${i}`}>
-            <td>{cellOrSpace(r.year)}</td>
-            <td>{cellOrSpace(r.month)}</td>
-            <td>{r.content.trim() ? r.content : "\u3000"}</td>
-          </tr>
-        ))}
+        {data.resumeWorkRows.length > 0 ? (
+          <>
+            <tr className="rt-res-subhead">
+              <td colSpan={3}>職　歴</td>
+            </tr>
+            {data.resumeWorkRows.map((r, i) => (
+              <tr key={`w-${i}`}>
+                <td>{cellOrSpace(r.year)}</td>
+                <td>{cellOrSpace(r.month)}</td>
+                <td>{r.content.trim() ? r.content : "\u3000"}</td>
+              </tr>
+            ))}
+          </>
+        ) : null}
       </tbody>
     </table>
   );

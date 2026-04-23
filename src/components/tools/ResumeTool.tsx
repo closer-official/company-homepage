@@ -247,6 +247,33 @@ export default function ResumeTool({
     [],
   );
 
+  const addResumeTimelineRow = useCallback(
+    (key: "resumeEducationRows" | "resumeWorkRows" | "resumeLicenseRows") => {
+      setData((d) => ({
+        ...d,
+        [key]: [...d[key], { year: "", month: "", content: "" }],
+      }));
+    },
+    [],
+  );
+
+  const removeResumeTimelineRow = useCallback(
+    (
+      key: "resumeEducationRows" | "resumeWorkRows" | "resumeLicenseRows",
+      index: number,
+    ) => {
+      setData((d) => {
+        const rows = d[key];
+        if (rows.length === 0) return d;
+        return {
+          ...d,
+          [key]: rows.filter((_, i) => i !== index),
+        };
+      });
+    },
+    [],
+  );
+
   const addBlock = useCallback(() => {
     setData((d) => ({
       ...d,
@@ -651,7 +678,7 @@ export default function ResumeTool({
                   <p className="rt-timeline-editor-label">職歴</p>
                   <div className="rt-timeline-editor" role="group" aria-label="職歴">
                     {data.resumeWorkRows.map((row, i) => (
-                      <div key={`job-${i}`} className="rt-timeline-row">
+                      <div key={`job-${i}`} className="rt-timeline-row rt-timeline-row--deletable">
                         <input
                           aria-label={`職歴${i + 1} 年`}
                           placeholder="年"
@@ -692,9 +719,23 @@ export default function ResumeTool({
                             )
                           }
                         />
+                        <button
+                          type="button"
+                          className="rt-timeline-row-delete"
+                          onClick={() => removeResumeTimelineRow("resumeWorkRows", i)}
+                        >
+                          削除
+                        </button>
                       </div>
                     ))}
                   </div>
+                  <button
+                    type="button"
+                    className="rt-btn-ghost"
+                    onClick={() => addResumeTimelineRow("resumeWorkRows")}
+                  >
+                    ＋ 職歴欄を追加
+                  </button>
                 </div>
                 <div className="rt-field-group rt-field-group--nested">
                   <h3>免許・資格</h3>
