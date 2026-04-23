@@ -18,8 +18,8 @@ const makeTimelineRows = (n: number): ResumeTimelineRow[] =>
   Array.from({ length: n }, () => emptyResumeTimelineRow());
 
 /** 学歴・職歴の行数（帳票の密度用） */
-export const RESUME_EDUCATION_ROW_COUNT = 6;
-export const RESUME_WORK_ROW_COUNT = 8;
+export const RESUME_EDUCATION_ROW_COUNT = 4;
+export const RESUME_WORK_ROW_COUNT = 6;
 export const RESUME_LICENSE_ROW_COUNT = 4;
 
 export type CareerBlock = {
