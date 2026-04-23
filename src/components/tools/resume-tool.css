@@ -558,6 +558,7 @@
   width: 100%;
   height: 100%;
   min-height: 120px;
+  aspect-ratio: 3 / 4;
   background: #f3f0eb;
   border: 1px dashed #bbb;
   display: flex;
@@ -565,7 +566,6 @@
   justify-content: center;
   font-size: 11px;
   color: #999;
-  object-fit: cover;
 }
 
 /* 履歴書：外枠＝用紙 */
@@ -618,9 +618,10 @@
 
 .rt-mhlw-photo-img {
   width: 100%;
-  height: auto;
-  min-height: 168px;
+  height: 100%;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
+  object-position: center;
 }
 
 /* 学歴・職歴・免許・自由記入（帳票表） */
@@ -716,8 +717,11 @@
 .rt-simple-photo-wrap .rt-photo-ph {
   width: 100%;
   max-width: 110px;
-  height: 138px;
+  height: 147px;
+  aspect-ratio: 3 / 4;
   margin: 0 auto;
+  object-fit: cover;
+  object-position: center;
 }
 
 .rt-simple-body .rt-f-row {
@@ -745,7 +749,10 @@
 .rt-pleft-photo,
 .rt-pleft-photo.rt-photo-ph {
   width: 124px;
-  min-height: 168px;
+  height: 165px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
 }
 
 .rt-pleft-fields .rt-f-row {
