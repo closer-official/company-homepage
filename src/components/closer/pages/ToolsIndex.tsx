@@ -26,6 +26,14 @@ const TOOL_ENTRIES: ToolEntry[] = [
     badge: "無料",
   },
   {
+    href: "/tools/resume-photo-maker",
+    tag: "Tool / 履歴書写真",
+    title: "履歴書写真メーカー",
+    description:
+      "写真の背景を履歴書向けに差し替え（ブルーバック・白背景）。人物を抽出して3:4比率で高画質出力。ブラウザ内処理で個人情報の送信なし。",
+    badge: "無料",
+  },
+  {
     href: "/tools/rireki",
     tag: "Tool / 履歴書",
     title: "無料 履歴書ビルダー",

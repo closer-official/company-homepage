@@ -10,6 +10,7 @@
     "deploy": "node scripts/deploy.cjs"
   },
   "dependencies": {
+    "@mediapipe/selfie_segmentation": "^0.1.1675465747",
     "@opentelemetry/api": "^1.9.1",
     "firebase": "^12.9.0",
     "firebase-admin": "^13.8.0",

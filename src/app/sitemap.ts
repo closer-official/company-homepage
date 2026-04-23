@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/shokumu-keirekisho",
     "/tools/pdf-converter",
     "/tools/photo-resize",
+    "/tools/resume-photo-maker",
     "/services/works",
     "/services/plan",
     "/services/toeic-casino",
