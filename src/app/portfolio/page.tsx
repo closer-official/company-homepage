@@ -16,7 +16,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Tadanosuke Kobayashi — Portfolio",
   description:
-    "小林忠之介（Tadanosuke Kobayashi）のポートフォリオ。企画・PM志望。課題発見から仕組み化、実務経験と主要プロジェクトをまとめています。",
+    "小林薫之介（Tadanosuke Kobayashi）のポートフォリオ。企画・PM志望。課題発見から仕組み化、実務経験と主要プロジェクトをまとめています。",
   alternates: { canonical },
   openGraph: {
     type: "website",

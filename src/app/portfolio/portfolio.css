@@ -526,6 +526,42 @@
   color: var(--ink);
 }
 
+.portfolio-root .project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.portfolio-root .project-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(196, 73, 10, 0.06);
+}
+
+.portfolio-root .project-link-url {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  word-break: break-all;
+}
+
+.portfolio-root .project-preview-frame {
+  width: 100%;
+  height: 220px;
+  border: 1px solid var(--line);
+  margin-top: 0.8rem;
+  background: var(--paper-2);
+}
+
 .portfolio-root .project-badge {
   font-size: 0.65rem;
   letter-spacing: 0.12em;

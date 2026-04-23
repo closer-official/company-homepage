@@ -89,7 +89,7 @@ export default function PortfolioClient({
           <h1 className="hero-name">
             小林
             <br />
-            <span>忠之介</span>
+            <span>薫之介</span>
           </h1>
           <p className="hero-sub">Kobayashi Tadanosuke</p>
           <p className="hero-tagline">
@@ -121,7 +121,7 @@ export default function PortfolioClient({
             <div className="photo-frame" />
             <Image
               src="/portfolio-hero.png"
-              alt="小林忠之介"
+              alt="小林薫之介"
               width={340}
               height={420}
               className="hero-photo"
@@ -256,12 +256,22 @@ export default function PortfolioClient({
               <div>
                 <div className="detail-label">参考</div>
                 <div className="detail-text">
-                  Web制作URL:
-                  {" "}
-                  <a href="https://www.divizero.jp/" target="_blank" rel="noreferrer">
-                    https://www.divizero.jp/
+                  <a
+                    className="project-link"
+                    href="https://www.divizero.jp/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Web制作トップページを開く ↗
                   </a>
+                  <div className="project-link-url">https://www.divizero.jp/</div>
                 </div>
+                <iframe
+                  className="project-preview-frame"
+                  src="https://www.divizero.jp/"
+                  title="Web制作トップページのプレビュー"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -422,12 +432,24 @@ export default function PortfolioClient({
               <div>
                 <div className="detail-label">参考</div>
                 <div className="detail-text">
-                  BrandOS URL:
-                  {" "}
-                  <a href="https://brandos.closer-official.com/" target="_blank" rel="noreferrer">
-                    https://brandos.closer-official.com/
+                  <a
+                    className="project-link"
+                    href="https://brandos.closer-official.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    BrandOSトップページを開く ↗
                   </a>
+                  <div className="project-link-url">
+                    https://brandos.closer-official.com/
+                  </div>
                 </div>
+                <iframe
+                  className="project-preview-frame"
+                  src="https://brandos.closer-official.com/"
+                  title="BrandOSトップページのプレビュー"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -503,12 +525,22 @@ export default function PortfolioClient({
               <div>
                 <div className="detail-label">参考</div>
                 <div className="detail-text">
-                  Closer URL:
-                  {" "}
-                  <a href="https://sell.closer-official.com/" target="_blank" rel="noreferrer">
-                    https://sell.closer-official.com/
+                  <a
+                    className="project-link"
+                    href="https://sell.closer-official.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Closerトップページを開く ↗
                   </a>
+                  <div className="project-link-url">https://sell.closer-official.com/</div>
                 </div>
+                <iframe
+                  className="project-preview-frame"
+                  src="https://sell.closer-official.com/"
+                  title="Closerトップページのプレビュー"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -667,7 +699,7 @@ export default function PortfolioClient({
       </section>
 
       <footer>
-        <div className="footer-left">Kobayashi Tadanosuke — Portfolio 2025</div>
+        <div className="footer-left">Kobayashi Tadanosuke — Portfolio 2026</div>
         <div className="footer-right">企画 / PM 志望</div>
       </footer>
     </div>
