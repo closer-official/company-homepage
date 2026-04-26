@@ -448,6 +448,21 @@
   gap: 1rem;
 }
 
+.portfolio-root .project-live-status {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.7rem;
+}
+
+.portfolio-root .project-live-updated {
+  margin: -0.45rem 0 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
 .portfolio-root .project-header {
   display: flex;
   align-items: flex-start;

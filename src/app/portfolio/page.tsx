@@ -13,6 +13,29 @@ const dmSans = DM_Sans({
   variable: "--font-portfolio-dm",
 });
 
+type PortfolioMetrics = {
+  approachedCount: number;
+  responseRate: number;
+  updatedAt?: string;
+};
+
+function asNumber(v: unknown): number | null {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string") {
+    const n = Number(v);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+function getManualMetricsFromEnv(): PortfolioMetrics | null {
+  const approachedCount = asNumber(process.env.PORTFOLIO_APPROACHED_COUNT);
+  const responseRate = asNumber(process.env.PORTFOLIO_RESPONSE_RATE);
+  if (approachedCount === null || responseRate === null) return null;
+  const updatedAt = process.env.PORTFOLIO_METRICS_UPDATED_AT;
+  return { approachedCount, responseRate, updatedAt };
+}
+
 export const metadata: Metadata = {
   title: "Tadanosuke Kobayashi — Portfolio",
   description:
@@ -34,6 +57,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PortfolioPage() {
-  return <PortfolioClient fontVariableClass={dmSans.variable} />;
+export default async function PortfolioPage() {
+  const liveMetrics = getManualMetricsFromEnv();
+  return (
+    <PortfolioClient fontVariableClass={dmSans.variable} liveMetrics={liveMetrics} />
+  );
 }

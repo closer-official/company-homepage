@@ -11,11 +11,18 @@ import {
 import "./portfolio.css";
 
 type ProjectId = "p1" | "p2" | "p3" | "p4";
+type PortfolioMetrics = {
+  approachedCount: number;
+  responseRate: number;
+  updatedAt?: string;
+};
 
 export default function PortfolioClient({
   fontVariableClass,
+  liveMetrics,
 }: {
   fontVariableClass: string;
+  liveMetrics: PortfolioMetrics | null;
 }) {
   const [openProject, setOpenProject] = useState<ProjectId | null>(null);
   const revealRefs = useRef<(HTMLElement | null)[]>([]);
@@ -59,6 +66,10 @@ export default function PortfolioClient({
   const setRevealRef = useCallback((el: HTMLElement | null, index: number) => {
     revealRefs.current[index] = el;
   }, []);
+
+  const liveStatusText = liveMetrics
+    ? `ツール開発済み・運用中。店舗情報を入力するだけで5分以内にデモサイトを生成し、そのままDM営業に使用。現在${liveMetrics.approachedCount}件にアプローチ中、反応率${liveMetrics.responseRate.toFixed(2)}%`
+    : "ツール開発済み・運用中。店舗情報を入力するだけで5分以内にデモサイトを生成し、そのままDM営業に使用。現在のアプローチ件数と反応率を計測中。";
 
   return (
     <div className={`portfolio-root ${fontVariableClass}`.trim()}>
@@ -223,7 +234,12 @@ export default function PortfolioClient({
               </div>
             </div>
             <div className="project-meta">
-              <span className="project-badge highlight">現在進行中</span>
+              <p className="project-live-status">{liveStatusText}</p>
+              {liveMetrics?.updatedAt ? (
+                <p className="project-live-updated">
+                  最終更新: {new Date(liveMetrics.updatedAt).toLocaleString("ja-JP")}
+                </p>
+              ) : null}
               <div className="project-skills">
                 <span className="skill-tag">要件設計</span>
                 <span className="skill-tag">オペレーション設計</span>
