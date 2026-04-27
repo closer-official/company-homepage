@@ -669,6 +669,26 @@ function CareerCompact({ data }: { data: ResumeFormData }) {
   );
 }
 
+function CareerVerbatim({ data }: { data: ResumeFormData }) {
+  const raw = data.careerRawText.trim();
+  return (
+    <div className="rt-doc rt-doc-career rt-career-verbatim">
+      <div className="rt-career-hd">
+        <h1 className="rt-doc-title">職務経歴書</h1>
+        <div className="rt-career-hd-meta">
+          <span>{cellOrSpace(data.base.name)}</span>
+        </div>
+      </div>
+      <section className="rt-career-sec">
+        <h2 className="rt-career-h2">原文</h2>
+        <p className="rt-career-p rt-career-verbatim-body">
+          {raw || "一括入力テキストを貼り付けると、ここにそのまま表示されます。"}
+        </p>
+      </section>
+    </div>
+  );
+}
+
 const ResumeDoc = forwardRef<HTMLDivElement, { data: ResumeFormData }>(
   function ResumeDoc({ data }, ref) {
     let inner: ReactNode;
@@ -684,6 +704,8 @@ const ResumeDoc = forwardRef<HTMLDivElement, { data: ResumeFormData }>(
       inner = <CareerTimeline data={data} />;
     } else if (data.careerTemplate === "compact") {
       inner = <CareerCompact data={data} />;
+    } else if (data.careerTemplate === "verbatim") {
+      inner = <CareerVerbatim data={data} />;
     } else {
       inner = <CareerDetailed data={data} />;
     }

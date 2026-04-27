@@ -1,5 +1,5 @@
 export type ResumeTemplateId = "mhlw" | "simple" | "photoLeft";
-export type CareerTemplateId = "detailed" | "timeline" | "compact";
+export type CareerTemplateId = "detailed" | "timeline" | "compact" | "verbatim";
 
 /** 学歴・職歴・免許などの年月行 */
 export type ResumeTimelineRow = {
@@ -61,6 +61,8 @@ export type ResumeFormData = {
   resumeTemplate: ResumeTemplateId;
   careerTemplate: CareerTemplateId;
   careerSummary: string;
+  /** 一括入力テキストをそのまま表示する原文モード用 */
+  careerRawText: string;
   /** 職務経歴書末尾の自己PR（推奨）。入力時は勤務先ごとの自己PRはプレビューに出しません */
   careerGlobalSelfPr: string;
   /** 自己PRの直前に表示（任意）。改行で複数行にするとプレビューでは箇条書きになります */
@@ -104,6 +106,7 @@ export const initialFormData = (): ResumeFormData => ({
   resumeTemplate: "mhlw",
   careerTemplate: "detailed",
   careerSummary: "",
+  careerRawText: "",
   careerGlobalSelfPr: "",
   careerPrePrExperience: "",
   careerPrePrStrength: "",
@@ -170,5 +173,10 @@ export const CAREER_TEMPLATE_OPTIONS: {
     id: "compact",
     label: "コンパクト",
     desc: "同じ構成で文字サイズを詰め、1枚に収めやすく",
+  },
+  {
+    id: "verbatim",
+    label: "原文そのまま",
+    desc: "貼り付けた職務経歴書本文を改行そのままで表示",
   },
 ];

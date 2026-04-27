@@ -525,6 +525,7 @@ export default function ResumeTool({
     setData((d) => ({
       ...d,
       ...(parsed.base ? { base: { ...d.base, ...parsed.base } } : {}),
+      careerRawText: bulkCareerText.trim() || d.careerRawText,
       ...(parsed.careerSummary !== undefined
         ? { careerSummary: parsed.careerSummary }
         : {}),
@@ -1093,6 +1094,24 @@ export default function ResumeTool({
                 >
                   貼り付け内容を自動反映
                 </button>
+              </div>
+              <div className="rt-field-group">
+                <h3>原文そのまま表示（微調整可）</h3>
+                <p className="rt-field-hint">
+                  テンプレートを「原文そのまま」にすると、この欄の内容を改行そのままでプレビューします。貼り付け後の細かな微調整もここで可能です。
+                </p>
+                <div className="rt-field">
+                  <label htmlFor="rt-career-raw">原文テキスト</label>
+                  <textarea
+                    id="rt-career-raw"
+                    rows={10}
+                    value={data.careerRawText}
+                    onChange={(e) =>
+                      setData((d) => ({ ...d, careerRawText: e.target.value }))
+                    }
+                    placeholder="一括入力を反映するとここに原文が入ります"
+                  />
+                </div>
               </div>
               <div className="rt-field">
                 <label className="rt-check">

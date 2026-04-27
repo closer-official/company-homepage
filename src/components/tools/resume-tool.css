@@ -974,6 +974,16 @@
   line-height: 1.75;
 }
 
+.rt-career-verbatim .rt-doc-title {
+  text-align: left;
+  letter-spacing: 0.2em;
+}
+
+.rt-career-verbatim-body {
+  white-space: pre-wrap;
+  line-height: 1.9;
+}
+
 /* timeline */
 .rt-tl-track {
   position: relative;
