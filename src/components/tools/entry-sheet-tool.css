@@ -155,27 +155,34 @@
 .es-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  table-layout: fixed;
+  font-size: 13px;
 }
 
 .es-table th,
 .es-table td {
   border: 1px solid #666;
-  padding: 6px 7px;
+  padding: 7px 8px;
   vertical-align: middle;
+  line-height: 1.55;
+  word-break: break-word;
 }
 
-.es-title {
+.es-table th {
+  font-weight: 600;
   text-align: center;
-  font-size: 40px;
-  line-height: 1.45;
-  font-weight: 700;
+  white-space: nowrap;
 }
 
 .es-photo-head,
 .es-photo-cell {
   width: 105px;
   text-align: center;
+}
+
+.es-header-empty {
+  height: 68px;
+  background: #fff;
 }
 
 .es-photo-cell {
@@ -190,7 +197,33 @@
 
 .es-multi {
   white-space: pre-wrap;
-  line-height: 1.7;
+  line-height: 1.6;
+}
+
+.es-subline {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.es-labelled-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+}
+
+.es-cell-label {
+  font-size: 11px;
+  color: #444;
+  line-height: 1.2;
+}
+
+.es-cell-value {
+  font-size: 13px;
+  color: #111;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .es-question h3 {

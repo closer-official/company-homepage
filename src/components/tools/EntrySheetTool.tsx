@@ -364,10 +364,7 @@ export default function EntrySheetTool() {
                   <tbody>
                     <tr>
                       <td className="es-photo-head">写真</td>
-                      <td className="es-title" colSpan={5}>
-                        <div>MY就活ネット</div>
-                        <div>（事務系）総合職　エントリーシート</div>
-                      </td>
+                      <td className="es-header-empty" colSpan={5} />
                     </tr>
                     <tr>
                       <td className="es-photo-cell">
@@ -375,35 +372,80 @@ export default function EntrySheetTool() {
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={data.photoDataUrl} alt="" />
                         ) : (
-                          <span>写真</span>
+                          <span />
                         )}
                       </td>
                       <td colSpan={5} />
                     </tr>
                     <tr>
-                      <th>フリガナ</th><td colSpan={3}>{data.furigana || "　"}</td><th>生年月日</th><td>{data.birthDate || "　"}</td>
+                      <th>フリガナ</th>
+                      <td colSpan={3}>{data.furigana || "　"}</td>
+                      <th>生年月日</th>
+                      <td>{data.birthDate || "　"}</td>
                     </tr>
                     <tr>
-                      <th>氏名</th><td colSpan={3}>{data.name || "　"}</td><th>/</th><td>/</td>
+                      <th>氏名</th>
+                      <td colSpan={5}>{data.name || "　"}</td>
                     </tr>
                     <tr>
-                      <th>E-mail</th><td colSpan={5}>{data.email || "　"}</td>
+                      <th>E-mail</th>
+                      <td colSpan={5}>{data.email || "　"}</td>
                     </tr>
                     <tr>
-                      <th>現住所</th><td colSpan={5} className="es-multi">{data.address || "　"}<br />TEL {data.tel || "　"}　携帯電話 {data.mobile || "　"}</td>
+                      <th>現住所</th>
+                      <td colSpan={5} className="es-multi">
+                        <div>{data.address || "　"}</div>
+                        <div className="es-subline">TEL {data.tel || "　"}　携帯電話 {data.mobile || "　"}</div>
+                      </td>
                     </tr>
                     <tr>
-                      <th>休暇中連絡先</th><td colSpan={5} className="es-multi">{data.restAddress || "　"}<br />TEL {data.restTel || "　"}　携帯電話 {data.restMobile || "　"}</td>
+                      <th>休暇中連絡先</th>
+                      <td colSpan={5} className="es-multi">
+                        <div>{data.restAddress || "　"}</div>
+                        <div className="es-subline">TEL {data.restTel || "　"}　携帯電話 {data.restMobile || "　"}</div>
+                      </td>
                     </tr>
                     {data.educationRows.map((r, i) => (
                       <tr key={`p-edu-${i}`}>
                         {i === 0 ? <th rowSpan={4}>学歴</th> : null}
-                        <td>{r.period || "期間"}</td><td colSpan={4}>{r.school || "学校名"}</td>
+                        <td>{r.period || "期間"}</td>
+                        <td colSpan={4}>{r.school || "学校名"}</td>
                       </tr>
                     ))}
-                    <tr><th>ゼミ・研究室名</th><td>{data.seminarName || "　"}</td><th>担当教授名</th><td>{data.professorName || "　"}</td><th colSpan={2}>ゼミ・研究テーマ {data.seminarTheme || "　"}</th></tr>
-                    <tr><th>趣味・特技</th><td>{data.hobby || "　"}</td><th>クラブ・サークル</th><td>{data.circle || "　"}</td><th colSpan={2}>保有資格 {data.certificates || "　"}</th></tr>
-                    <tr><th>アルバイト</th><td>{data.partTime || "　"}</td><th>留学・海外在住経験</th><td>{data.studyAbroad || "　"}</td><th>TOEIC {data.toeic || "　"}</th><th>TOEFL {data.toefl || "　"}</th></tr>
+                    <tr>
+                      <th>ゼミ・研究室名</th>
+                      <td>{data.seminarName || "　"}</td>
+                      <th>担当教授名</th>
+                      <td>{data.professorName || "　"}</td>
+                      <th colSpan={2} className="es-labelled-cell">
+                        <span className="es-cell-label">ゼミ・研究テーマ</span>
+                        <span className="es-cell-value">{data.seminarTheme || "　"}</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>趣味・特技</th>
+                      <td>{data.hobby || "　"}</td>
+                      <th>クラブ・サークル</th>
+                      <td>{data.circle || "　"}</td>
+                      <th colSpan={2} className="es-labelled-cell">
+                        <span className="es-cell-label">保有資格</span>
+                        <span className="es-cell-value">{data.certificates || "　"}</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>アルバイト</th>
+                      <td>{data.partTime || "　"}</td>
+                      <th>留学・海外在住経験</th>
+                      <td>{data.studyAbroad || "　"}</td>
+                      <th className="es-labelled-cell">
+                        <span className="es-cell-label">TOEIC</span>
+                        <span className="es-cell-value">{data.toeic || "　"}</span>
+                      </th>
+                      <th className="es-labelled-cell">
+                        <span className="es-cell-label">TOEFL</span>
+                        <span className="es-cell-value">{data.toefl || "　"}</span>
+                      </th>
+                    </tr>
                   </tbody>
                 </table>
               </section>
