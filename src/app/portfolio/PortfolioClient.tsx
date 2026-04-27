@@ -70,6 +70,9 @@ export default function PortfolioClient({
   const liveStatusText = liveMetrics
     ? `ツール開発済み・運用中。店舗情報を入力するだけで5分以内にデモサイトを生成し、そのままDM営業に使用。現在${liveMetrics.approachedCount}件にアプローチ中、反応率${liveMetrics.responseRate.toFixed(2)}%`
     : "ツール開発済み・運用中。店舗情報を入力するだけで5分以内にデモサイトを生成し、そのままDM営業に使用。現在のアプローチ件数と反応率を計測中。";
+  const p1ResultText = liveMetrics
+    ? `現在${liveMetrics.approachedCount}件にアプローチし、反応率は${liveMetrics.responseRate.toFixed(2)}%。反応率は検証継続中だが、提案工数の圧縮には手応えがあり、運用設計の見直し軸が明確になった。`
+    : "アプローチ件数と反応率は検証継続中。提案工数の圧縮には手応えがあり、運用設計の見直し軸が明確になった。";
 
   return (
     <div className={`portfolio-root ${fontVariableClass}`.trim()}>
@@ -268,9 +271,7 @@ export default function PortfolioClient({
               </div>
               <div>
                 <div className="detail-label">成果</div>
-                <div className="detail-text">
-                  10店舗にデモ送付して反応を観察。反応率は検証継続中だが、提案工数の圧縮には手応えがあり、運用設計の見直し軸が明確になった。
-                </div>
+                <div className="detail-text">{p1ResultText}</div>
               </div>
               <div>
                 <div className="detail-label">学び</div>
