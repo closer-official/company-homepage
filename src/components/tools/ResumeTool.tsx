@@ -187,6 +187,74 @@ function QuickChips({
   );
 }
 
+function cleanBlockText(s: string): string {
+  return s.replace(/\r/g, "").replace(/[ \t]+\n/g, "\n").trim();
+}
+
+function pickSection(body: string, label: string): string {
+  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(
+    `${escaped}\\s*\\n([\\s\\S]*?)(?=\\n(?:事業内容|担当業務|実績|数字成果|工夫・改善|活かせるスキル|活かせる経験|強み|志望職種に活かせる点|自己PR|職務経歴)\\b|$)`,
+    "m",
+  );
+  const m = body.match(re);
+  return cleanBlockText(m?.[1] ?? "");
+}
+
+function parseCareerTextInput(raw: string): Partial<ResumeFormData> {
+  const text = cleanBlockText(raw);
+  if (!text) return {};
+
+  const output: Partial<ResumeFormData> = {};
+
+  const nameMatch = text.match(/職務経歴書\s*\n([^\n]+)/);
+  if (nameMatch?.[1]) {
+    output.base = { ...initialFormData().base, name: cleanBlockText(nameMatch[1]) };
+  }
+
+  const summaryMatch = text.match(/職務要約\s*\n([\s\S]*?)(?=\n職務経歴\b|$)/m);
+  if (summaryMatch?.[1]) {
+    output.careerSummary = cleanBlockText(summaryMatch[1]);
+  }
+
+  const blockRe = /職務経歴\s*\n([^\n]+)\n([\s\S]*?)(?=\n職務経歴\s*\n|$)/g;
+  const blocks: CareerBlock[] = [];
+  for (const match of text.matchAll(blockRe)) {
+    const companyLine = cleanBlockText(match[1] ?? "");
+    const body = match[2] ?? "";
+    if (!companyLine) continue;
+    const block = emptyCareerBlock();
+    block.company = companyLine;
+    block.period = cleanBlockText((body.match(/在籍期間：([^\n]+)/)?.[1] ?? ""));
+    block.employmentType = cleanBlockText(
+      body.match(/雇用形態：([^\n]+)/)?.[1] ?? "",
+    );
+    block.roleTitle = cleanBlockText(body.match(/役職・役割：([^\n]+)/)?.[1] ?? "");
+    block.businessDesc = pickSection(body, "事業内容");
+    block.duties = pickSection(body, "担当業務");
+    block.achievements = pickSection(body, "実績");
+    block.numericResults = pickSection(body, "数字成果");
+    block.improvements = pickSection(body, "工夫・改善");
+    blocks.push(block);
+  }
+  if (blocks.length > 0) output.careerBlocks = blocks;
+
+  const skills = pickSection(text, "活かせるスキル");
+  const experiences = pickSection(text, "活かせる経験");
+  const strengths = pickSection(text, "強み");
+  const jobFit = pickSection(text, "志望職種に活かせる点");
+  const selfPr = pickSection(text, "自己PR");
+
+  if (experiences) output.careerPrePrExperience = experiences;
+  if (strengths || skills) {
+    output.careerPrePrStrength = [strengths, skills].filter(Boolean).join("\n\n");
+  }
+  if (jobFit) output.careerPrePrJobFit = jobFit;
+  if (selfPr) output.careerGlobalSelfPr = selfPr;
+
+  return output;
+}
+
 export type ResumeToolProps = {
   /** URL から開いたときの初期タブ（未指定は履歴書） */
   initialDocMode?: "resume" | "career";
@@ -204,6 +272,7 @@ export default function ResumeTool({
     return d;
   });
   const [exporting, setExporting] = useState(false);
+  const [bulkCareerText, setBulkCareerText] = useState("");
   const captureRef = useRef<HTMLDivElement>(null);
 
   const previewData = useMemo(() => mergeCareerPreviewData(data), [data]);
@@ -307,6 +376,39 @@ export default function ResumeTool({
   );
 
   const clearPhoto = useCallback(() => setBase("photoDataUrl", ""), [setBase]);
+
+  const applyBulkCareerInput = useCallback(() => {
+    const parsed = parseCareerTextInput(bulkCareerText);
+    if (
+      !parsed.careerSummary &&
+      !parsed.careerBlocks &&
+      !parsed.careerGlobalSelfPr &&
+      !parsed.base
+    ) {
+      window.alert("解析できる項目が見つかりませんでした。見出し付きの本文を貼り付けてください。");
+      return;
+    }
+    setData((d) => ({
+      ...d,
+      ...(parsed.base ? { base: { ...d.base, ...parsed.base } } : {}),
+      ...(parsed.careerSummary !== undefined
+        ? { careerSummary: parsed.careerSummary }
+        : {}),
+      ...(parsed.careerBlocks ? { careerBlocks: parsed.careerBlocks } : {}),
+      ...(parsed.careerPrePrExperience !== undefined
+        ? { careerPrePrExperience: parsed.careerPrePrExperience }
+        : {}),
+      ...(parsed.careerPrePrStrength !== undefined
+        ? { careerPrePrStrength: parsed.careerPrePrStrength }
+        : {}),
+      ...(parsed.careerPrePrJobFit !== undefined
+        ? { careerPrePrJobFit: parsed.careerPrePrJobFit }
+        : {}),
+      ...(parsed.careerGlobalSelfPr !== undefined
+        ? { careerGlobalSelfPr: parsed.careerGlobalSelfPr }
+        : {}),
+    }));
+  }, [bulkCareerText]);
 
   const resetAll = useCallback(() => {
     if (
@@ -835,6 +937,29 @@ export default function ResumeTool({
 
           {data.docMode === "career" ? (
             <>
+              <div className="rt-field-group">
+                <h3>一括入力（貼り付け）</h3>
+                <p className="rt-field-hint">
+                  「職務経歴書」「職務要約」「職務経歴」「事業内容」「担当業務」「実績」「数字成果」「工夫・改善」などの見出し付き本文を貼ると、主要欄へ自動反映します。
+                </p>
+                <div className="rt-field">
+                  <label htmlFor="rt-bulk-career">職務経歴書テキスト</label>
+                  <textarea
+                    id="rt-bulk-career"
+                    rows={8}
+                    value={bulkCareerText}
+                    onChange={(e) => setBulkCareerText(e.target.value)}
+                    placeholder="ここに職務経歴書の本文を貼り付けてください"
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="rt-btn-secondary"
+                  onClick={applyBulkCareerInput}
+                >
+                  貼り付け内容を自動反映
+                </button>
+              </div>
               <div className="rt-field">
                 <label className="rt-check">
                   <input
