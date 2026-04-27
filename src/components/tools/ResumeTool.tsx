@@ -191,14 +191,50 @@ function cleanBlockText(s: string): string {
   return s.replace(/\r/g, "").replace(/[ \t]+\n/g, "\n").trim();
 }
 
-function pickSection(body: string, label: string): string {
-  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const re = new RegExp(
-    `${escaped}\\s*\\n([\\s\\S]*?)(?=\\n(?:事業内容|担当業務|実績|数字成果|工夫・改善|活かせるスキル|活かせる経験|強み|志望職種に活かせる点|自己PR|職務経歴)\\b|$)`,
-    "m",
+function normalizeLines(raw: string): string[] {
+  return raw
+    .replace(/\r/g, "")
+    .split("\n")
+    .map((l) => l.trimEnd());
+}
+
+function isHeadingLine(line: string): boolean {
+  return /^(事業内容|担当業務|実績|数字成果|工夫・改善|活かせるスキル|活かせる経験|強み|志望職種に活かせる点|自己PR)$/.test(
+    line.trim(),
   );
-  const m = body.match(re);
-  return cleanBlockText(m?.[1] ?? "");
+}
+
+function isGlobalTailHeading(line: string): boolean {
+  return /^(活かせるスキル|活かせる経験|強み|志望職種に活かせる点|自己PR)$/.test(
+    line.trim(),
+  );
+}
+
+function extractInlineSection(
+  line: string,
+  label: string,
+): { hit: boolean; value: string } {
+  const re = new RegExp(`^${label}\\s*[：:]\\s*(.*)$`);
+  const m = line.trim().match(re);
+  if (!m) return { hit: false, value: "" };
+  return { hit: true, value: m[1] ?? "" };
+}
+
+function collectSectionByLabels(
+  lines: string[],
+  start: number,
+  labels: string[],
+): { value: string; next: number } {
+  const labelSet = new Set(labels);
+  const chunks: string[] = [];
+  let i = start;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (labelSet.has(line) || isGlobalTailHeading(line)) break;
+    chunks.push(lines[i]);
+    i += 1;
+  }
+  return { value: cleanBlockText(chunks.join("\n")), next: i };
 }
 
 function parseCareerTextInput(raw: string): Partial<ResumeFormData> {
@@ -206,6 +242,7 @@ function parseCareerTextInput(raw: string): Partial<ResumeFormData> {
   if (!text) return {};
 
   const output: Partial<ResumeFormData> = {};
+  const lines = normalizeLines(text);
 
   const nameMatch = text.match(/職務経歴書\s*\n([^\n]+)/);
   if (nameMatch?.[1]) {
@@ -217,33 +254,130 @@ function parseCareerTextInput(raw: string): Partial<ResumeFormData> {
     output.careerSummary = cleanBlockText(summaryMatch[1]);
   }
 
-  const blockRe = /職務経歴\s*\n([^\n]+)\n([\s\S]*?)(?=\n職務経歴\s*\n|$)/g;
+  const companyStartIndices: number[] = [];
+  for (let i = 0; i < lines.length - 1; i += 1) {
+    const cur = lines[i].trim();
+    const next = lines[i + 1].trim();
+    if (!cur || !next) continue;
+    if (/^職務経歴書$/.test(cur) || /^職務要約$/.test(cur)) continue;
+    if (isHeadingLine(cur) || isGlobalTailHeading(cur)) continue;
+    if (/^職務経歴$/.test(cur)) continue;
+    if (/^在籍期間[：:]/.test(next)) {
+      companyStartIndices.push(i);
+    }
+  }
+
   const blocks: CareerBlock[] = [];
-  for (const match of text.matchAll(blockRe)) {
-    const companyLine = cleanBlockText(match[1] ?? "");
-    const body = match[2] ?? "";
+  for (let b = 0; b < companyStartIndices.length; b += 1) {
+    const start = companyStartIndices[b];
+    let end =
+      b + 1 < companyStartIndices.length ? companyStartIndices[b + 1] : lines.length;
+    for (let i = start + 1; i < end; i += 1) {
+      if (isGlobalTailHeading(lines[i].trim())) {
+        end = i;
+        break;
+      }
+    }
+
+    const blockLines = lines.slice(start, end);
+    const companyLine = cleanBlockText(blockLines[0] ?? "");
     if (!companyLine) continue;
     const block = emptyCareerBlock();
     block.company = companyLine;
-    block.period = cleanBlockText((body.match(/在籍期間：([^\n]+)/)?.[1] ?? ""));
-    block.employmentType = cleanBlockText(
-      body.match(/雇用形態：([^\n]+)/)?.[1] ?? "",
-    );
-    block.roleTitle = cleanBlockText(body.match(/役職・役割：([^\n]+)/)?.[1] ?? "");
-    block.businessDesc = pickSection(body, "事業内容");
-    block.duties = pickSection(body, "担当業務");
-    block.achievements = pickSection(body, "実績");
-    block.numericResults = pickSection(body, "数字成果");
-    block.improvements = pickSection(body, "工夫・改善");
+    const rawMap: Record<
+      "事業内容" | "担当業務" | "実績" | "数字成果" | "工夫・改善" | "活かせるスキル",
+      string[]
+    > = {
+      事業内容: [],
+      担当業務: [],
+      実績: [],
+      数字成果: [],
+      "工夫・改善": [],
+      活かせるスキル: [],
+    };
+
+    let activeSection: keyof typeof rawMap | null = null;
+    for (let i = 1; i < blockLines.length; i += 1) {
+      const line = blockLines[i];
+      const trimmed = line.trim();
+      if (!trimmed) {
+        if (activeSection) rawMap[activeSection].push("");
+        continue;
+      }
+      if (/^在籍期間[：:]/.test(trimmed)) {
+        block.period = cleanBlockText(trimmed.replace(/^在籍期間[：:]\s*/, ""));
+        activeSection = null;
+        continue;
+      }
+      if (/^雇用形態[：:]/.test(trimmed)) {
+        block.employmentType = cleanBlockText(
+          trimmed.replace(/^雇用形態[：:]\s*/, ""),
+        );
+        activeSection = null;
+        continue;
+      }
+      if (/^役職・役割[：:]/.test(trimmed)) {
+        block.roleTitle = cleanBlockText(trimmed.replace(/^役職・役割[：:]\s*/, ""));
+        activeSection = null;
+        continue;
+      }
+
+      const sectionLabels = Object.keys(rawMap) as (keyof typeof rawMap)[];
+      let handledInline = false;
+      for (const label of sectionLabels) {
+        if (trimmed === label) {
+          activeSection = label;
+          handledInline = true;
+          break;
+        }
+        const inline = extractInlineSection(trimmed, label);
+        if (inline.hit) {
+          rawMap[label].push(inline.value);
+          activeSection = label;
+          handledInline = true;
+          break;
+        }
+      }
+      if (handledInline) continue;
+
+      if (activeSection) {
+        rawMap[activeSection].push(line);
+      }
+    }
+
+    block.businessDesc = cleanBlockText(rawMap.事業内容.join("\n"));
+    block.duties = cleanBlockText(rawMap.担当業務.join("\n"));
+    block.achievements = cleanBlockText(rawMap.実績.join("\n"));
+    block.numericResults = cleanBlockText(rawMap.数字成果.join("\n"));
+    block.improvements = cleanBlockText(rawMap["工夫・改善"].join("\n"));
+    block.tools = cleanBlockText(rawMap["活かせるスキル"].join("\n"));
     blocks.push(block);
   }
   if (blocks.length > 0) output.careerBlocks = blocks;
 
-  const skills = pickSection(text, "活かせるスキル");
-  const experiences = pickSection(text, "活かせる経験");
-  const strengths = pickSection(text, "強み");
-  const jobFit = pickSection(text, "志望職種に活かせる点");
-  const selfPr = pickSection(text, "自己PR");
+  function parseGlobalSection(label: string): string {
+    const idx = lines.findIndex((l) => l.trim() === label);
+    if (idx < 0) return "";
+    const rest = lines.slice(idx + 1);
+    const { value } = collectSectionByLabels(
+      rest,
+      0,
+      [
+        "活かせるスキル",
+        "活かせる経験",
+        "強み",
+        "志望職種に活かせる点",
+        "自己PR",
+      ].filter((l) => l !== label),
+    );
+    return value;
+  }
+
+  const skills = parseGlobalSection("活かせるスキル");
+  const experiences = parseGlobalSection("活かせる経験");
+  const strengths = parseGlobalSection("強み");
+  const jobFit = parseGlobalSection("志望職種に活かせる点");
+  const selfPr = parseGlobalSection("自己PR");
 
   if (experiences) output.careerPrePrExperience = experiences;
   if (strengths || skills) {
