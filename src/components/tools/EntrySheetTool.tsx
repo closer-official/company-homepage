@@ -363,21 +363,6 @@ export default function EntrySheetTool() {
                 <table className="es-table">
                   <tbody>
                     <tr>
-                      <td className="es-photo-head">写真</td>
-                      <td className="es-header-empty" colSpan={5} />
-                    </tr>
-                    <tr>
-                      <td className="es-photo-cell">
-                        {data.photoDataUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={data.photoDataUrl} alt="" />
-                        ) : (
-                          <span />
-                        )}
-                      </td>
-                      <td colSpan={5} />
-                    </tr>
-                    <tr>
                       <th>フリガナ</th>
                       <td colSpan={3}>{data.furigana || "　"}</td>
                       <th>生年月日</th>
