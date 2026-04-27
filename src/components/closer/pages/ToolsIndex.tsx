@@ -10,6 +10,14 @@ type ToolEntry = {
 
 const TOOL_ENTRIES: ToolEntry[] = [
   {
+    href: "/tools/entry-sheet",
+    tag: "Tool / ES",
+    title: "エントリーシート作成ツール",
+    description:
+      "画像の帳票に近いレイアウトでESを作成。AI向け入力指示文と一括流し込み欄を用意し、通常入力で微調整してPNG/PDF保存できます。",
+    badge: "無料",
+  },
+  {
     href: "/tools/pdf-converter",
     tag: "Tool / PDF変換",
     title: "無料 PDF 変換",

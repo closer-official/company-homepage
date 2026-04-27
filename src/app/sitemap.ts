@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/pdf-converter",
     "/tools/photo-resize",
     "/tools/resume-photo-maker",
+    "/tools/entry-sheet",
     "/services/works",
     "/services/plan",
     "/services/toeic-casino",
