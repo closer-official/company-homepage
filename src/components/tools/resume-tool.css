@@ -980,8 +980,69 @@
 }
 
 .rt-career-verbatim-body {
-  white-space: pre-wrap;
   line-height: 1.9;
+}
+
+.rt-vb-h2 {
+  margin: 18px 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  border-left: 4px solid #1a1714;
+  padding-left: 8px;
+}
+
+.rt-vb-h3 {
+  margin: 12px 0 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.rt-vb-company {
+  margin: 16px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.rt-vb-row {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: 10px;
+  align-items: baseline;
+  margin: 5px 0;
+}
+
+.rt-vb-label {
+  font-size: 10px;
+  color: #555;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.rt-vb-value {
+  font-size: 11px;
+  color: #1a1714;
+}
+
+.rt-vb-value.is-empty {
+  color: #9b948b;
+}
+
+.rt-vb-p {
+  margin: 0 0 4px;
+  white-space: pre-wrap;
+  font-size: 11px;
+}
+
+.rt-vb-note {
+  margin: 6px 0;
+  font-size: 10px;
+  color: #6b6257;
+  font-style: italic;
+}
+
+.rt-vb-blank {
+  height: 8px;
 }
 
 /* timeline */

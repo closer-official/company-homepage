@@ -671,6 +671,81 @@ function CareerCompact({ data }: { data: ResumeFormData }) {
 
 function CareerVerbatim({ data }: { data: ResumeFormData }) {
   const raw = data.careerRawText.trim();
+  const lines = (raw || "").replace(/\r/g, "").split("\n");
+
+  const H2_SET = new Set(["職務経歴"]);
+  const H3_SET = new Set([
+    "職務要約",
+    "事業内容",
+    "担当業務",
+    "実績",
+    "数字成果",
+    "工夫・改善",
+    "活かせるスキル",
+    "活かせる経験",
+    "強み",
+    "志望職種に活かせる点",
+    "自己PR",
+  ]);
+
+  const rendered = lines.map((line, i) => {
+    const cur = line.trim();
+    const next = (lines[i + 1] ?? "").trim();
+
+    if (!cur) return <div key={`vb-b-${i}`} className="rt-vb-blank" />;
+    if (cur === "職務経歴書") return null;
+
+    if (H2_SET.has(cur)) {
+      return (
+        <h2 key={`vb-h2-${i}`} className="rt-vb-h2">
+          {cur}
+        </h2>
+      );
+    }
+    if (H3_SET.has(cur)) {
+      return (
+        <h3 key={`vb-h3-${i}`} className="rt-vb-h3">
+          {cur}
+        </h3>
+      );
+    }
+    if (cur.startsWith("※")) {
+      return (
+        <p key={`vb-note-${i}`} className="rt-vb-note">
+          {cur}
+        </p>
+      );
+    }
+
+    if (next.startsWith("在籍期間：") || next.startsWith("在籍期間:")) {
+      return (
+        <h3 key={`vb-company-${i}`} className="rt-vb-company">
+          {cur}
+        </h3>
+      );
+    }
+
+    const m = cur.match(/^([^：:]{1,24})[：:]\s*(.*)$/);
+    if (m) {
+      const label = m[1].trim();
+      const value = (m[2] ?? "").trim();
+      return (
+        <div key={`vb-row-${i}`} className="rt-vb-row">
+          <span className="rt-vb-label">{label}</span>
+          <span className={`rt-vb-value${value ? "" : " is-empty"}`}>
+            {value || "（未入力）"}
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <p key={`vb-p-${i}`} className="rt-vb-p">
+        {cur}
+      </p>
+    );
+  });
+
   return (
     <div className="rt-doc rt-doc-career rt-career-verbatim">
       <div className="rt-career-hd">
@@ -680,10 +755,13 @@ function CareerVerbatim({ data }: { data: ResumeFormData }) {
         </div>
       </div>
       <section className="rt-career-sec">
-        <h2 className="rt-career-h2">原文</h2>
-        <p className="rt-career-p rt-career-verbatim-body">
-          {raw || "一括入力テキストを貼り付けると、ここにそのまま表示されます。"}
-        </p>
+        {raw ? (
+          <div className="rt-career-verbatim-body">{rendered}</div>
+        ) : (
+          <p className="rt-career-p rt-career-verbatim-body">
+            一括入力テキストを貼り付けると、提出向けの体裁で整形表示されます。
+          </p>
+        )}
       </section>
     </div>
   );
