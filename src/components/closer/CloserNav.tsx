@@ -12,21 +12,32 @@ const ALL_LINKS = [
   { href: "/works", en: "Works", ja: "事例" },
 ] as const;
 
+const DIVIZERO_HOME_LINKS = [
+  { href: "#pain", en: "Problem", ja: "課題" },
+  { href: "#reasons", en: "Why", ja: "強み" },
+  { href: "#pricing", en: "Pricing", ja: "料金" },
+  { href: "#simulator", en: "Simulator", ja: "試算" },
+] as const;
+
+const LINE_CTA_URL = "https://lin.ee/q4V81Ks";
+
 export default function CloserNav() {
   const pathname = usePathname() ?? "";
+  const isDivizeroHome = pathname === "/";
   const isEssayColumn =
     pathname === "/essay" || pathname.startsWith("/essay/");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   const navLinks = useMemo(() => {
+    if (isDivizeroHome) return [...DIVIZERO_HOME_LINKS];
     if (isEssayColumn) {
       return ALL_LINKS.filter(
         (l) => l.href !== "/pricing" && l.href !== "/works",
       );
     }
     return [...ALL_LINKS];
-  }, [isEssayColumn]);
+  }, [isDivizeroHome, isEssayColumn]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,6 +57,7 @@ export default function CloserNav() {
     "closer-nav",
     scrolled ? "scrolled" : "",
     isEssayColumn ? "closer-nav--essay-column" : "",
+    isDivizeroHome ? "closer-nav--divizero-home" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -54,7 +66,13 @@ export default function CloserNav() {
     <>
       <nav className={navClass}>
         <Link href="/" className="closer-nav-logo" onClick={() => setOpen(false)}>
-          Closer <span>by</span> divizero
+          {isDivizeroHome ? (
+            <>divizero</>
+          ) : (
+            <>
+              Closer <span>by</span> divizero
+            </>
+          )}
         </Link>
         <ul className="closer-nav-links">
           {navLinks.map(({ href, en, ja }) => (
@@ -77,6 +95,18 @@ export default function CloserNav() {
                 <span className="closer-nav-cta-sep"> / </span>
                 <span className="closer-nav-cta-en">Partner</span>
               </Link>
+            ) : isDivizeroHome ? (
+              <a
+                href={LINE_CTA_URL}
+                className="closer-nav-cta"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+              >
+                <span className="closer-nav-cta-ja">LINE登録</span>
+                <span className="closer-nav-cta-sep"> / </span>
+                <span className="closer-nav-cta-en">Start</span>
+              </a>
             ) : (
               <Link href="/contact" className="closer-nav-cta">
                 <span className="closer-nav-cta-ja">相談する</span>
@@ -130,6 +160,15 @@ export default function CloserNav() {
           >
             パートナー募集 / Partner
           </Link>
+        ) : isDivizeroHome ? (
+          <a
+            href={LINE_CTA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+          >
+            LINE登録 / Start
+          </a>
         ) : (
           <Link href="/contact" onClick={() => setOpen(false)}>
             相談する / Contact

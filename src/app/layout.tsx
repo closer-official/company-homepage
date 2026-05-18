@@ -8,35 +8,34 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://divizero.jp";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Closer by divizero（ディビゼロ）| 飲食店・実店舗のWeb制作",
-    template: "%s | Closer by divizero（ディビゼロ）",
+    default: "divizero | 営業代行プラットフォーム",
+    template: "%s | divizero",
   },
   description:
-    "ディビゼロ（divizero）の飲食店・実店舗向けWeb制作。来店前のお客様に魅力と必要な情報を届けます。Closer by divizero（Closer事務局）。",
+    "返信率40%の営業代行プラットフォーム divizero。ターゲット選定とデータドリブンなDM運用で、クリエイターの営業を完全自動化。",
   keywords: [
     "ディビゼロ",
     "divizero",
-    "Closer by divizero",
-    "Closer",
-    "飲食店",
-    "Web制作",
-    "ホームページ制作",
-    "実店舗",
+    "営業代行",
+    "DM営業",
+    "クリエイター",
+    "成果報酬",
+    "アポ獲得",
   ],
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    siteName: "Closer by divizero（ディビゼロ）",
-    title: "Closer by divizero（ディビゼロ）| 飲食店・実店舗のWeb制作",
+    siteName: "divizero",
+    title: "divizero | 営業代行プラットフォーム",
     description:
-      "ディビゼロ（divizero）の飲食店・実店舗向けWeb制作。来店前のお客様に魅力と情報を届けます。",
+      "返信率40%の衝撃。あなたの営業を、データと仕組みで完全自動化する。クリエイターは制作だけに集中。",
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Closer by divizero（ディビゼロ）| 飲食店・実店舗のWeb制作",
+    title: "divizero | 営業代行プラットフォーム",
     description:
-      "ディビゼロ（divizero）の飲食店・実店舗向けWeb制作。来店前のお客様に魅力と情報を届けます。",
+      "返信率40%の衝撃。あなたの営業を、データと仕組みで完全自動化する。クリエイターは制作だけに集中。",
   },
   alternates: { canonical: SITE_URL },
   icons: {
@@ -90,7 +89,7 @@ export default function RootLayout({
         "@id": `${SITE_URL}/#localbusiness`,
         name: "Closer事務局",
         description:
-          "飲食店・実店舗向けWeb制作。ブランド読みはディビゼロ（divizero）。Closer by divizero。来店前のお客様へ魅力と情報を届けます。",
+          "営業代行プラットフォーム divizero。クリエイターの営業をデータと仕組みで自動化し、制作に集中できる環境を提供します。",
         url: SITE_URL,
         address: {
           "@type": "PostalAddress",
@@ -105,9 +104,9 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
-        name: "Closer by divizero（ディビゼロ）",
+        name: "divizero",
         description:
-          "ディビゼロ（divizero）の飲食店・実店舗向けWeb制作。来店前のお客様に魅力と必要な情報を届けます。",
+          "返信率40%の営業代行プラットフォーム。クリエイターの営業をデータと仕組みで完全自動化します。",
         publisher: { "@id": `${SITE_URL}/#organization` },
       },
       {

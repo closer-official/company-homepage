@@ -9,7 +9,7 @@ export default function CloserFooter() {
             Closer <span>by</span> divizero
           </div>
           <p className="closer-footer-tagline">
-            ブランド読みは「ディビゼロ」。飲食店・実店舗の魅力を、来店前のお客様に伝えるWeb制作サービスです。
+            営業代行プラットフォーム divizero。クリエイターの営業をデータと仕組みで自動化し、制作に集中できる環境をつくります。
           </p>
           <div className="closer-footer-social-wrap">
             <div className="closer-footer-col-title">Follow / 公式</div>
@@ -35,7 +35,7 @@ export default function CloserFooter() {
                 <span className="closer-footer-social-ja">Twitter</span>
               </a>
               <a
-                href="https://lin.ee/ZUxDrBQ"
+                href="https://lin.ee/q4V81Ks"
                 className="closer-footer-social-btn"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -1,225 +1,164 @@
-import Link from "next/link";
-import HomeHeroArt from "../HomeHeroArt";
+import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
+
+const LINE_URL = "https://lin.ee/q4V81Ks";
 
 const PAIN_ITEMS = [
-  "Instagramの投稿は頑張っている",
-  "写真や雰囲気には自信がある",
-  "でも、初めてのお客様に必要な情報がまとまっていない",
-  "GoogleマップやSNSだけでは伝えきれない",
-  "営業時間、メニュー、予約導線、お知らせを整理したい",
-  "ホームページ費用が高すぎてどこに頼めばいいか分からない",
+  "100件DMを送っても返信が来ない…というか、そもそも営業が心理的ハードルでストップしている。",
+  "モニター募集を打てば「いいね」はつくのに、実際の案件（マネタイズ）に繋がらない。",
+  "制作に集中したいのに、待てど暮らせど案件の相談が来ない。",
 ];
+
+const REASONS = [
+  {
+    num: "01",
+    title: "アカウント個別最適化とターゲット選定",
+    text: "テンプレートの使い回しを完全排除。あなたのアカウント特性を徹底分析し、最も可能性の高いターゲットを絞り込みます。",
+  },
+  {
+    num: "02",
+    title: "データハック（送信文面・時間帯）",
+    text: "これまでに蓄積された膨大なデータから、「最も返信が来やすい文面」「最もアクティブな曜日・時間帯」をシステム化。ピンポイントでアプローチするため、コスパ・タイパが他社と桁違いです。",
+  },
+  {
+    num: "03",
+    title: "2段階ステルスアプローチ（完全会話型）",
+    text: "怪しいURLを踏ませるような営業は一切しません。DM内の丁寧なテキストチャットだけで会話を完結させ、クライアントのブランドを傷つけずにカレンダーをアポで埋め尽くします。",
+  },
+];
+
+function LineCta({ className = "dz-btn-primary" }: { className?: string }) {
+  return (
+    <a
+      href={LINE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      divizeroに営業を丸投げして制作に集中する（公式LINE登録）
+    </a>
+  );
+}
 
 export default function CloserHome() {
   return (
-    <>
-      <section className="closer-hero">
-        <div className="closer-hero-left">
-          <span className="closer-hero-eyebrow">
-            Closer by divizero（ブランド読み：ディビゼロ）— Web Production
-          </span>
-          <h1 className="closer-hero-title">
-            SNSだけでは
+    <div className="dz-lp">
+      <section className="dz-hero">
+        <div className="dz-hero-glow" aria-hidden />
+        <div className="dz-hero-inner">
+          <span className="dz-label">Sales Platform / divizero</span>
+          <h1 className="dz-hero-title">
+            返信率40%の衝撃。
             <br />
-            伝わりきらない<em>魅力</em>を、
-            <br />
-            Webで伝わる形に整える。
+            あなたの営業を、<em>データと仕組み</em>で完全自動化する。
           </h1>
-          <p className="closer-hero-sub">
-            ディビゼロ（divizero）が、飲食店や実店舗の魅力を来店前のお客様にきちんと伝えるためのWebページを制作しています。写真や世界観の良さを活かしながら、初めての人でも安心して問い合わせ・来店できる導線を整えます。
+          <p className="dz-hero-sub">
+            一般的なDM営業の返信率はわずか2〜4%。divizeroはターゲットの徹底選定とアカウント最適化により、異常とも言える「返信率40%」を叩き出す。クリエイターは、制作だけに集中。
           </p>
-          <div className="closer-hero-actions">
-            <Link href="/contact" className="closer-btn-primary">
-              無料で相談する
-            </Link>
-            <Link href="/services" className="closer-btn-secondary">
-              制作内容を見る
-            </Link>
+          <div className="dz-hero-actions">
+            <LineCta />
           </div>
-        </div>
-        <div className="closer-hero-right">
-          <div className="closer-hero-visual">
-            <div className="closer-hero-grid-art">
-              <HomeHeroArt />
+          <div className="dz-hero-metrics">
+            <div className="dz-metric">
+              <span className="dz-metric-value">40%</span>
+              <span className="dz-metric-label">返信率（実績ベース）</span>
+            </div>
+            <div className="dz-metric">
+              <span className="dz-metric-value">2〜4%</span>
+              <span className="dz-metric-label">一般的なDM営業</span>
+            </div>
+            <div className="dz-metric">
+              <span className="dz-metric-value">¥5,000〜</span>
+              <span className="dz-metric-label">1アポ・完全成果報酬</span>
             </div>
           </div>
         </div>
-        <div className="closer-hero-brand-note">運営元：Closer事務局</div>
-        <div className="closer-scroll-hint">
+        <div className="dz-scroll-hint">
           <span>scroll</span>
-          <div className="closer-scroll-line" />
+          <div className="dz-scroll-line" />
         </div>
       </section>
 
-      <section className="closer-pain-section">
-        <span className="closer-section-label">For</span>
-        <h2 className="closer-section-title" style={{ color: "var(--cream)", maxWidth: "none" }}>
-          こんなお店に
-          <em style={{ color: "var(--gold-light)" }}>向いています</em>。
-        </h2>
-        <div className="closer-pain-grid">
-          {PAIN_ITEMS.map((text, i) => (
-            <div key={text} className="closer-pain-item">
-              <span className="closer-pain-num">{String(i + 1).padStart(2, "0")}</span>
-              <p className="closer-pain-text">{text}</p>
+      <section className="dz-pain" id="pain">
+        <div className="dz-container">
+          <span className="dz-label">Problem</span>
+          <h2 className="dz-section-title">こんな悩みを抱えていませんか？</h2>
+          <div className="dz-pain-grid">
+            {PAIN_ITEMS.map((text, i) => (
+              <article key={text} className="dz-pain-card">
+                <span className="dz-pain-num">{String(i + 1).padStart(2, "0")}</span>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="dz-reasons" id="reasons">
+        <div className="dz-container">
+          <span className="dz-label">Why divizero</span>
+          <h2 className="dz-section-title">divizeroが選ばれる理由</h2>
+          <p className="dz-section-lead">
+            有象無象の営業代行とは一線を画す、洗練されたプロの営業事務局としての設計。
+          </p>
+          <div className="dz-reason-grid">
+            {REASONS.map((r) => (
+              <article key={r.num} className="dz-reason-card">
+                <span className="dz-reason-num">{r.num}</span>
+                <h3>{r.title}</h3>
+                <p>{r.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="dz-pricing" id="pricing">
+        <div className="dz-container">
+          <span className="dz-label">Pricing</span>
+          <h2 className="dz-section-title">料金プランと、安さの理由</h2>
+          <div className="dz-pricing-compare">
+            <div className="dz-pricing-card dz-pricing-card--other">
+              <p className="dz-pricing-tag">他社（業界平均）</p>
+              <p className="dz-pricing-price">1.5万円〜</p>
+              <p className="dz-pricing-desc">
+                最低保証や初期費用、アポ単価として安くてもこの水準が一般的。
+              </p>
             </div>
-          ))}
-        </div>
-        <p className="closer-pain-closing">
-          そんなお店のために、必要な情報を見やすく整えた
-          <br />
-          Webページを制作しています。
-        </p>
-      </section>
-
-      <section className="closer-what-section">
-        <div className="closer-what-cols">
-          <div>
-            <span className="closer-section-label">What We Do</span>
-            <h2 className="closer-section-title">
-              見た目を作るだけではなく、<em>伝わる導線</em>を整えます。
-            </h2>
-            <div className="closer-what-cards">
-              <div className="closer-what-card">
-                <div className="closer-what-icon" aria-hidden>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M3 9h18M9 21V9" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="closer-what-card-title">魅力が伝わる</div>
-                  <p className="closer-what-card-text">
-                    写真・雰囲気・お店の強みが、初めての人にも伝わる形で整理されます。
-                  </p>
-                </div>
-              </div>
-              <div className="closer-what-card">
-                <div className="closer-what-icon" aria-hidden>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-                    <rect x="9" y="3" width="6" height="4" rx="1" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="closer-what-card-title">情報がまとまる</div>
-                  <p className="closer-what-card-text">
-                    営業時間、アクセス、メニュー、予約方法、お知らせなどが一か所に集まります。
-                  </p>
-                </div>
-              </div>
-              <div className="closer-what-card">
-                <div className="closer-what-icon" aria-hidden>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="closer-what-card-title">導線が整う</div>
-                  <p className="closer-what-card-text">
-                    Instagram・Googleマップ・予約導線・問い合わせ導線を分かりやすく接続します。
-                  </p>
-                </div>
-              </div>
+            <div className="dz-pricing-card dz-pricing-card--ours">
+              <p className="dz-pricing-tag">divizero</p>
+              <p className="dz-pricing-price">¥5,000〜</p>
+              <p className="dz-pricing-desc">
+                完全成果報酬（フルコミ営業）の安心設計。1アポ一律5,000円から対応。
+              </p>
             </div>
           </div>
-          <div className="closer-what-right">
-            <p className="closer-what-quote">
-              来店前のお客様が不安なく<em>お店を知り</em>、安心して<em>行動できる</em>状態をつくること。
-            </p>
-            <p className="closer-what-desc">
-              ディビゼロ（divizero）の飲食・実店舗向けブランドとして、Closer by divizero
-              が大切にしているのは、ただページを作ることではありません。SNSやGoogleマップで十分に伝わりきれていない部分を補い、お客様がスムーズにお店へたどり着ける仕組みを整えます。
+          <div className="dz-pricing-logic">
+            <h3>なぜ、この価格が実現できるのか</h3>
+            <p>
+              営業オペレーションの無駄（無駄な人件費やシステム維持費）を徹底的に排除し、仕組み化による究極のコストカットに成功しているため、この価格が実現できています。
             </p>
           </div>
         </div>
       </section>
 
-      <section className="closer-features-section">
-        <span className="closer-section-label">Features</span>
-        <h2 className="closer-section-title">
-          小さく始めて、必要に応じて<em>整えていけます</em>。
-        </h2>
-        <p className="closer-features-desc">
-          最初から大がかりなホームページを作るのではなく、今ある情報を活かしながら、必要十分な受け皿を作ることを基本にしています。
-        </p>
-        <div className="closer-features-cols">
-          <div className="closer-feature-card">
-            <div className="closer-feature-num">01</div>
-            <div className="closer-feature-title">低負担で始めやすい</div>
-            <p className="closer-feature-text">
-              まずは必要最低限の情報を整理した受け皿を作成。大がかりな作業なく、スモールスタートが可能です。
-            </p>
-          </div>
-          <div className="closer-feature-card">
-            <div className="closer-feature-num">02</div>
-            <div className="closer-feature-title">段階的に整えられる</div>
-            <p className="closer-feature-text">
-              状況に応じて更新サポートや追加ページの制作も対応。お店の成長に合わせて変えていけます。
-            </p>
-          </div>
-          <div className="closer-feature-card">
-            <div className="closer-feature-num">03</div>
-            <div className="closer-feature-title">スマホ対応・導線設計</div>
-            <p className="closer-feature-text">
-              スマートフォンで読みやすく設計し、問い合わせや来店につながる自然な導線を構築します。
-            </p>
-          </div>
+      <section className="dz-simulator-section">
+        <div className="dz-container">
+          <DivizeroRewardSimulator />
         </div>
       </section>
 
-      <section className="closer-flow-section">
-        <span className="closer-section-label">Process</span>
-        <h2 className="closer-section-title">ご相談から公開までの流れ</h2>
-        <div className="closer-flow-steps">
-          {[
-            { n: "01", t: "ご相談", d: "現在の状況やご要望をお聞きします" },
-            { n: "02", t: "内容確認", d: "必要なページ・情報を整理します" },
-            { n: "03", t: "プラン提案", d: "ご予算・目的に応じたプランをご提案" },
-            { n: "04", t: "制作・確認", d: "制作後、内容を確認いただきます" },
-            { n: "05", t: "公開", d: "ご確認後、Webページを公開します" },
-            { n: "06", t: "更新対応", d: "必要に応じて更新・改善に対応します" },
-          ].map((s) => (
-            <div key={s.n} className="closer-flow-step">
-              <div className="closer-flow-dot">{s.n}</div>
-              <div className="closer-flow-step-title">{s.t}</div>
-              <p className="closer-flow-step-text">{s.d}</p>
-            </div>
-          ))}
-        </div>
-        <p className="closer-flow-note">
-          事前にご案内するデモは、仮情報やフリー素材を用いたサンプルです。正式制作時には、実際の店舗情報やご要望に合わせて内容を整えます。
-        </p>
-      </section>
-
-      <section className="closer-price-teaser">
-        <span className="closer-section-label">Pricing</span>
-        <h2 className="closer-section-title">ご予算や運用体制に合わせて選べます。</h2>
-        <p className="closer-price-teaser-sub">
-          まずは必要最低限で始めたい方向けのプランから、更新対応を含むプランまでご用意しています。
-        </p>
-        <div className="closer-price-btns">
-          <Link href="/pricing" className="closer-btn-primary">
-            料金の目安を見る
-          </Link>
-          <Link href="/contact" className="closer-btn-secondary">
-            無料で相談する
-          </Link>
+      <section className="dz-cta">
+        <div className="dz-container dz-cta-inner">
+          <span className="dz-label">Get Started</span>
+          <h2 className="dz-section-title">
+            営業はdivizeroに任せて、<em>制作に戻る</em>。
+          </h2>
+          <p className="dz-section-lead">
+            公式LINEでヒアリング後、最短ルートで営業設計を開始します。
+          </p>
+          <LineCta className="dz-btn-primary dz-btn-primary--large" />
         </div>
       </section>
-
-      <section className="closer-cta-section">
-        <span className="closer-cta-label">Contact</span>
-        <h2 className="closer-cta-title">
-          まずは、お店の状況を<em>聞かせてください</em>。
-        </h2>
-        <p className="closer-cta-sub">
-          「こういうものが必要か分からない」という段階でも問題ありません。今の発信状況やお悩みに合わせて、必要な形をご提案します。
-        </p>
-        <Link href="/contact" className="closer-btn-gold">
-          無料で相談する
-        </Link>
-      </section>
-    </>
+    </div>
   );
 }

@@ -6,10 +6,23 @@ import CloserNav from "./CloserNav";
 import CloserFooter from "./CloserFooter";
 import { useCloserAnimate } from "./useCloserAnimate";
 
-export default function CloserShell({ children }: { children: ReactNode }) {
+export default function CloserShell({
+  children,
+  variant = "default",
+}: {
+  children: ReactNode;
+  variant?: "default" | "divizero";
+}) {
   useCloserAnimate();
   return (
-    <div className="closer-site">
+    <div
+      className={[
+        "closer-site",
+        variant === "divizero" ? "closer-site--divizero" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <CloserNav />
       <div className="closer-main">{children}</div>
       <CloserFooter />
