@@ -38,13 +38,17 @@ export default function CloserServices() {
   return (
     <>
       <div className="closer-services-hero">
-        <span className="closer-section-label">Services</span>
-        <h1 className="closer-page-hero-title">
-          クリエイターの<em>営業代行</em>を、データで設計する。
-        </h1>
-        <p className="closer-page-hero-lead">
-          アカウント分析からDM運用・アポ獲得まで。あなたがやることは、届いた商談の対応だけです。
-        </p>
+        <div className="closer-services-hero-grid">
+          <div className="closer-services-hero-main">
+            <span className="closer-section-label">Services</span>
+            <h1 className="closer-page-hero-title">
+              クリエイターの<em>営業代行</em>を、データで設計する。
+            </h1>
+          </div>
+          <p className="closer-page-hero-lead">
+            アカウント分析からDM運用・アポ獲得まで。あなたがやることは、届いた商談の対応だけです。
+          </p>
+        </div>
       </div>
 
       <div className="closer-services-grid">

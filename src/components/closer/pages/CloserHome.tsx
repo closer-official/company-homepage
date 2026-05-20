@@ -1,5 +1,8 @@
 import DivizeroCompareTable from "../DivizeroCompareTable";
 import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
+import DivizeroHeroParticles from "../divizero/DivizeroHeroParticles";
+import DivizeroLpMotion from "../divizero/DivizeroLpMotion";
+import { ScrollMetric } from "../divizero/AnimatedNumber";
 import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 const LINE_URL = DIVIZERO_LINE_URL;
@@ -73,7 +76,11 @@ const FAQ_ITEMS = [
   },
 ];
 
-function LineCta({ className = "dz-btn-primary" }: { className?: string }) {
+function LineCta({
+  className = "dz-btn-primary dz-btn-primary--shine",
+}: {
+  className?: string;
+}) {
   return (
     <a
       href={LINE_URL}
@@ -90,13 +97,14 @@ export default function CloserHome() {
   return (
     <div className="dz-lp">
       <section className="dz-hero">
+        <DivizeroHeroParticles />
         <div className="dz-hero-glow" aria-hidden />
-        <div className="dz-hero-inner">
+        <div className="dz-hero-inner dz-reveal is-visible">
           <span className="dz-label">Sales Platform / divizero</span>
           <h1 className="dz-hero-title">
             営業を仕組み化し、
             <br />
-            クリエイターに<em>制作の時間</em>を返す。
+            クリエイターに<em className="dz-text-gold-gradient">制作の時間</em>を返す。
           </h1>
           <p className="dz-hero-sub">
             初期費用ゼロ。あなたの代わりに商談を取り続ける、完全成果報酬の営業インフラ。
@@ -105,17 +113,23 @@ export default function CloserHome() {
           <div className="dz-hero-actions">
             <LineCta />
           </div>
-          <div className="dz-hero-metrics">
-            <div className="dz-metric">
-              <span className="dz-metric-value">40%</span>
+          <div className="dz-hero-metrics dz-reveal-stagger">
+            <div className="dz-metric dz-glass-card">
+              <span className="dz-metric-value dz-text-gold-gradient">
+                <ScrollMetric end={40} suffix="%" />
+              </span>
               <span className="dz-metric-label">DM返信率（業界平均2〜4%）</span>
             </div>
-            <div className="dz-metric">
-              <span className="dz-metric-value">¥0</span>
+            <div className="dz-metric dz-glass-card">
+              <span className="dz-metric-value dz-text-gold-gradient">
+                <ScrollMetric end={0} prefix="¥" />
+              </span>
               <span className="dz-metric-label">初期費用・月額費用</span>
             </div>
-            <div className="dz-metric">
-              <span className="dz-metric-value">¥5,000〜</span>
+            <div className="dz-metric dz-glass-card">
+              <span className="dz-metric-value dz-text-gold-gradient">
+                <ScrollMetric end={5000} prefix="¥" suffix="〜" />
+              </span>
               <span className="dz-metric-label">1アポ確定・完全成果報酬</span>
             </div>
           </div>
@@ -126,19 +140,21 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-pain" id="pain">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-elevated" aria-hidden />
+
+      <section className="dz-pain dz-section dz-section--major" id="pain">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">Problem</span>
-          <h2 className="dz-section-title">
-            せっかくのサービスと信念を、<em>営業の壁</em>で諦めていませんか？
+          <h2 className="dz-section-title dz-section-title--ruled">
+            せっかくのサービスと信念を、<em className="dz-text-gold-gradient">営業の壁</em>で諦めていませんか？
           </h2>
           <p className="dz-section-lead">
             Web制作・SNS代行・AIコンテンツ——どのジャンルでも、同じ壁にぶつかっているクリエイターがいます。
           </p>
-          <div className="dz-pain-grid">
+          <div className="dz-pain-grid dz-reveal-stagger">
             {PAIN_ITEMS.map((text, i) => (
-              <article key={i} className="dz-pain-card">
-                <span className="dz-pain-num">{String(i + 1).padStart(2, "0")}</span>
+              <article key={i} className="dz-pain-card dz-glass-card">
+                <span className="dz-pain-num dz-num">{String(i + 1).padStart(2, "0")}</span>
                 <p>{text}</p>
               </article>
             ))}
@@ -149,11 +165,13 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-story" id="story">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-base" aria-hidden />
+
+      <section className="dz-story dz-section dz-section--compact" id="story">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">Our Story</span>
-          <h2 className="dz-section-title">
-            Divizeroが生まれた、<em>理由</em>。
+          <h2 className="dz-section-title dz-section-title--ruled">
+            Divizeroが生まれた、<em className="dz-text-gold-gradient">理由</em>。
           </h2>
           <div className="dz-story-body">
             <p>
@@ -169,18 +187,20 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-genres" id="genres">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-elevated" aria-hidden />
+
+      <section className="dz-genres dz-section dz-section--compact" id="genres">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">対応ジャンル</span>
-          <h2 className="dz-section-title">
-            SNSで届ける<em>無形商材</em>なら、すべて対応。
+          <h2 className="dz-section-title dz-section-title--ruled">
+            SNSで届ける<em className="dz-text-gold-gradient">無形商材</em>なら、すべて対応。
           </h2>
           <p className="dz-section-lead">
             共通するのは「SNSを通じて届ける無形商材」であること。ジャンルや経験年数を問わず、まずはご相談ください。
           </p>
-          <div className="dz-genres-grid">
+          <div className="dz-genres-grid dz-reveal-stagger">
             {GENRES.map((g) => (
-              <div key={g} className="dz-genre-tag">
+              <div key={g} className="dz-genre-tag dz-glass-card">
                 {g}
               </div>
             ))}
@@ -188,17 +208,21 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-reasons" id="reasons">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-base" aria-hidden />
+
+      <section className="dz-reasons dz-section dz-section--major" id="reasons">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">Why divizero</span>
-          <h2 className="dz-section-title">divizeroが選ばれる理由</h2>
+          <h2 className="dz-section-title dz-section-title--ruled">
+            divizeroが選ばれる理由
+          </h2>
           <p className="dz-section-lead">
             有象無象の営業代行とは一線を画す、クリエイター専門の営業インフラ。
           </p>
-          <div className="dz-reason-grid">
+          <div className="dz-reason-grid dz-reveal-stagger">
             {REASONS.map((r) => (
-              <article key={r.num} className="dz-reason-card">
-                <span className="dz-reason-num">{r.num}</span>
+              <article key={r.num} className="dz-reason-card dz-glass-card">
+                <span className="dz-reason-num dz-num">{r.num}</span>
                 <h3>{r.title}</h3>
                 <p>{r.text}</p>
               </article>
@@ -207,41 +231,45 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-flow" id="flow">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-deep" aria-hidden />
+
+      <section className="dz-flow dz-section dz-section--major" id="flow">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">How it works</span>
-          <h2 className="dz-section-title">
-            LINE登録から、<em>商談が届くまで</em>。
+          <h2 className="dz-section-title dz-section-title--ruled">
+            LINE登録から、<em className="dz-text-gold-gradient">商談が届くまで</em>。
           </h2>
           <p className="dz-section-lead">
             ヒアリングから稼働開始まで、最短1週間。あなたがやることは最初のLINE登録だけです。
           </p>
-          <div className="dz-flow-grid">
+          <div className="dz-flow-grid dz-reveal-stagger">
             {FLOW_STEPS.map((step) => (
-              <div key={step.num} className="dz-flow-step">
-                <div className="dz-flow-dot">{step.num}</div>
+              <div key={step.num} className="dz-flow-step dz-glass-card">
+                <div className="dz-flow-dot dz-num">{step.num}</div>
                 <h3 className="dz-flow-title">{step.title}</h3>
                 <p className="dz-flow-text">{step.text}</p>
               </div>
             ))}
           </div>
-          <div className="dz-flow-note">
+          <div className="dz-flow-note dz-glass-card">
             URLへの誘導は一切行いません。テキストチャットだけで自然にアポを獲得する仕組みを構築しているため、あなたのブランドに傷がつきません。
           </div>
         </div>
       </section>
 
-      <section className="dz-pricing" id="pricing">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-elevated" aria-hidden />
+
+      <section className="dz-pricing dz-section dz-section--major" id="pricing">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">Pricing</span>
-          <h2 className="dz-section-title">
-            売上が出るまで、<em>一切費用はかかりません</em>。
+          <h2 className="dz-section-title dz-section-title--ruled">
+            売上が出るまで、<em className="dz-text-gold-gradient">一切費用はかかりません</em>。
           </h2>
           <p className="dz-section-lead">
             完全成果報酬だから、リスクはゼロ。チームが本気を出す理由は「成果が出ないと報酬がゼロだから」です。
           </p>
           <DivizeroCompareTable />
-          <div className="dz-pricing-logic">
+          <div className="dz-pricing-logic dz-glass-card">
             <h3>どちらのプランを選べばいい？</h3>
             <p>
               商材単価が5万円以下なら「1アポ5,000円プラン」が割安です。5万円を超える案件が中心であれば「成約時10%プラン」の方がROIが合うケースが多くなります。迷ったらLINEでご相談ください。
@@ -250,17 +278,21 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-simulator-section">
+      <div className="dz-slope dz-slope--to-base" aria-hidden />
+
+      <section className="dz-simulator-section dz-section dz-section--major">
         <div className="dz-container">
           <DivizeroRewardSimulator />
         </div>
       </section>
 
-      <section className="dz-faq" id="faq">
-        <div className="dz-container">
+      <div className="dz-slope dz-slope--to-elevated" aria-hidden />
+
+      <section className="dz-faq dz-section dz-section--compact" id="faq">
+        <div className="dz-container dz-reveal">
           <span className="dz-label">FAQ</span>
-          <h2 className="dz-section-title">よくある質問</h2>
-          <div className="dz-faq-list">
+          <h2 className="dz-section-title dz-section-title--ruled">よくある質問</h2>
+          <div className="dz-faq-list dz-reveal-stagger">
             {FAQ_ITEMS.map((item) => (
               <div key={item.q} className="dz-faq-item">
                 <p className="dz-faq-q">{item.q}</p>
@@ -271,18 +303,22 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <section className="dz-cta">
-        <div className="dz-container dz-cta-inner">
+      <div className="dz-slope dz-slope--to-deep" aria-hidden />
+
+      <section className="dz-cta dz-section dz-section--major">
+        <div className="dz-container dz-cta-inner dz-reveal">
           <span className="dz-label">Get Started</span>
-          <h2 className="dz-section-title">
-            営業はdivizeroに任せて、<em>制作に戻る</em>。
+          <h2 className="dz-section-title dz-section-title--ruled">
+            営業はdivizeroに任せて、<em className="dz-text-gold-gradient">制作に戻る</em>。
           </h2>
           <p className="dz-section-lead">
             公式LINEでヒアリング後、最短ルートで営業設計を開始します。初期費用ゼロ・完全成果報酬。まず話を聞くだけでも大丈夫です。
           </p>
-          <LineCta className="dz-btn-primary dz-btn-primary--large" />
+          <LineCta className="dz-btn-primary dz-btn-primary--shine dz-btn-primary--large" />
         </div>
       </section>
+
+      <DivizeroLpMotion />
     </div>
   );
 }

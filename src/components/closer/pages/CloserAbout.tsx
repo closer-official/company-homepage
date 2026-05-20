@@ -15,7 +15,8 @@ export default function CloserAbout() {
         <div className="closer-about-hero-right">
           <p className="closer-about-hero-quote">
             才能はあるのに、
-            <span>営業だけが進まない。</span>
+            <br />
+            <em>営業だけが進まない。</em>
           </p>
         </div>
       </div>
