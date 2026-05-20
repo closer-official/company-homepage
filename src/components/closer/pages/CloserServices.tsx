@@ -36,12 +36,12 @@ const GENRES = [
 
 export default function CloserServices() {
   return (
-    <>
-      <div className="closer-services-hero">
+    <div className="dz-subpage">
+      <div className="closer-services-hero dz-reveal is-visible">
         <div className="closer-services-hero-grid">
           <div className="closer-services-hero-main">
             <span className="closer-section-label">Services</span>
-            <h1 className="closer-page-hero-title">
+            <h1 className="closer-page-hero-title closer-page-hero-title--ruled">
               クリエイターの<em>営業代行</em>を、データで設計する。
             </h1>
           </div>
@@ -51,10 +51,10 @@ export default function CloserServices() {
         </div>
       </div>
 
-      <div className="closer-services-grid">
+      <div className="closer-services-grid dz-reveal-stagger">
         {SERVICES.map((s) => (
-          <div key={s.num} className="closer-service-card">
-            <span className="closer-service-num">{s.num}</span>
+          <div key={s.num} className="closer-service-card dz-glass-card">
+            <span className="closer-service-num dz-num">{s.num}</span>
             <h2 className="closer-service-name">{s.name}</h2>
             <p className="closer-service-subname">{s.subname}</p>
             <p className="closer-service-desc">{s.desc}</p>
@@ -69,55 +69,52 @@ export default function CloserServices() {
         ))}
       </div>
 
-      <div className="closer-services-genres">
+      <div className="closer-services-genres dz-reveal">
         <span className="closer-section-label">対応ジャンル</span>
-        <h2 className="closer-section-title">
+        <h2 className="closer-section-title closer-section-title--ruled">
           SNSで届ける無形商材なら、<em>すべて対応</em>。
         </h2>
-        <p
-          className="closer-service-desc"
-          style={{ marginBottom: "32px", maxWidth: "600px" }}
-        >
+        <p className="closer-service-desc" style={{ marginBottom: "32px", maxWidth: "600px" }}>
           共通するのは「SNSを通じて届ける無形商材」であること。ジャンルや経験年数を問わず、まずはご相談ください。
         </p>
-        <div className="closer-services-genre-grid">
+        <div className="closer-services-genre-grid dz-reveal-stagger">
           {GENRES.map((g) => (
-            <div key={g} className="closer-genre-tag">
+            <div key={g} className="closer-genre-tag dz-glass-card">
               {g}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="closer-services-flow">
+      <div className="closer-services-flow dz-reveal">
         <span className="closer-section-label">How it works</span>
-        <h2 className="closer-section-title">
+        <h2 className="closer-section-title closer-section-title--ruled">
           LINE登録から、<em>商談が届くまで</em>。
         </h2>
-        <div className="closer-services-flow-steps">
-          <div className="closer-services-flow-step">
-            <span className="closer-services-flow-num">01</span>
+        <div className="closer-services-flow-steps dz-reveal-stagger">
+          <div className="closer-services-flow-step dz-glass-card">
+            <span className="closer-services-flow-num dz-num">01</span>
             <p>公式LINEに登録し、商材・ターゲット・課題をヒアリング</p>
           </div>
-          <div className="closer-services-flow-step">
-            <span className="closer-services-flow-num">02</span>
+          <div className="closer-services-flow-step dz-glass-card">
+            <span className="closer-services-flow-num dz-num">02</span>
             <p>アカウント分析・ターゲット設計・文面設計</p>
           </div>
-          <div className="closer-services-flow-step">
-            <span className="closer-services-flow-num">03</span>
+          <div className="closer-services-flow-step dz-glass-card">
+            <span className="closer-services-flow-num dz-num">03</span>
             <p>チームがDM運用・返信対応・日程調整を代行</p>
           </div>
-          <div className="closer-services-flow-step">
-            <span className="closer-services-flow-num">04</span>
+          <div className="closer-services-flow-step dz-glass-card">
+            <span className="closer-services-flow-num dz-num">04</span>
             <p>前向きな方だけあなたのカレンダーに商談を届ける</p>
           </div>
         </div>
-        <p className="closer-flow-note">
+        <p className="closer-flow-note dz-glass-card">
           URLへの誘導は一切行いません。テキストチャットだけで自然にアポを獲得する仕組みを構築しているため、あなたのブランドに傷がつきません。
         </p>
       </div>
 
-      <section className="closer-cta-section">
+      <section className="closer-cta-section dz-reveal">
         <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
           営業設計を<em>一緒に</em>始めましょう。
@@ -129,11 +126,11 @@ export default function CloserServices() {
           href={DIVIZERO_LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="closer-btn-gold"
+          className="closer-btn-gold closer-btn-gold--shine"
         >
           まずは無料相談（公式LINE）
         </a>
       </section>
-    </>
+    </div>
   );
 }

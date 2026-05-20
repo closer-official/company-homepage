@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function DivizeroLpMotion() {
   useEffect(() => {
-    const root = document.querySelector(".dz-lp");
+    const root = document.querySelector(".closer-site--divizero");
     if (!root) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

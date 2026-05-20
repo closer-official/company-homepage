@@ -1,7 +1,6 @@
 import DivizeroCompareTable from "../DivizeroCompareTable";
 import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
 import DivizeroHeroParticles from "../divizero/DivizeroHeroParticles";
-import DivizeroLpMotion from "../divizero/DivizeroLpMotion";
 import { ScrollMetric } from "../divizero/AnimatedNumber";
 import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
@@ -318,7 +317,6 @@ export default function CloserHome() {
         </div>
       </section>
 
-      <DivizeroLpMotion />
     </div>
   );
 }

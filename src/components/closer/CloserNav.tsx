@@ -4,22 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-const ALL_LINKS = [
-  { href: "/about", en: "About", ja: "概要" },
-  { href: "/services", en: "Services", ja: "サービス" },
-  { href: "/tools", en: "Tools", ja: "ツール" },
-  { href: "/pricing", en: "Pricing", ja: "料金" },
-  { href: "/works", en: "Results", ja: "実績" },
-] as const;
-
-const DIVIZERO_HOME_LINKS = [
-  { href: "#pain", en: "Problem", ja: "課題" },
-  { href: "#reasons", en: "Why", ja: "強み" },
-  { href: "#flow", en: "Flow", ja: "流れ" },
-  { href: "#pricing", en: "Pricing", ja: "料金" },
-  { href: "#simulator", en: "Simulator", ja: "試算" },
-  { href: "#faq", en: "FAQ", ja: "質問" },
-] as const;
+import {
+  DIVIZERO_HOME_ANCHORS,
+  DIVIZERO_SITE_LINKS,
+} from "@/lib/divizero-nav";
 
 const LINE_CTA_URL = "https://lin.ee/q4V81Ks";
 
@@ -32,13 +20,13 @@ export default function CloserNav() {
   const [open, setOpen] = useState(false);
 
   const navLinks = useMemo(() => {
-    if (isDivizeroHome) return [...DIVIZERO_HOME_LINKS];
+    if (isDivizeroHome) return [...DIVIZERO_HOME_ANCHORS];
     if (isEssayColumn) {
-      return ALL_LINKS.filter(
+      return DIVIZERO_SITE_LINKS.filter(
         (l) => l.href !== "/pricing" && l.href !== "/works",
       );
     }
-    return [...ALL_LINKS];
+    return [...DIVIZERO_SITE_LINKS];
   }, [isDivizeroHome, isEssayColumn]);
 
   useEffect(() => {
@@ -136,7 +124,7 @@ export default function CloserNav() {
         aria-hidden={!open}
       >
         <Link href="/" onClick={() => setOpen(false)}>
-          Top
+          Top / トップ
         </Link>
         {navLinks.map(({ href, en, ja }) => (
           <Link key={href} href={href} onClick={() => setOpen(false)}>

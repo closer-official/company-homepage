@@ -2,10 +2,10 @@ import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 export default function CloserPartner() {
   return (
-    <>
-      <div className="closer-partner-hero">
+    <div className="dz-subpage">
+      <div className="closer-partner-hero dz-reveal is-visible">
         <span className="closer-section-label">Partner</span>
-        <h1 className="closer-partner-title">
+        <h1 className="closer-partner-title closer-page-hero-title--ruled">
           営業オペレーションを<em>一緒に</em>回す。
         </h1>
         <p className="closer-partner-sub">
@@ -15,13 +15,13 @@ export default function CloserPartner() {
           href={DIVIZERO_LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="closer-btn-gold"
+          className="closer-btn-gold closer-btn-gold--shine"
         >
           パートナーについて相談する（公式LINE）
         </a>
       </div>
 
-      <div className="closer-partner-body">
+      <div className="closer-partner-body dz-reveal">
         <p>
           divizeroの営業代行は、データと仕組みで動くオペレーションが核心です。その現場を担うパートナーとして、以下のような方を歓迎します。
         </p>
@@ -35,6 +35,6 @@ export default function CloserPartner() {
           ※ クリエイター向けの営業代行依頼は、トップページのLINE登録からお進みください。
         </p>
       </div>
-    </>
+    </div>
   );
 }

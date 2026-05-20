@@ -18,10 +18,10 @@ const FAQ_ITEMS = [
 
 export default function CloserPricing() {
   return (
-    <>
-      <div className="closer-pricing-hero">
+    <div className="dz-subpage">
+      <div className="closer-pricing-hero dz-reveal is-visible">
         <span className="closer-section-label">Pricing</span>
-        <h1 className="closer-page-hero-title">
+        <h1 className="closer-page-hero-title closer-page-hero-title--ruled">
           売上が出るまで、<em>一切費用はかかりません</em>。
         </h1>
         <p className="closer-page-hero-lead">
@@ -29,25 +29,27 @@ export default function CloserPricing() {
         </p>
       </div>
 
-      <div className="closer-pricing-soft-band">
+      <div className="closer-pricing-soft-band dz-reveal dz-glass-card">
         商材単価が5万円を超える場合は、成約時報酬10%プランも選択可能です。詳細はトップページの報酬シミュレーターでご確認ください。
       </div>
 
-      <div className="closer-pricing-compare-wrap">
+      <div className="closer-pricing-compare-wrap dz-reveal">
         <DivizeroCompareTable />
       </div>
 
-      <div className="closer-pricing-guide">
+      <div className="closer-pricing-guide dz-reveal">
         <span className="closer-section-label">Plan Guide</span>
-        <h2 className="closer-section-title">どちらのプランを選べばいい？</h2>
-        <div className="closer-pricing-guide-grid">
-          <div className="closer-pricing-guide-card">
+        <h2 className="closer-section-title closer-section-title--ruled">
+          どちらのプランを選べばいい？
+        </h2>
+        <div className="closer-pricing-guide-grid dz-reveal-stagger">
+          <div className="closer-pricing-guide-card dz-glass-card">
             <p className="closer-pricing-guide-label">1アポ5,000円プランが向いている方</p>
             <p className="closer-pricing-guide-text">
               商材単価が5万円以下の方。まず少ないリスクでお試ししたい方。アポ数を優先したい方。
             </p>
           </div>
-          <div className="closer-pricing-guide-card">
+          <div className="closer-pricing-guide-card dz-glass-card">
             <p className="closer-pricing-guide-label">成約時10%プランが向いている方</p>
             <p className="closer-pricing-guide-text">
               商材単価が5万円を超える方。成約数より受注単価を重視したい方。高単価案件を量産したい方。
@@ -56,9 +58,9 @@ export default function CloserPricing() {
         </div>
       </div>
 
-      <div className="closer-pricing-faq">
+      <div className="closer-pricing-faq dz-reveal">
         <span className="closer-section-label">FAQ</span>
-        <h2 className="closer-section-title">よくある質問</h2>
+        <h2 className="closer-section-title closer-section-title--ruled">よくある質問</h2>
         <div className="dz-faq-list">
           {FAQ_ITEMS.map((item) => (
             <div key={item.q} className="dz-faq-item">
@@ -69,11 +71,11 @@ export default function CloserPricing() {
         </div>
       </div>
 
-      <div className="closer-pricing-note">
+      <div className="closer-pricing-note dz-reveal">
         正式な条件・適用プランは、ヒアリング後にご案内します。トップページのシミュレーターは目安です。
       </div>
 
-      <section className="closer-cta-section">
+      <section className="closer-cta-section dz-reveal">
         <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
           まずは<em>無料相談</em>から。
@@ -85,11 +87,11 @@ export default function CloserPricing() {
           href={DIVIZERO_LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="closer-btn-gold"
+          className="closer-btn-gold closer-btn-gold--shine"
         >
           まずは無料相談（公式LINE）
         </a>
       </section>
-    </>
+    </div>
   );
 }

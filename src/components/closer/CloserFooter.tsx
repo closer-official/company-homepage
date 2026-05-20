@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { BilingualInline, BilingualLink } from "./BilingualText";
+import {
+  DIVIZERO_FOOTER_COLUMN,
+  DIVIZERO_FOOTER_LEGAL,
+  DIVIZERO_FOOTER_OTHER,
+  DIVIZERO_FOOTER_TOP,
+  DIVIZERO_SITE_LINKS,
+} from "@/lib/divizero-nav";
 
 export default function CloserFooter() {
   return (
@@ -10,7 +18,9 @@ export default function CloserFooter() {
             営業代行プラットフォーム divizero。クリエイターの営業をデータと仕組みで自動化し、制作に集中できる環境をつくります。
           </p>
           <div className="closer-footer-social-wrap">
-            <div className="closer-footer-col-title">Follow / 公式</div>
+            <div className="closer-footer-col-title">
+              <BilingualInline en="Follow" ja="公式" />
+            </div>
             <div className="closer-footer-social">
               <a
                 href="https://www.instagram.com/tadanosuke.divizero"
@@ -18,9 +28,7 @@ export default function CloserFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
-                <span className="closer-footer-social-sep"> / </span>
-                <span className="closer-footer-social-ja">インスタ</span>
+                <BilingualInline en="Instagram" ja="インスタ" />
               </a>
               <a
                 href="https://x.com/21closer_ai"
@@ -28,9 +36,7 @@ export default function CloserFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                X
-                <span className="closer-footer-social-sep"> / </span>
-                <span className="closer-footer-social-ja">Twitter</span>
+                <BilingualInline en="X" ja="Twitter" />
               </a>
               <a
                 href="https://lin.ee/q4V81Ks"
@@ -38,67 +44,64 @@ export default function CloserFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                LINE
-                <span className="closer-footer-social-sep"> / </span>
-                <span className="closer-footer-social-ja">ライン</span>
+                <BilingualInline en="LINE" ja="ライン" />
               </a>
             </div>
           </div>
         </div>
         <div>
-          <div className="closer-footer-col-title">Pages</div>
+          <div className="closer-footer-col-title">
+            <BilingualInline en="Pages" ja="ページ" />
+          </div>
           <ul className="closer-footer-links">
             <li>
-              <Link href="/">Top</Link>
+              <BilingualLink
+                href={DIVIZERO_FOOTER_TOP.href}
+                en={DIVIZERO_FOOTER_TOP.en}
+                ja={DIVIZERO_FOOTER_TOP.ja}
+              />
             </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-            <li>
-              <Link href="/services">Services</Link>
-            </li>
-            <li>
-              <Link href="/tools">Tools / ツール</Link>
-            </li>
-            <li>
-              <Link href="/pricing">Pricing</Link>
-            </li>
-            <li>
-              <Link href="/works">Results / 実績</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
+            {DIVIZERO_SITE_LINKS.map((link) => (
+              <li key={link.href}>
+                <BilingualLink href={link.href} en={link.en} ja={link.ja} />
+              </li>
+            ))}
           </ul>
         </div>
         <div>
-          <div className="closer-footer-col-title">Column</div>
+          <div className="closer-footer-col-title">
+            <BilingualInline en="Column" ja="コラム" />
+          </div>
           <ul className="closer-footer-links">
-            <li>
-              <Link href="/essay">コラム一覧</Link>
-            </li>
+            {DIVIZERO_FOOTER_COLUMN.map((link) => (
+              <li key={link.href}>
+                <BilingualLink href={link.href} en={link.en} ja={link.ja} />
+              </li>
+            ))}
           </ul>
         </div>
         <div>
-          <div className="closer-footer-col-title">Legal</div>
+          <div className="closer-footer-col-title">
+            <BilingualInline en="Legal" ja="法務" />
+          </div>
           <ul className="closer-footer-links">
-            <li>
-              <Link href="/operator">運営者情報</Link>
-            </li>
-            <li>
-              <Link href="/tokusho">特定商取引法に基づく表記</Link>
-            </li>
-            <li>
-              <Link href="/privacy-policy">プライバシーポリシー</Link>
-            </li>
+            {DIVIZERO_FOOTER_LEGAL.map((link) => (
+              <li key={link.href}>
+                <BilingualLink href={link.href} en={link.en} ja={link.ja} />
+              </li>
+            ))}
           </ul>
         </div>
         <div>
-          <div className="closer-footer-col-title">Other</div>
+          <div className="closer-footer-col-title">
+            <BilingualInline en="Other" ja="その他" />
+          </div>
           <ul className="closer-footer-links">
-            <li>
-              <Link href="/partners">パートナー募集</Link>
-            </li>
+            {DIVIZERO_FOOTER_OTHER.map((link) => (
+              <li key={link.href}>
+                <BilingualLink href={link.href} en={link.en} ja={link.ja} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>

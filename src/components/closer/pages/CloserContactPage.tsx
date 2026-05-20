@@ -14,7 +14,7 @@ export default function CloserContactPage() {
   const isPartner = variant === "partner";
 
   return (
-    <div className="closer-contact-wrap">
+    <div className="dz-subpage closer-contact-wrap dz-reveal is-visible">
       <div className="closer-contact-left">
         {isPartner ? (
           <>

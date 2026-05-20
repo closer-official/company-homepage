@@ -2,11 +2,11 @@ import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 export default function CloserAbout() {
   return (
-    <>
-      <div className="closer-about-hero">
+    <div className="dz-subpage">
+      <div className="closer-about-hero dz-reveal is-visible">
         <div className="closer-about-hero-left">
           <span className="closer-section-label">About</span>
-          <h1 className="closer-page-hero-title">
+          <h1 className="closer-page-hero-title closer-page-hero-title--ruled">
             営業を仕組み化し、
             <br />
             クリエイターに<em>制作の時間</em>を返す。
@@ -21,7 +21,7 @@ export default function CloserAbout() {
         </div>
       </div>
 
-      <div className="closer-about-body">
+      <div className="closer-about-body dz-reveal">
         <p>
           <em>divizero</em>（ディビゼロ）は、クリエイター・フリーランス専門の営業代行プラットフォームです。
         </p>
@@ -45,15 +45,17 @@ export default function CloserAbout() {
         </p>
       </div>
 
-      <div className="closer-about-brand">
+      <div className="closer-about-brand dz-reveal dz-glass-card">
         <span className="closer-section-label">Brand Story</span>
-        <h2 className="closer-about-brand-title">Divizeroという名前の意味</h2>
+        <h2 className="closer-about-brand-title closer-about-brand-title--ruled">
+          Divizeroという名前の意味
+        </h2>
         <p className="closer-about-brand-text">
           「割り切れない（Divide + Zero）」という数学の概念から来ています。本来ひとりでは越えられないお金・時間・スキルのハードルを、チームと仕組みの力でゼロに近づける。あなたのビジネスを「割り切れない壁」で終わらせないために、私たちはいます。
         </p>
       </div>
 
-      <section className="closer-cta-section">
+      <section className="closer-cta-section dz-reveal">
         <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
           まずは<em>無料相談</em>から。
@@ -65,11 +67,11 @@ export default function CloserAbout() {
           href={DIVIZERO_LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="closer-btn-gold"
+          className="closer-btn-gold closer-btn-gold--shine"
         >
           まずは無料相談（公式LINE）
         </a>
       </section>
-    </>
+    </div>
   );
 }

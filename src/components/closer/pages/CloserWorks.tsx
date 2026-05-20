@@ -1,22 +1,5 @@
+import CloserWorksMetrics from "../CloserWorksMetrics";
 import { DIVIZERO_LINE_URL } from "@/lib/divizero";
-
-const METRICS = [
-  {
-    value: "40%",
-    label: "DM返信率",
-    note: "業界平均2〜4%に対して",
-  },
-  {
-    value: "¥0",
-    label: "初期費用",
-    note: "完全成果報酬・固定費ゼロ",
-  },
-  {
-    value: "100%",
-    label: "ブランド保全",
-    note: "URL誘導なし・テキストのみ",
-  },
-];
 
 const STRENGTHS = [
   {
@@ -35,10 +18,10 @@ const STRENGTHS = [
 
 export default function CloserWorks() {
   return (
-    <>
-      <div className="closer-works-hero">
+    <div className="dz-subpage">
+      <div className="closer-works-hero dz-reveal is-visible">
         <span className="closer-section-label">Results</span>
-        <h1 className="closer-page-hero-title">
+        <h1 className="closer-page-hero-title closer-page-hero-title--ruled">
           数字で見る<em>営業成果</em>。
         </h1>
         <p className="closer-page-hero-lead">
@@ -46,19 +29,11 @@ export default function CloserWorks() {
         </p>
       </div>
 
-      <div className="closer-works-metrics">
-        {METRICS.map((m) => (
-          <div key={m.label} className="closer-works-metric-card">
-            <div className="closer-works-metric-value">{m.value}</div>
-            <div className="closer-works-metric-label">{m.label}</div>
-            <div className="closer-works-metric-note">{m.note}</div>
-          </div>
-        ))}
-      </div>
+      <CloserWorksMetrics />
 
-      <div className="closer-works-context">
+      <div className="closer-works-context dz-reveal">
         <span className="closer-section-label">What the numbers mean</span>
-        <h2 className="closer-section-title">
+        <h2 className="closer-section-title closer-section-title--ruled">
           返信率40%とは、<em>どういう意味か</em>。
         </h2>
         <p className="closer-works-context-text">
@@ -69,14 +44,14 @@ export default function CloserWorks() {
         </p>
       </div>
 
-      <div className="closer-works-strengths">
+      <div className="closer-works-strengths dz-reveal">
         <span className="closer-section-label">How we achieve this</span>
-        <h2 className="closer-section-title">
+        <h2 className="closer-section-title closer-section-title--ruled">
           この数字が出る<em>3つの理由</em>。
         </h2>
-        <div className="closer-works-strengths-grid">
+        <div className="closer-works-strengths-grid dz-reveal-stagger">
           {STRENGTHS.map((s) => (
-            <div key={s.title} className="closer-works-strength-card">
+            <div key={s.title} className="closer-works-strength-card dz-glass-card">
               <h3 className="closer-works-strength-title">{s.title}</h3>
               <p className="closer-works-strength-text">{s.text}</p>
             </div>
@@ -84,7 +59,7 @@ export default function CloserWorks() {
         </div>
       </div>
 
-      <section className="closer-cta-section">
+      <section className="closer-cta-section dz-reveal">
         <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
           次は、あなたの<em>数字</em>を作りましょう。
@@ -96,11 +71,11 @@ export default function CloserWorks() {
           href={DIVIZERO_LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="closer-btn-gold"
+          className="closer-btn-gold closer-btn-gold--shine"
         >
           まずは無料相談（公式LINE）
         </a>
       </section>
-    </>
+    </div>
   );
 }

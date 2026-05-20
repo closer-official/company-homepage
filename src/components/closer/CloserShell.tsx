@@ -5,6 +5,7 @@ import "./closer.css";
 import CloserNav from "./CloserNav";
 import CloserFooter from "./CloserFooter";
 import { useCloserAnimate } from "./useCloserAnimate";
+import DivizeroLpMotion from "./divizero/DivizeroLpMotion";
 
 export default function CloserShell({
   children,
@@ -24,8 +25,18 @@ export default function CloserShell({
         .join(" ")}
     >
       <CloserNav />
-      <div className="closer-main">{children}</div>
+      <div
+        className={[
+          "closer-main",
+          variant === "divizero" ? "closer-main--divizero" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {children}
+      </div>
       <CloserFooter />
+      {variant === "divizero" ? <DivizeroLpMotion /> : null}
     </div>
   );
 }
