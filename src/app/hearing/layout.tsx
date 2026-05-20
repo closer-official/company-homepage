@@ -1,9 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Web制作ヒアリング',
-  description:
-    'Webページ作成の事前ヒアリング項目。目的、ターゲット、デザイン、参考URLなどを整理できます。',
+  title: "お問い合わせへ",
+  description: "divizeroのお問い合わせページへ移動します。",
 };
 
 export default function HearingLayout({ children }: { children: React.ReactNode }) {

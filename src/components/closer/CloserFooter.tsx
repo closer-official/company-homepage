@@ -5,9 +5,7 @@ export default function CloserFooter() {
     <footer className="closer-footer">
       <div className="closer-footer-grid">
         <div>
-          <div className="closer-footer-brand">
-            Closer <span>by</span> divizero
-          </div>
+          <div className="closer-footer-brand">divizero</div>
           <p className="closer-footer-tagline">
             営業代行プラットフォーム divizero。クリエイターの営業をデータと仕組みで自動化し、制作に集中できる環境をつくります。
           </p>
@@ -66,7 +64,7 @@ export default function CloserFooter() {
               <Link href="/pricing">Pricing</Link>
             </li>
             <li>
-              <Link href="/works">Works / Voice</Link>
+              <Link href="/works">Results / 実績</Link>
             </li>
             <li>
               <Link href="/contact">Contact</Link>
@@ -106,7 +104,7 @@ export default function CloserFooter() {
       </div>
       <div className="closer-footer-bottom">
         <span>
-          © {new Date().getFullYear()} Closer事務局 / Closer by divizero（ディビゼロ）
+          © {new Date().getFullYear()} Closer事務局 / divizero（ディビゼロ）
         </span>
         <span>運営元：Closer事務局</span>
       </div>

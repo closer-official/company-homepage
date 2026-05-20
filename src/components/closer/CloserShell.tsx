@@ -8,7 +8,7 @@ import { useCloserAnimate } from "./useCloserAnimate";
 
 export default function CloserShell({
   children,
-  variant = "default",
+  variant = "divizero",
 }: {
   children: ReactNode;
   variant?: "default" | "divizero";

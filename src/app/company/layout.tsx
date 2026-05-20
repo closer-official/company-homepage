@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Company',
-  description: 'Tadanosuke Closer・会社概要。Closer事務局の情報です。',
+  title: "Company",
+  description: "divizero・Closer事務局の会社概要。",
 };
 
 export default function CompanyLayout({ children }: { children: React.ReactNode }) {

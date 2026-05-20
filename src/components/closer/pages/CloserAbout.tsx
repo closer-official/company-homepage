@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 export default function CloserAbout() {
   return (
@@ -7,49 +7,53 @@ export default function CloserAbout() {
         <div className="closer-about-hero-left">
           <span className="closer-section-label">About</span>
           <h1 className="closer-page-hero-title">
-            なぜ、Closer by divizero が
+            営業を仕組み化し、
             <br />
-            この形でWeb制作をしているのか。
+            クリエイターに<em>制作の時間</em>を返す。
           </h1>
         </div>
         <div className="closer-about-hero-right">
           <p className="closer-about-hero-quote">
-            SNSだけでは伝わりきらない。
-            <span>でも、整えれば伝わる。</span>
+            才能はあるのに、
+            <span>営業だけが進まない。</span>
           </p>
         </div>
       </div>
       <div className="closer-about-body">
         <p>
-          表記は <em>divizero</em>、ブランド読みは<strong>ディビゼロ</strong>です。
+          <em>divizero</em>（ディビゼロ）は、クリエイター・フリーランスの営業代行プラットフォームです。
         </p>
         <p>
-          SNSやGoogleマップだけでも、お店の魅力はある程度伝わります。ただ、それだけでは初めてのお客様に必要な情報が散らばってしまい、来店前の不安や迷いが残ることがあります。
+          DMを送っても返信が来ない。モニター募集には反応があるのに、案件化しない。制作に集中したいのに、営業の心理的ハードルで止まってしまう——そんな状態を、データとオペレーションで解消します。
         </p>
         <p>
           <strong>
-            Closer by divizero
-            は、そうした状態を少しでも減らすために、魅力と情報を整理したWebページを制作しています。
+            一般的なDM営業の返信率は2〜4%。divizeroはターゲット選定とアカウント最適化により、返信率40%を実現しています。
           </strong>
         </p>
         <p>
-          私たちが重視しているのは、見た目だけを整えることではありません。写真や世界観の良さを活かしながら、初めてのお客様が安心してお店を知れる状態を作ることです。
+          テンプレートの使い回しはせず、クライアントごとにアカウント特性を分析。送信文面・時間帯・2段階ステルスアプローチを組み合わせ、ブランドを傷つけずにアポイントを獲得します。
         </p>
         <p>
-          大きな制作会社のような過剰な提案ではなく、今のお店にとって必要な範囲から始められることも大切にしています。まずは今ある情報を活かし、必要に応じて少しずつ整えていく。その考え方で、無理のないWeb制作を行っています。
+          成果報酬型（1アポ5,000円〜）で、営業に時間を奪われない環境をつくる。それが divizero の役割です。
         </p>
       </div>
       <section className="closer-cta-section">
-        <span className="closer-cta-label">Contact</span>
+        <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
-          <em>まずは</em>、お気軽にご相談ください。
+          まずは<em>公式LINE</em>から。
         </h2>
         <p className="closer-cta-sub">
-          どんな段階でも構いません。現在の状況をお聞かせいただくところから始まります。
+          商材・ターゲット・現状の課題をお聞きし、最適なプランをご提案します。
         </p>
-        <Link href="/contact" className="closer-btn-gold">
-          無料で相談する
-        </Link>
+        <a
+          href={DIVIZERO_LINE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="closer-btn-gold"
+        >
+          divizeroに営業を丸投げして制作に集中する（公式LINE登録）
+        </a>
       </section>
     </>
   );

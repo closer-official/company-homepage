@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'Tadanosuke Closer・ただのすけの想い。個人事業主だからこそのスピードと発想で、本当に価値のあるWebを提案します。',
+  title: "About",
+  description:
+    "営業代行プラットフォーム divizero の考え方。クリエイターの営業をデータと仕組みで自動化します。",
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

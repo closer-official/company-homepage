@@ -4,26 +4,15 @@ import CloserShell from "@/components/closer/CloserShell";
 import CloserContactPage from "@/components/closer/pages/CloserContactPage";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "お問い合わせ",
   description:
-    "ディビゼロ（divizero）の飲食・実店舗向けWeb制作への無料相談・お問い合わせ。認定パートナー募集のお問い合わせにも対応しています。",
+    "divizero営業代行のご相談・パートナー（オペレーター）募集のお問い合わせ。公式LINEからもご連絡いただけます。",
 };
-
-function ContactFallback() {
-  return (
-    <div className="closer-contact-wrap">
-      <div className="closer-contact-left" aria-hidden>
-        <p className="closer-contact-sub">読み込み中…</p>
-      </div>
-      <div className="closer-contact-right" />
-    </div>
-  );
-}
 
 export default function ContactPage() {
   return (
     <CloserShell>
-      <Suspense fallback={<ContactFallback />}>
+      <Suspense fallback={null}>
         <CloserContactPage />
       </Suspense>
     </CloserShell>

@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import CloserContactForm from "../CloserContactForm";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 import type { ContactFormVariant } from "../contactTypes";
 
 export default function CloserContactPage() {
   const searchParams = useSearchParams();
   const variant: ContactFormVariant =
-    searchParams.get("for") === "partner" ? "partner" : "store";
+    searchParams.get("for") === "partner" ? "partner" : "client";
 
   const isPartner = variant === "partner";
 
@@ -18,22 +19,31 @@ export default function CloserContactPage() {
         {isPartner ? (
           <>
             <h1 className="closer-contact-title">
-              認定パートナーについて、
+              パートナー（オペレーター）について、
               <br />
               お気軽に<em>ご相談ください</em>。
             </h1>
             <p className="closer-contact-sub">
-              店舗リサーチ・初回アプローチ・ヒアリング支援など、役割や条件の詳細はお問い合わせ後にご案内します。まずはご質問やご経験をお聞かせください。
+              DM運用・ターゲット管理・アポ獲得支援など、役割や条件の詳細はお問い合わせ後にご案内します。
             </p>
             <p className="closer-contact-note">
-              お店のWeb制作をご検討の方は
+              営業代行のご依頼（クリエイター向け）は
               <Link href="/contact" className="closer-contact-switch">
-                店舗向けお問い合わせ
+                こちら
               </Link>
-              からお進みください。
+              または
+              <a
+                href={DIVIZERO_LINE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="closer-contact-switch"
+              >
+                公式LINE
+              </a>
+              から。
               <br />
               <br />
-              ブランド：Closer by divizero（読み：ディビゼロ）
+              ブランド：divizero（読み：ディビゼロ）
               <br />
               運営元：Closer事務局
             </p>
@@ -41,28 +51,33 @@ export default function CloserContactPage() {
         ) : (
           <>
             <h1 className="closer-contact-title">
-              まずは、お店の
+              営業代行のご相談、
               <br />
-              状況を<em>聞かせてください</em>。
+              まずは<em>状況</em>を聞かせてください。
             </h1>
             <p className="closer-contact-sub">
-              「こういうものが必要か分からない」という段階でも問題ありません。今の発信状況やお悩みに合わせて、必要な形をご提案します。
+              商材・ターゲット・現状の課題をお聞きし、最適なプランをご提案します。公式LINEからのご相談も歓迎です。
             </p>
             <p className="closer-contact-note">
-              Instagram経由でご案内した場合も、正式なご相談・お申し込みは所定フォームから進行いたします。
-              <br />
-              <br />
-              認定パートナー募集のお問い合わせは
-              <Link
-                href="/contact?for=partner"
+              <a
+                href={DIVIZERO_LINE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="closer-contact-switch"
               >
+                公式LINEで相談する
+              </a>
+              （推奨）
+              <br />
+              <br />
+              パートナー（オペレーター）募集は
+              <Link href="/contact?for=partner" className="closer-contact-switch">
                 こちら
               </Link>
               。
               <br />
               <br />
-              ブランド：Closer by divizero（読み：ディビゼロ）
+              ブランド：divizero（読み：ディビゼロ）
               <br />
               運営元：Closer事務局
             </p>

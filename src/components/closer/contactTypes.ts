@@ -1,1 +1,1 @@
-export type ContactFormVariant = "store" | "partner";
+export type ContactFormVariant = "client" | "partner";

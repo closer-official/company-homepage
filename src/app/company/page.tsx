@@ -52,7 +52,7 @@ export default function CompanyPage() {
             会社概要
           </h1>
           <p className="mt-6 max-w-xl leading-loose text-[var(--text-muted)]">
-            Tadanosuke Closer の法人情報です。ご契約・請求書などでご利用ください。
+            divizero（Closer事務局）の法人情報です。ご契約・請求書などでご利用ください。
           </p>
 
           <dl className="mt-16 grid grid-cols-1 gap-y-0 sm:grid-cols-[10rem_1fr] sm:gap-x-12">

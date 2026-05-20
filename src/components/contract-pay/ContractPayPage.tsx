@@ -40,7 +40,7 @@ export default function ContractPayPage() {
     <div className="contract-pay-page">
       <div className="page-wrap">
         <header className="site-header">
-          <div className="header-brand">Closer by divizero</div>
+          <div className="header-brand">divizero</div>
           <div className="header-operator">運営元：Closer事務局</div>
           <h1 className="header-title">ご契約内容・お支払い案内</h1>
           <p className="header-subtitle">
@@ -420,7 +420,7 @@ export default function ContractPayPage() {
         </div>
 
         <footer className="site-footer">
-          <div className="footer-brand">Closer by divizero</div>
+          <div className="footer-brand">divizero</div>
           <p className="footer-meta">運営元：Closer事務局</p>
         </footer>
       </div>

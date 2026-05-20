@@ -372,14 +372,14 @@ export default function EffortWithoutGrowthPage() {
           </h2>
           <div className={styles.partnerBridgeTexts}>
             <p className={styles.partnerBridgeText}>
-              Closer by divizero では、
+              divizero では、
               <br />
               事業の拡大に伴い、認定パートナーを募集しています。
             </p>
             <p className={styles.partnerBridgeText}>
               現時点では、
               <br />
-              店舗リサーチ・初回案内・返信対応・ヒアリングサポートなど、
+              DM運用・返信対応・ターゲット管理・ヒアリングサポートなど、
               <br />
               事業の入口を担う役割が中心です。
             </p>

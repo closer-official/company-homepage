@@ -5,7 +5,7 @@ import CloserShell from "@/components/closer/CloserShell";
 export const metadata: Metadata = {
   title: "運営者情報",
   description:
-    "ディビゼロ（divizero）・Closer by divizero の運営者情報（Closer事務局）。",
+    "営業代行プラットフォーム divizero の運営者情報（Closer事務局）。",
 };
 
 export default function OperatorPage() {
@@ -27,7 +27,7 @@ export default function OperatorPage() {
               </tr>
               <tr>
                 <td>ブランド名</td>
-                <td>Closer by divizero（読み：ディビゼロ）</td>
+                <td>divizero（読み：ディビゼロ）</td>
               </tr>
               <tr>
                 <td>サービス名の読み</td>
@@ -35,7 +35,7 @@ export default function OperatorPage() {
               </tr>
               <tr>
                 <td>事業内容</td>
-                <td>Web制作・更新サポート</td>
+                <td>営業代行プラットフォームの運営・DM営業代行サービス</td>
               </tr>
               <tr>
                 <td>お問い合わせ先</td>

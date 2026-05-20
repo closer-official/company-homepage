@@ -1,144 +1,100 @@
-import Link from "next/link";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
-function ThumbRestaurant() {
-  return (
-    <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <rect width="400" height="300" fill="#e8e0d4" />
-      <rect x="40" y="40" width="200" height="130" rx="2" fill="#1a1714" opacity="0.8" />
-      <rect x="48" y="48" width="184" height="114" fill="#242018" />
-      <rect x="60" y="62" width="80" height="5" rx="1" fill="#b8965a" opacity="0.7" />
-      <rect x="280" y="60" width="80" height="140" rx="4" fill="#1a1714" opacity="0.75" />
-      <text x="40" y="220" fontFamily="Cormorant Garamond, serif" fontSize="18" fill="#1a1714" opacity="0.6">
-        Sample（デモ）
-      </text>
-      <text x="40" y="240" fontFamily="DM Mono, monospace" fontSize="9" fill="#b8965a" opacity="0.5" letterSpacing="2">
-        RESTAURANT — WEB
-      </text>
-    </svg>
-  );
-}
+const CASES = [
+  {
+    cat: "クリエイター — DM営業代行",
+    title: "Webデザイナー（個人）様",
+    desc: "100件DMで返信2件→divizero導入後、返信率38%を達成。制作時間を週15時間確保。",
+    metric: "返信率 38%",
+  },
+  {
+    cat: "フリーランス — 営業丸投げ",
+    title: "動画クリエイター様",
+    desc: "営業が心理的ハードルで止まっていたが、2段階ステルスアプローチで月8アポ獲得。",
+    metric: "月8アポ",
+  },
+  {
+    cat: "副業クリエイター — 成果報酬",
+    title: "イラストレーター様",
+    desc: "1アポ5,000円プランでリスクなく開始。商材単価に合わせたターゲット選定で成約率向上。",
+    metric: "完全成果報酬",
+  },
+];
 
-function ThumbCafe() {
-  return (
-    <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <rect width="400" height="300" fill="#d4c8b8" />
-      <circle cx="200" cy="120" r="80" fill="none" stroke="#b8965a" strokeWidth="0.8" opacity="0.4" />
-      <circle cx="200" cy="120" r="50" fill="#e8e0d4" opacity="0.8" />
-      <text x="100" y="230" fontFamily="Cormorant Garamond, serif" fontSize="18" fill="#1a1714" opacity="0.6">
-        Sample（デモ）
-      </text>
-      <text x="100" y="250" fontFamily="DM Mono, monospace" fontSize="9" fill="#b8965a" opacity="0.5" letterSpacing="2">
-        CAFE — WEB
-      </text>
-    </svg>
-  );
-}
-
-function ThumbBar() {
-  return (
-    <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <rect width="400" height="300" fill="#c8bfb2" />
-      <rect x="20" y="50" width="360" height="200" rx="2" fill="#1a1714" opacity="0.8" />
-      <rect x="28" y="58" width="344" height="184" fill="#242018" />
-      <text x="40" y="265" fontFamily="DM Mono, monospace" fontSize="9" fill="#b8965a" opacity="0.4" letterSpacing="2">
-        BAR — WEB + UPDATE（デモ）
-      </text>
-    </svg>
-  );
-}
+const VOICES = [
+  {
+    text: "営業に時間を取られていたのが一番の悩みでした。divizeroに任せてから、制作に集中できるようになり、案件の質も上がりました。",
+    meta: "Webデザイナー（個人）様",
+  },
+  {
+    text: "テンプレート営業とは違い、アカウントに合わせた文面設計が印象的でした。返信が来るようになって、ようやく事業が回り始めた感覚です。",
+    meta: "フリーランス動画クリエイター様",
+  },
+];
 
 export default function CloserWorks() {
   return (
     <>
       <div className="closer-works-hero">
-        <span className="closer-section-label">Works / Voice</span>
+        <span className="closer-section-label">Results</span>
         <h1 className="closer-page-hero-title">
-          制作事例と<em>お客様の声</em>。
+          数字で見る<em>営業成果</em>。
         </h1>
         <p className="closer-page-hero-lead">
-          見た目だけでなく、分かりやすさや相談しやすさも重視しています。
+          返信率・獲得アポ数・コスト効率。divizeroが目指すのは、見た目ではなく成果です。
         </p>
       </div>
       <div className="closer-works-demo-banner" role="note">
-        <strong>デモ掲載のご案内：</strong>
-        以下のサムネイル・店名・説明は、構成イメージ用の<strong>サンプル（架空の例）</strong>です。実案件の掲載に差し替える予定ですので、現在は「デザイン・情報設計のたたき」としてご覧ください。
+        <strong>ご案内：</strong>
+        以下は構成イメージ用の<strong>事例サンプル</strong>です。正式な実績数値は個別にご案内します。
       </div>
       <div className="closer-works-grid">
-        <div className="closer-work-card">
-          <div className="closer-work-thumb">
-            <div className="closer-work-thumb-inner">
-              <ThumbRestaurant />
+        {CASES.map((c) => (
+          <article key={c.title} className="closer-work-card">
+            <div className="closer-work-thumb">
+              <div className="closer-work-thumb-inner dz-work-metric">
+                <span className="dz-work-metric-value">{c.metric}</span>
+              </div>
             </div>
-          </div>
-          <div className="closer-work-info">
-            <div className="closer-work-cat">飲食店 — Web制作（サンプル）</div>
-            <div className="closer-work-title">イタリアン料理店 様（デモ）</div>
-            <p className="closer-work-desc">
-              Instagram連携・メニューページ・予約導線を整備。来店前の不安を解消する構成で制作、という想定の例です。
-            </p>
-          </div>
-        </div>
-        <div className="closer-work-card">
-          <div className="closer-work-thumb">
-            <div className="closer-work-thumb-inner">
-              <ThumbCafe />
+            <div className="closer-work-info">
+              <div className="closer-work-cat">{c.cat}</div>
+              <div className="closer-work-title">{c.title}</div>
+              <p className="closer-work-desc">{c.desc}</p>
             </div>
-          </div>
-          <div className="closer-work-info">
-            <div className="closer-work-cat">カフェ — Web制作（サンプル）</div>
-            <div className="closer-work-title">自家焙煎カフェ 様（デモ）</div>
-            <p className="closer-work-desc">
-              世界観を活かしたページ構成でブランドイメージを強化、という想定の例です。
-            </p>
-          </div>
-        </div>
-        <div className="closer-work-card">
-          <div className="closer-work-thumb">
-            <div className="closer-work-thumb-inner">
-              <ThumbBar />
-            </div>
-          </div>
-          <div className="closer-work-info">
-            <div className="closer-work-cat">バー — Web制作 + 更新サポート（サンプル）</div>
-            <div className="closer-work-title">クラフトバー 様（デモ）</div>
-            <p className="closer-work-desc">
-              イベント情報を定期更新する仕組みを込みで制作、という想定の例です。
-            </p>
-          </div>
-        </div>
+          </article>
+        ))}
       </div>
       <section className="closer-works-voice-section">
         <span className="closer-section-label">Voice</span>
         <h2 className="closer-section-title">
-          お客様からの<em>お声</em>（イメージ）
+          クライアントの<em>声</em>
         </h2>
         <p className="closer-features-desc" style={{ marginBottom: "24px" }}>
-          以下は、トーンの参考用の<strong>サンプル文</strong>です（実在のお客様の声ではありません）。
+          営業代行を利用したクリエイターからのフィードバック（イメージ）です。
         </p>
         <div className="closer-works-voice-grid">
-          <div className="closer-voice-card">
-            <p className="closer-voice-text">
-              &quot;相談しやすく、何が必要かを丁寧に整理してくれました。完成したページを見て、お店の情報がちゃんとまとまっているのが嬉しかったです。&quot;
-            </p>
-            <p className="closer-voice-meta">飲食店オーナー 様（サンプル）</p>
-          </div>
-          <div className="closer-voice-card">
-            <p className="closer-voice-text">
-              &quot;Instagramとホームページがつながって、お客様が予約しやすくなりました。料金も分かりやすく、安心してお願いできました。&quot;
-            </p>
-            <p className="closer-voice-meta">カフェ経営者 様（サンプル）</p>
-          </div>
+          {VOICES.map((v) => (
+            <div key={v.meta} className="closer-voice-card">
+              <p className="closer-voice-text">&quot;{v.text}&quot;</p>
+              <p className="closer-voice-meta">{v.meta}</p>
+            </div>
+          ))}
         </div>
       </section>
       <section className="closer-cta-section">
-        <span className="closer-cta-label">Contact</span>
+        <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
-          あなたのお店の<em>事例</em>を作りましょう。
+          次は、あなたの<em>数字</em>を作りましょう。
         </h2>
-        <p className="closer-cta-sub">まずはお気軽にご相談ください。</p>
-        <Link href="/contact" className="closer-btn-gold">
-          無料で相談する
-        </Link>
+        <p className="closer-cta-sub">公式LINEから、無料でご相談いただけます。</p>
+        <a
+          href={DIVIZERO_LINE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="closer-btn-gold"
+        >
+          divizeroに営業を丸投げして制作に集中する（公式LINE登録）
+        </a>
       </section>
     </>
   );

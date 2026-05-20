@@ -3,9 +3,9 @@ import CloserShell from "@/components/closer/CloserShell";
 import CloserServices from "@/components/closer/pages/CloserServices";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "サービス",
   description:
-    "ディビゼロ（divizero）のCloser Web Productionと更新サポート。実店舗の魅力を伝えるWeb制作。",
+    "divizeroの営業代行サービス。アカウント最適化、データハックDM運用、2段階ステルスアプローチでアポ獲得を支援します。",
 };
 
 export default function ServicesPage() {

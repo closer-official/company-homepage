@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Tadanosuke Closerへのお問い合わせ。Web制作・プロダクト・パートナーシップはこちらから。',
+  title: "Contact",
+  description:
+    "divizeroへのお問い合わせ。営業代行のご相談・パートナー募集はこちらから。",
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

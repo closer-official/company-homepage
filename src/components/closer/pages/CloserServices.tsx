@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 export default function CloserServices() {
   return (
@@ -6,57 +6,64 @@ export default function CloserServices() {
       <div className="closer-services-hero">
         <span className="closer-section-label">Services</span>
         <h1 className="closer-page-hero-title">
-          実店舗の魅力を伝えるための<em>Web制作</em>。
+          クリエイターの<em>営業代行</em>を、データで設計する。
         </h1>
         <p className="closer-page-hero-lead">
-          まずは受け皿となるページを整え、必要に応じて更新や運用まで対応します。
+          アカウント分析からDM運用・アポ獲得まで。制作に集中できる環境を、丸ごとお任せください。
         </p>
       </div>
       <div className="closer-services-grid">
         <div className="closer-service-card">
           <span className="closer-service-num">Service — 01</span>
-          <h2 className="closer-service-name">Closer Web Production</h2>
+          <h2 className="closer-service-name">アカウント最適化 & ターゲット選定</h2>
           <p className="closer-service-desc">
-            テンプレートをベースにしながら、お店の魅力や必要な情報を整理し、問い合わせや来店につながるWebページを制作します。初めてのお客様にも伝わりやすい構成で、スマホで見やすい設計を基本としています。
+            テンプレートの使い回しは一切しません。あなたのアカウント特性を分析し、最も成約可能性の高いターゲットに絞り込みます。
           </p>
           <div className="closer-service-tags">
-            <span className="closer-service-tag">初客向け構成設計</span>
-            <span className="closer-service-tag">SNS・マップ導線整理</span>
-            <span className="closer-service-tag">スマホ最適化</span>
-            <span className="closer-service-tag">お知らせ更新対応</span>
+            <span className="closer-service-tag">個別分析</span>
+            <span className="closer-service-tag">ターゲット精査</span>
+            <span className="closer-service-tag">ブランド保全</span>
           </div>
         </div>
         <div className="closer-service-card">
           <span className="closer-service-num">Service — 02</span>
-          <h2 className="closer-service-name">Update Support</h2>
+          <h2 className="closer-service-name">データハックDM運用</h2>
           <p className="closer-service-desc">
-            必要に応じて、SNS導線の更新やお知らせ反映など、専用編集ページで対応できる範囲の更新代行も行っています。常に最新の状態をお客様にお届けできます。
+            蓄積データから「返信が来やすい文面」「アクティブな曜日・時間帯」をシステム化。ピンポイントアプローチでコスパ・タイパを最大化します。
           </p>
           <div className="closer-service-tags">
-            <span className="closer-service-tag">SNS導線更新</span>
-            <span className="closer-service-tag">お知らせ反映</span>
-            <span className="closer-service-tag">週2回まで対応</span>
+            <span className="closer-service-tag">文面最適化</span>
+            <span className="closer-service-tag">送信時間設計</span>
+            <span className="closer-service-tag">返信率40%</span>
           </div>
         </div>
-        <div className="closer-service-card full-width closer-service-card--dark">
-          <span className="closer-service-num">Other Projects</span>
-          <h2 className="closer-service-name" style={{ color: "var(--cream)" }}>
-            divizero の今後の展開
-          </h2>
+        <div className="closer-service-card">
+          <span className="closer-service-num">Service — 03</span>
+          <h2 className="closer-service-name">2段階ステルスアプローチ</h2>
           <p className="closer-service-desc">
-            divizero では、今後も複数のプロジェクトを展開予定です。ただし、現時点の主軸はWeb制作事業（Closer）です。詳細は随時お知らせします。
+            怪しいURLを踏ませる営業はしません。DM内の丁寧なテキストチャットだけで会話を完結させ、カレンダーをアポで埋め尽くします。
           </p>
+          <div className="closer-service-tags">
+            <span className="closer-service-tag">会話型営業</span>
+            <span className="closer-service-tag">URL不要</span>
+            <span className="closer-service-tag">アポ獲得</span>
+          </div>
         </div>
       </div>
       <section className="closer-cta-section">
-        <span className="closer-cta-label">Contact</span>
+        <span className="closer-cta-label">Start</span>
         <h2 className="closer-cta-title">
-          どのサービスが合うか、<em>一緒に考えます</em>。
+          営業設計を<em>一緒に</em>始めましょう。
         </h2>
-        <p className="closer-cta-sub">まずはお気軽にご相談ください。</p>
-        <Link href="/contact" className="closer-btn-gold">
-          無料で相談する
-        </Link>
+        <p className="closer-cta-sub">公式LINEから、最短ルートでご相談いただけます。</p>
+        <a
+          href={DIVIZERO_LINE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="closer-btn-gold"
+        >
+          divizeroに営業を丸投げして制作に集中する（公式LINE登録）
+        </a>
       </section>
     </>
   );

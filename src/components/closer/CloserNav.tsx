@@ -9,7 +9,7 @@ const ALL_LINKS = [
   { href: "/services", en: "Services", ja: "サービス" },
   { href: "/tools", en: "Tools", ja: "ツール" },
   { href: "/pricing", en: "Pricing", ja: "料金" },
-  { href: "/works", en: "Works", ja: "事例" },
+  { href: "/works", en: "Results", ja: "実績" },
 ] as const;
 
 const DIVIZERO_HOME_LINKS = [
@@ -66,13 +66,7 @@ export default function CloserNav() {
     <>
       <nav className={navClass}>
         <Link href="/" className="closer-nav-logo" onClick={() => setOpen(false)}>
-          {isDivizeroHome ? (
-            <>divizero</>
-          ) : (
-            <>
-              Closer <span>by</span> divizero
-            </>
-          )}
+          divizero
         </Link>
         <ul className="closer-nav-links">
           {navLinks.map(({ href, en, ja }) => (
@@ -95,7 +89,7 @@ export default function CloserNav() {
                 <span className="closer-nav-cta-sep"> / </span>
                 <span className="closer-nav-cta-en">Partner</span>
               </Link>
-            ) : isDivizeroHome ? (
+            ) : (
               <a
                 href={LINE_CTA_URL}
                 className="closer-nav-cta"
@@ -107,12 +101,6 @@ export default function CloserNav() {
                 <span className="closer-nav-cta-sep"> / </span>
                 <span className="closer-nav-cta-en">Start</span>
               </a>
-            ) : (
-              <Link href="/contact" className="closer-nav-cta">
-                <span className="closer-nav-cta-ja">相談する</span>
-                <span className="closer-nav-cta-sep"> / </span>
-                <span className="closer-nav-cta-en">Contact</span>
-              </Link>
             )}
           </li>
         </ul>
@@ -160,7 +148,7 @@ export default function CloserNav() {
           >
             パートナー募集 / Partner
           </Link>
-        ) : isDivizeroHome ? (
+        ) : (
           <a
             href={LINE_CTA_URL}
             target="_blank"
@@ -169,10 +157,6 @@ export default function CloserNav() {
           >
             LINE登録 / Start
           </a>
-        ) : (
-          <Link href="/contact" onClick={() => setOpen(false)}>
-            相談する / Contact
-          </Link>
         )}
       </div>
     </>

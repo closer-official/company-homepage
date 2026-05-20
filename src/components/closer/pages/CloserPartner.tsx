@@ -1,32 +1,36 @@
-import Link from "next/link";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 export default function CloserPartner() {
   return (
     <>
       <div className="closer-partner-hero">
-        <span className="closer-section-label">Partner Wanted</span>
+        <span className="closer-section-label">Partner</span>
         <h1 className="closer-partner-title">
-          一緒に、<em>お店を支える</em>仕事を。
+          営業オペレーションを<em>一緒に</em>回す。
         </h1>
         <p className="closer-partner-sub">
-          Closer by divizero では、店舗リサーチ・初回提案・コミュニケーションを担う認定パートナーを募集しています。
+          divizeroでは、DM運用・ターゲット選定・アポ獲得を支えるパートナー（オペレーター）を募集しています。
         </p>
-        <Link href="/contact?for=partner" className="closer-btn-gold">
-          詳細を問い合わせる
-        </Link>
+        <a
+          href={DIVIZERO_LINE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="closer-btn-gold"
+        >
+          パートナーについて相談する（公式LINE）
+        </a>
       </div>
       <div className="closer-partner-body">
         <p>
-          Closer by divizero では、事業の立ち上げや拡大を一緒に進めていく認定パートナーを募集しています。
+          divizeroの営業代行は、データと仕組みで回るオペレーションが核です。その現場を担うパートナーとして、以下のような方を歓迎します。
         </p>
         <p>
-          現時点では、店舗リサーチ・初回アプローチ・返信対応・ヒアリングサポートなど、事業の入口を担う役割が中心です。
-          ただし、それだけに限らず、SNS運用、Webページの更新対応、制作サポート、今後展開予定の他事業領域など、関わり方は今後さらに広がっていきます。
+          DM送信・返信対応・ターゲットリスト管理・ヒアリングサポートなど。営業経験やSNS運用経験がある方、フリーランスで柔軟に稼働できる方を想定しています。
         </p>
         <p>
-          詳細な条件・報酬体系などは、上のボタンからパートナー用お問い合わせフォームにてご連絡ください。
+          報酬体系・稼働条件の詳細は、公式LINEよりお問い合わせください。エーススタッフにはインセンティブ設計があり、高単価案件を優先配分する仕組みもあります。
         </p>
-        <p>※ 店舗向けWeb制作のご相談とは別フォームです。</p>
+        <p>※ クリエイター向けの営業代行依頼は、トップページのLINE登録からお進みください。</p>
       </div>
     </>
   );

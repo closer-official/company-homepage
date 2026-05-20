@@ -304,10 +304,10 @@ export default function FulcommSalesInternEssayPage() {
           </h2>
           <div className={styles.partnerBridgeTexts}>
             <p className={styles.partnerBridgeText}>
-              Closer by divizero では、事業の拡大に伴い、認定パートナーを募集しています。
+              divizero では、事業の拡大に伴い、営業オペレーションパートナーを募集しています。
             </p>
             <p className={styles.partnerBridgeText}>
-              現時点では、店舗リサーチ・初回案内・返信対応・ヒアリングサポートなど、事業の入口を担う役割が中心です。
+              現時点では、DM運用・返信対応・ターゲット管理・ヒアリングサポートなど、営業オペレーションを担う役割が中心です。
             </p>
             <p className={styles.partnerBridgeText}>
               ただし、それに限らず、SNS運用、更新対応、制作サポート、今後の新規事業領域など、関わり方は今後さらに広がっていく予定です。

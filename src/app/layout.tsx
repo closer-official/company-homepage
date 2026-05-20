@@ -68,12 +68,7 @@ export default function RootLayout({
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
         name: "Closer事務局",
-        alternateName: [
-          "ディビゼロ",
-          "Closer by divizero",
-          "divizero",
-          "Closer",
-        ],
+        alternateName: ["ディビゼロ", "divizero"],
         url: SITE_URL,
         logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.png` },
         contactPoint: {

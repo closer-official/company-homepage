@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Services',
-  description: 'Tadanosuke Closerの事業とプロダクト。Web制作から自社プロダクト（All-in English、Next-Gen Affiliate）まで。',
+  title: "Services",
+  description:
+    "divizeroの営業代行サービス一覧。アカウント最適化、データハックDM運用、2段階ステルスアプローチ。",
 };
 
 export default function ServicesLayout({ children }: { children: React.ReactNode }) {

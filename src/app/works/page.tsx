@@ -3,9 +3,9 @@ import CloserShell from "@/components/closer/CloserShell";
 import CloserWorks from "@/components/closer/pages/CloserWorks";
 
 export const metadata: Metadata = {
-  title: "Works / Voice",
+  title: "実績",
   description:
-    "ディビゼロ（divizero）の制作事例・お客様の声ページ。掲載は参考用デモとサンプル。実案件は随時更新します。",
+    "divizeroの営業代行実績・成果イメージ。返信率・アポ獲得数・コスト効率を重視した運用事例。",
 };
 
 export default function WorksPage() {

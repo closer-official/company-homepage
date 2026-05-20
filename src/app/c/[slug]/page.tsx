@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "ご契約内容・お支払い案内",
     description:
-      "Closer by divizero のご契約内容およびお支払いに関する案内（限定URL）。",
+      "divizero のご契約内容およびお支払いに関する案内（限定URL）。",
     robots: "noindex, nofollow, noarchive, nosnippet",
   };
 }

@@ -5,7 +5,7 @@ import CloserPartner from "@/components/closer/pages/CloserPartner";
 export const metadata: Metadata = {
   title: "パートナー募集",
   description:
-    "ディビゼロ（divizero）の認定パートナー募集。店舗リサーチ・初回提案・コミュニケーションを担う方へ。",
+    "divizeroの営業オペレーションパートナー募集。DM運用・ターゲット管理・アポ獲得支援を一緒に担う方へ。",
 };
 
 export default function PartnersPage() {

@@ -216,9 +216,9 @@ export default function PortfolioClient({
             <div className="project-main">
               <div className="project-header">
                 <div className="project-name">
-                  店舗向け Web 事業
+                  営業代行プラットフォーム
                   <br />
-                  <small>Closer by divizero</small>
+                  <small>divizero</small>
                 </div>
                 <button
                   type="button"
@@ -230,10 +230,10 @@ export default function PortfolioClient({
                 </button>
               </div>
               <p className="project-desc">
-                店舗向けDM営業は反応率が低く、1件ずつ個別提案を作り込む方法では継続しづらい。そこで、店舗情報入力だけで短時間にデモ作成できる導線を設計し、提案速度と再現性を検証した。
+                クリエイター向けDM営業は反応率が低く、営業に時間を取られ制作が止まる。ターゲット選定とデータドリブンなDM運用で返信率40%を実現する営業代行プラットフォームとして設計・検証した。
               </p>
               <div className="project-summary-line">
-                店舗営業の低反応率に対し、提案工数を下げるデモ生成導線を設計
+                低反応率DM営業を、データと仕組みで自動化する営業代行へ転換
               </div>
             </div>
             <div className="project-meta">
@@ -288,14 +288,14 @@ export default function PortfolioClient({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Web制作トップページを開く ↗
+                    divizero LPを開く ↗
                   </a>
                   <div className="project-link-url">https://www.divizero.jp/</div>
                 </div>
                 <iframe
                   className="project-preview-frame"
                   src="https://www.divizero.jp/"
-                  title="Web制作トップページのプレビュー"
+                  title="divizero LPのプレビュー"
                   loading="lazy"
                 />
               </div>

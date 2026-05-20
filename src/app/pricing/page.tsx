@@ -3,9 +3,9 @@ import CloserShell from "@/components/closer/CloserShell";
 import CloserPricing from "@/components/closer/pages/CloserPricing";
 
 export const metadata: Metadata = {
-  title: "Pricing（目安）",
+  title: "料金",
   description:
-    "ディビゼロ（divizero）の飲食・実店舗向けWeb制作プラン（税別・目安）。正式なお見積りは無料相談後に確定します。",
+    "divizeroの料金プラン。完全成果報酬で1アポ5,000円〜。他社1.5万円〜に対する圧倒的なコストパフォーマンス。",
 };
 
 export default function PricingPage() {

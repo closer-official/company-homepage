@@ -579,3 +579,89 @@
     transform: none;
   }
 }
+
+/* Subpages — dark theme overrides */
+.closer-site.closer-site--divizero {
+  --ink: #f2f0eb;
+  --cream: #f2f0eb;
+  --warm-white: #08080a;
+  --sand: #16161c;
+  --gold: #c9a962;
+  --gold-light: #d4b278;
+  --muted: #9b9690;
+  --faint: rgba(255, 255, 255, 0.2);
+  --accent: #c9a962;
+}
+
+.closer-site.closer-site--divizero .closer-section-label,
+.closer-site.closer-site--divizero .closer-page-hero-title em,
+.closer-site.closer-site--divizero .closer-cta-title em {
+  color: var(--dz-accent);
+}
+
+.closer-site.closer-site--divizero .closer-page-hero-title,
+.closer-site.closer-site--divizero .closer-section-title,
+.closer-site.closer-site--divizero .closer-contact-title,
+.closer-site.closer-site--divizero .closer-partner-title,
+.closer-site.closer-site--divizero .closer-legal-title {
+  color: var(--dz-text);
+}
+
+.closer-site.closer-site--divizero .closer-page-hero-lead,
+.closer-site.closer-site--divizero .closer-about-body p,
+.closer-site.closer-site--divizero .closer-partner-body p,
+.closer-site.closer-site--divizero .closer-service-desc,
+.closer-site.closer-site--divizero .closer-contact-sub,
+.closer-site.closer-site--divizero .closer-legal-p,
+.closer-site.closer-site--divizero .closer-legal-table td {
+  color: var(--dz-muted);
+}
+
+.closer-site.closer-site--divizero .closer-service-card,
+.closer-site.closer-site--divizero .closer-pricing-card,
+.closer-site.closer-site--divizero .closer-work-card,
+.closer-site.closer-site--divizero .closer-pain-item,
+.closer-site.closer-site--divizero .closer-voice-card,
+.closer-site.closer-site--divizero .closer-contact-right,
+.closer-site.closer-site--divizero .closer-pricing-soft-band,
+.closer-site.closer-site--divizero .closer-works-demo-banner {
+  background: var(--dz-bg-card);
+  border-color: var(--dz-border);
+  color: var(--dz-text);
+}
+
+.closer-site.closer-site--divizero .closer-form-input,
+.closer-site.closer-site--divizero .closer-form-textarea,
+.closer-site.closer-site--divizero .closer-form-select {
+  background: var(--dz-bg-elevated);
+  border-color: var(--dz-border);
+  color: var(--dz-text);
+}
+
+.closer-site.closer-site--divizero .closer-btn-primary {
+  background: var(--dz-accent);
+  color: #0a0a0c;
+}
+
+.closer-site.closer-site--divizero .closer-btn-secondary {
+  border-color: var(--dz-border);
+  color: var(--dz-text);
+}
+
+.closer-site.closer-site--divizero .closer-cta-section {
+  background: var(--dz-bg-elevated);
+}
+
+.dz-work-metric {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  background: linear-gradient(160deg, var(--dz-bg-card), var(--dz-bg-elevated));
+}
+
+.dz-work-metric-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--dz-accent);
+}

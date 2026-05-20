@@ -11,11 +11,12 @@ type Props = {
   variant?: ContactFormVariant;
 };
 
-export default function CloserContactForm({ variant = "store" }: Props) {
+export default function CloserContactForm({ variant = "client" }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [shop, setShop] = useState("");
-  const [businessType, setBusinessType] = useState("");
+  const [activity, setActivity] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [snsAccount, setSnsAccount] = useState("");
   const [activityArea, setActivityArea] = useState("");
   const [partnerExperience, setPartnerExperience] = useState("");
   const [message, setMessage] = useState("");
@@ -49,33 +50,34 @@ export default function CloserContactForm({ variant = "store" }: Props) {
       if (isPartner) {
         const area = activityArea.trim();
         const exp = partnerExperience.trim();
-        inquiryTypeLabel = "Closer by divizero（認定パートナー募集）";
-        emailSubject = "Closer by divizero 認定パートナー募集のお問い合わせ";
+        inquiryTypeLabel = "divizero（パートナー・オペレーター募集）";
+        emailSubject = "divizero パートナー募集のお問い合わせ";
         firestoreSubtype = "partner";
         body =
-          `【Closer by divizero 認定パートナー募集】\n` +
-          `お名前: ${n}\nメール: ${em}\n活動エリア: ${area}\nご経験・活動内容: ${exp || "—"}\n\nご相談内容:\n${message || "（本文なし）"}`;
+          `【divizero パートナー募集】\n` +
+          `お名前: ${n}\nメール: ${em}\n活動エリア: ${area}\nご経験・活動内容: ${exp || "—"}\n\nお問い合わせ内容:\n${message || "（本文なし）"}`;
       } else {
-        inquiryTypeLabel = "Closer by divizero（飲食・実店舗・Web制作）";
-        emailSubject = "Closer by divizero お問い合わせ（店舗・Web制作）";
-        firestoreSubtype = "store";
+        inquiryTypeLabel = "divizero（営業代行・クリエイター向け）";
+        emailSubject = "divizero 営業代行のお問い合わせ";
+        firestoreSubtype = "client";
         body =
-          `【Closer by divizero 店舗・Web制作のご相談】\n` +
-          `お名前: ${n}\nメール: ${em}\n店舗・屋号: ${shop || "—"}\n業種: ${businessType || "—"}\n\nご相談内容:\n${message || "（本文なし）"}`;
+          `【divizero 営業代行のご相談】\n` +
+          `お名前: ${n}\nメール: ${em}\n活動内容: ${activity || "—"}\n想定商材単価: ${productPrice || "—"}\nSNSアカウント: ${snsAccount || "—"}\n\nご相談内容:\n${message || "（本文なし）"}`;
       }
 
       await addDoc(collection(db, "contacts"), {
-        inquiryType: "closer-divizero",
+        inquiryType: "divizero",
         inquirySubtype: firestoreSubtype,
         inquiryTypeLabel,
         name: n,
         email: em,
-        shopName: isPartner ? null : shop.trim() || null,
-        businessType: isPartner ? null : businessType || null,
+        activity: isPartner ? null : activity.trim() || null,
+        productPrice: isPartner ? null : productPrice.trim() || null,
+        snsAccount: isPartner ? null : snsAccount.trim() || null,
         partnerActivityArea: isPartner ? activityArea.trim() : null,
         partnerExperience: isPartner ? partnerExperience.trim() || null : null,
         partnerMessage: isPartner ? message.trim() || null : null,
-        storeMessage: isPartner ? null : message.trim() || null,
+        clientMessage: isPartner ? null : message.trim() || null,
         message: body,
         timestamp: new Date().toISOString(),
         status: "unread",
@@ -123,14 +125,14 @@ export default function CloserContactForm({ variant = "store" }: Props) {
       <p className="closer-form-variant-hint">
         {isPartner ? (
           <>
-            認定パートナー募集に関するお問い合わせです。条件の詳細は返信にてご案内します。{" "}
+            パートナー（オペレーター）募集に関するお問い合わせです。{" "}
             <Link href="/partners" className="closer-contact-switch">
               募集ページを見る
             </Link>
           </>
         ) : (
           <>
-            飲食店・実店舗向けWeb制作のご相談フォームです。{" "}
+            営業代行（クリエイター向け）のご相談フォームです。{" "}
             <Link href="/contact?for=partner" className="closer-contact-switch">
               パートナー募集のお問い合わせ
             </Link>
@@ -177,11 +179,10 @@ export default function CloserContactForm({ variant = "store" }: Props) {
             <input
               id="closer-f-area"
               className="closer-form-input"
-              placeholder="例：東京都世田谷区、福岡市博多区 など"
+              placeholder="例：東京都、リモート可 など"
               value={activityArea}
               onChange={(e) => setActivityArea(e.target.value)}
               required
-              autoComplete="address-level2"
             />
           </div>
           <div className="closer-form-group">
@@ -191,7 +192,7 @@ export default function CloserContactForm({ variant = "store" }: Props) {
             <input
               id="closer-f-exp"
               className="closer-form-input"
-              placeholder="営業・接客、地域活動、SNS運用 など"
+              placeholder="DM営業、SNS運用、テレアポ など"
               value={partnerExperience}
               onChange={(e) => setPartnerExperience(e.target.value)}
             />
@@ -203,7 +204,7 @@ export default function CloserContactForm({ variant = "store" }: Props) {
             <textarea
               id="closer-f-message"
               className="closer-form-textarea"
-              placeholder="パートナーに関するご質問、ご参加の意向、ご自身の活動内容などをお書きください。"
+              placeholder="パートナーに関するご質問、稼働可能時間、ご経験など"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={5}
@@ -214,36 +215,40 @@ export default function CloserContactForm({ variant = "store" }: Props) {
       ) : (
         <>
           <div className="closer-form-group">
-            <label className="closer-form-label" htmlFor="closer-f-shop">
-              店舗・屋号名
+            <label className="closer-form-label" htmlFor="closer-f-activity">
+              活動内容・商材
             </label>
             <input
-              id="closer-f-shop"
+              id="closer-f-activity"
               className="closer-form-input"
-              placeholder="〇〇食堂"
-              value={shop}
-              onChange={(e) => setShop(e.target.value)}
+              placeholder="Webデザイン、動画制作、コンサル など"
+              value={activity}
+              onChange={(e) => setActivity(e.target.value)}
             />
           </div>
           <div className="closer-form-group">
-            <label className="closer-form-label" htmlFor="closer-f-type">
-              業種
+            <label className="closer-form-label" htmlFor="closer-f-price">
+              想定商材単価（目安）
             </label>
-            <select
-              id="closer-f-type"
-              className="closer-form-select"
-              value={businessType}
-              onChange={(e) => setBusinessType(e.target.value)}
-            >
-              <option value="">選択してください</option>
-              <option value="飲食店（レストラン・カフェ等）">
-                飲食店（レストラン・カフェ等）
-              </option>
-              <option value="バー・居酒屋">バー・居酒屋</option>
-              <option value="美容・ネイル・サロン">美容・ネイル・サロン</option>
-              <option value="小売・雑貨店">小売・雑貨店</option>
-              <option value="その他の実店舗">その他の実店舗</option>
-            </select>
+            <input
+              id="closer-f-price"
+              className="closer-form-input"
+              placeholder="例：50,000円、100,000円 など"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+            />
+          </div>
+          <div className="closer-form-group">
+            <label className="closer-form-label" htmlFor="closer-f-sns">
+              SNSアカウント（任意）
+            </label>
+            <input
+              id="closer-f-sns"
+              className="closer-form-input"
+              placeholder="@username または URL"
+              value={snsAccount}
+              onChange={(e) => setSnsAccount(e.target.value)}
+            />
           </div>
           <div className="closer-form-group">
             <label className="closer-form-label" htmlFor="closer-f-message">
@@ -252,7 +257,7 @@ export default function CloserContactForm({ variant = "store" }: Props) {
             <textarea
               id="closer-f-message"
               className="closer-form-textarea"
-              placeholder="現在の状況やお悩みをお気軽にご記入ください。"
+              placeholder="現状の課題、目標アポ数、これまでの営業状況など"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={5}

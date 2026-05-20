@@ -4,7 +4,7 @@ import CloserShell from "@/components/closer/CloserShell";
 export const metadata: Metadata = {
   title: "特定商取引法に基づく表記",
   description:
-    "Closer事務局（ディビゼロ／divizero・Closer by divizero）の特定商取引法に基づく表記。",
+    "Closer事務局（divizero）の特定商取引法に基づく表記。",
 };
 
 export default function TokushoPage() {
@@ -47,7 +47,7 @@ export default function TokushoPage() {
               <tr>
                 <td>販売価格</td>
                 <td>
-                  各プランは料金ページに記載の税別・目安をご参照ください。正式な金額はご契約内容の確認段階で確定します。
+                  料金は成果報酬型（1アポ5,000円〜、または成約時10%プラン等）。詳細は料金ページおよびご契約時にご案内します。
                 </td>
               </tr>
               <tr>
@@ -58,12 +58,12 @@ export default function TokushoPage() {
               </tr>
               <tr>
                 <td>引き渡し時期</td>
-                <td>ご契約後、制作完了次第公開・納品</td>
+                <td>ご契約後、営業代行サービスの提供開始</td>
               </tr>
               <tr>
                 <td>返金・キャンセル</td>
                 <td>
-                  制作着手後の返金には対応しておりません。詳細はご契約内容確認ページにてご案内します。
+                  成果報酬型のため、着手後の返金には原則対応しておりません。詳細はご契約内容確認ページにてご案内します。
                 </td>
               </tr>
             </tbody>

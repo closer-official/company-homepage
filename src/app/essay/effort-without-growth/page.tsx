@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "感情と事実の分け方、環境選びの軸、人が変わる構造について。深掘りはnoteへ。",
   openGraph: {
     title:
-      "頑張っているのに伸びない。ズレたまま努力しているだけかもしれない | Closer by divizero",
+      "頑張っているのに伸びない。ズレたまま努力しているだけかもしれない | divizero",
     description:
       "本質的なズレと環境選び。noteで詳しく、関心があればパートナー募集へ。",
   },

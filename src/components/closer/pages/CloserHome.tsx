@@ -1,6 +1,7 @@
 import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
+import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
-const LINE_URL = "https://lin.ee/q4V81Ks";
+const LINE_URL = DIVIZERO_LINE_URL;
 
 const PAIN_ITEMS = [
   "100件DMを送っても返信が来ない…というか、そもそも営業が心理的ハードルでストップしている。",
