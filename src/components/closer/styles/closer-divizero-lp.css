@@ -300,6 +300,121 @@
   background: var(--dz-bg-elevated);
 }
 
+/* 比較表 */
+.dz-cmp {
+  margin: 40px 0 32px;
+}
+
+.dz-cmp-table-wrap {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  overflow-x: auto;
+}
+
+.dz-cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.dz-cmp-table th,
+.dz-cmp-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dz-border);
+  vertical-align: middle;
+  text-align: left;
+}
+
+.dz-cmp-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--dz-muted);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.dz-cmp-th-label {
+  width: 22%;
+  min-width: 108px;
+}
+
+.dz-cmp-th-other {
+  width: 39%;
+}
+
+.dz-cmp-th-ours {
+  width: 39%;
+  color: var(--dz-accent);
+  border-left: 1px solid rgba(201, 169, 98, 0.25);
+  background: linear-gradient(
+    160deg,
+    rgba(201, 169, 98, 0.06),
+    transparent
+  );
+}
+
+.dz-cmp-table tbody tr:last-child th,
+.dz-cmp-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dz-cmp-row-label {
+  font-weight: 500;
+  color: var(--dz-text);
+  white-space: nowrap;
+}
+
+.dz-cmp-td-ours {
+  border-left: 1px solid rgba(201, 169, 98, 0.15);
+  background: rgba(201, 169, 98, 0.03);
+}
+
+.dz-cmp-cell {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.65;
+}
+
+.dz-cmp-mark {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.dz-cmp-mark--best {
+  color: var(--dz-accent);
+}
+
+.dz-cmp-mark--good {
+  color: var(--dz-text);
+}
+
+.dz-cmp-mark--note {
+  color: var(--dz-muted);
+}
+
+.dz-cmp-mark--bad {
+  color: #c49090;
+}
+
+.dz-cmp-text {
+  color: var(--dz-muted);
+}
+
+.dz-cmp-td-ours .dz-cmp-text {
+  color: var(--dz-text);
+}
+
+.dz-cmp-legend {
+  margin: 14px 0 0;
+  font-size: 0.72rem;
+  color: var(--dz-muted);
+  line-height: 1.8;
+}
+
 .dz-pricing-compare {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -688,6 +803,20 @@
     grid-template-columns: 1fr;
   }
 
+  .dz-cmp-table th,
+  .dz-cmp-table td {
+    padding: 12px 14px;
+    font-size: 0.8rem;
+  }
+
+  .dz-cmp-row-label {
+    white-space: normal;
+  }
+
+  .closer-pricing-compare-wrap {
+    margin: 0 24px 40px;
+  }
+
   .dz-pain-card {
     padding: 24px 20px 24px 56px;
   }
@@ -1041,6 +1170,14 @@
   letter-spacing: 0.1em;
   color: var(--dz-muted);
   margin: 4px 0 16px;
+}
+
+.closer-pricing-compare-wrap {
+  margin: 0 80px 48px;
+}
+
+.closer-pricing-compare-wrap .dz-cmp {
+  margin: 0;
 }
 
 .closer-pricing-guide {

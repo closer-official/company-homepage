@@ -1,3 +1,4 @@
+import DivizeroCompareTable from "../DivizeroCompareTable";
 import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
 import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
@@ -239,22 +240,7 @@ export default function CloserHome() {
           <p className="dz-section-lead">
             完全成果報酬だから、リスクはゼロ。チームが本気を出す理由は「成果が出ないと報酬がゼロだから」です。
           </p>
-          <div className="dz-pricing-compare">
-            <div className="dz-pricing-card dz-pricing-card--other">
-              <p className="dz-pricing-tag">他社（業界平均）</p>
-              <p className="dz-pricing-price">1.5万円〜</p>
-              <p className="dz-pricing-desc">
-                最低保証・初期費用が発生しやすく、成果が出なくても費用が発生するケースが多い。
-              </p>
-            </div>
-            <div className="dz-pricing-card dz-pricing-card--ours">
-              <p className="dz-pricing-tag">divizero（推奨）</p>
-              <p className="dz-pricing-price">¥5,000〜</p>
-              <p className="dz-pricing-desc">
-                1アポ確定ごとに5,000円。商材単価が高い場合は成約時10%プランも選択可。初期費用・月額費用ゼロ。
-              </p>
-            </div>
-          </div>
+          <DivizeroCompareTable />
           <div className="dz-pricing-logic">
             <h3>どちらのプランを選べばいい？</h3>
             <p>

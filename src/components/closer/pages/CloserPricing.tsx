@@ -1,4 +1,4 @@
-import Link from "next/link";
+import DivizeroCompareTable from "@/components/closer/DivizeroCompareTable";
 import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
 const FAQ_ITEMS = [
@@ -33,69 +33,8 @@ export default function CloserPricing() {
         商材単価が5万円を超える場合は、成約時報酬10%プランも選択可能です。詳細はトップページの報酬シミュレーターでご確認ください。
       </div>
 
-      <div className="closer-pricing-cards">
-        <div className="closer-pricing-card">
-          <div
-            className="closer-pricing-badge closer-pricing-badge--placeholder"
-            aria-hidden
-          >
-            ‌
-          </div>
-          <div className="closer-pricing-plan">他社（業界平均）</div>
-          <div className="closer-pricing-price">1.5万円〜</div>
-          <div className="closer-pricing-unit">アポ単価・初期費用込みの目安</div>
-          <ul className="closer-pricing-features">
-            <li>最低保証・初期費用が発生しやすい</li>
-            <li>成果が出なくても費用がかかるケースあり</li>
-            <li>テンプレート営業が多い</li>
-            <li>返信率2〜4%が一般的</li>
-          </ul>
-        </div>
-
-        <div className="closer-pricing-card featured">
-          <div className="closer-pricing-badge">divizero（推奨）</div>
-          <div className="closer-pricing-plan">完全成果報酬プラン</div>
-          <div className="closer-pricing-price">¥5,000〜</div>
-          <div className="closer-pricing-unit">1アポ確定・完全成果報酬</div>
-          <ul className="closer-pricing-features">
-            <li>初期費用・月額費用ゼロ</li>
-            <li>返信率40%のDM運用</li>
-            <li>アカウント個別最適化</li>
-            <li>データドリブンな文面・時間設計</li>
-            <li>商材単価5万円超は成約10%プラン選択可</li>
-          </ul>
-          <a
-            href={DIVIZERO_LINE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="closer-btn-gold"
-          >
-            まずは無料相談（公式LINE）
-          </a>
-        </div>
-
-        <div className="closer-pricing-card">
-          <div
-            className="closer-pricing-badge closer-pricing-badge--placeholder"
-            aria-hidden
-          >
-            ‌
-          </div>
-          <div className="closer-pricing-plan">この価格が実現できる理由</div>
-          <div className="closer-pricing-price" style={{ fontSize: "1.4rem" }}>
-            仕組み化
-          </div>
-          <div className="closer-pricing-unit">無駄なコストを徹底排除</div>
-          <ul className="closer-pricing-features">
-            <li>無駄な人件費を削減</li>
-            <li>システム維持費の最適化</li>
-            <li>データに基づく効率運用</li>
-            <li>完全成果報酬だから固定費ゼロ</li>
-          </ul>
-          <Link href="/#simulator" className="closer-btn-secondary">
-            報酬を試算する
-          </Link>
-        </div>
+      <div className="closer-pricing-compare-wrap">
+        <DivizeroCompareTable />
       </div>
 
       <div className="closer-pricing-guide">
