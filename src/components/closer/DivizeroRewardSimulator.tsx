@@ -3,15 +3,25 @@
 import { useEffect, useMemo, useState } from "react";
 
 const MIN_PRICE = 10_000;
-const MAX_PRICE = 500_000;
+const MAX_PRICE = 300_000;
+const PRICE_STEP = 5_000;
+const MIN_APO = 1;
+const MAX_APO = 50;
 const THRESHOLD = 50_000;
 const FIXED_APO_FEE = 5_000;
+const CLOSE_RATE = 0.3;
+const HOURS_PER_APO = 1;
 
 type PlanId = "fixed" | "percent";
 
+function formatYen(n: number) {
+  return `${n.toLocaleString("ja-JP")}円`;
+}
+
 export default function DivizeroRewardSimulator() {
-  const [unitPrice, setUnitPrice] = useState(80_000);
-  const [plan, setPlan] = useState<PlanId>("percent");
+  const [unitPrice, setUnitPrice] = useState(50_000);
+  const [apoCount, setApoCount] = useState(10);
+  const [plan, setPlan] = useState<PlanId>("fixed");
 
   const canChoosePercent = unitPrice > THRESHOLD;
 
@@ -23,23 +33,18 @@ export default function DivizeroRewardSimulator() {
 
   const activePlan: PlanId = canChoosePercent ? plan : "fixed";
 
-  const result = useMemo(() => {
-    if (activePlan === "fixed") {
-      return {
-        planLabel: "最低保証 5,000円プラン",
-        perApo: FIXED_APO_FEE,
-        perClose: null as number | null,
-        note: "商材単価が5万円以下の場合、このプランが自動適用されます。",
-      };
-    }
-    const perClose = Math.round(unitPrice * 0.1);
-    return {
-      planLabel: "成約時報酬 10%プラン",
-      perApo: null,
-      perClose,
-      note: "成約が発生したタイミングで、商材単価の10%が報酬として発生します。",
-    };
-  }, [activePlan, unitPrice]);
+  const calc = useMemo(() => {
+    const expectedCloses = apoCount * CLOSE_RATE;
+    const totalSales = Math.round(expectedCloses * unitPrice);
+    const fee =
+      activePlan === "fixed"
+        ? apoCount * FIXED_APO_FEE
+        : Math.round(expectedCloses * unitPrice * 0.1);
+    const netProfit = totalSales - fee;
+    const timeSavedHours = apoCount * HOURS_PER_APO;
+
+    return { totalSales, fee, netProfit, timeSavedHours };
+  }, [apoCount, unitPrice, activePlan]);
 
   return (
     <div className="dz-sim" id="simulator">
@@ -47,69 +52,133 @@ export default function DivizeroRewardSimulator() {
         <span className="dz-label">Simulator</span>
         <h2 className="dz-section-title">報酬シミュレーター</h2>
         <p className="dz-section-lead">
-          想定商材単価を入力すると、適用プランと費用感をその場で確認できます。
+          平均単価と月間アポ目標を動かすと、手残りと営業時間の削減イメージがその場で試算できます。
         </p>
       </div>
 
       <div className="dz-sim-body">
-        <div className="dz-sim-control">
-          <div className="dz-sim-control-top">
-            <label htmlFor="dz-unit-price">想定商材単価</label>
-            <span className="dz-sim-value">¥{unitPrice.toLocaleString()}</span>
-          </div>
-          <input
-            id="dz-unit-price"
-            type="range"
-            min={MIN_PRICE}
-            max={MAX_PRICE}
-            step={5_000}
-            value={unitPrice}
-            onChange={(e) => setUnitPrice(Number(e.target.value))}
-            className="dz-sim-range"
-          />
-          <div className="dz-sim-range-labels">
-            <span>¥{MIN_PRICE.toLocaleString()}</span>
-            <span>¥{MAX_PRICE.toLocaleString()}</span>
-          </div>
-        </div>
+        {/* 1. パラメータ */}
+        <section className="dz-sim-block">
+          <h3 className="dz-sim-block-title">1. パラメータを設定</h3>
 
+          <div className="dz-sim-control">
+            <div className="dz-sim-control-top">
+              <label htmlFor="dz-unit-price">あなたのサービスの平均単価（税抜）</label>
+              <span className="dz-sim-value">{formatYen(unitPrice)}</span>
+            </div>
+            <input
+              id="dz-unit-price"
+              type="range"
+              min={MIN_PRICE}
+              max={MAX_PRICE}
+              step={PRICE_STEP}
+              value={unitPrice}
+              onChange={(e) => setUnitPrice(Number(e.target.value))}
+              className="dz-sim-range dz-sim-range--price"
+            />
+            <div className="dz-sim-range-labels">
+              <span>1万円</span>
+              <span>15万円</span>
+              <span>30万円</span>
+            </div>
+          </div>
+
+          <div className="dz-sim-control">
+            <div className="dz-sim-control-top">
+              <label htmlFor="dz-apo-count">月間獲得アポ件数（目標）</label>
+              <span className="dz-sim-value dz-sim-value--apo">{apoCount}件</span>
+            </div>
+            <input
+              id="dz-apo-count"
+              type="range"
+              min={MIN_APO}
+              max={MAX_APO}
+              step={1}
+              value={apoCount}
+              onChange={(e) => setApoCount(Number(e.target.value))}
+              className="dz-sim-range dz-sim-range--apo"
+            />
+            <div className="dz-sim-range-labels">
+              <span>1件</span>
+              <span>25件</span>
+              <span>50件</span>
+            </div>
+          </div>
+
+          <div className="dz-sim-plan-row">
+            <span className="dz-sim-plan-row-label">コミッションプランの選択</span>
+            {!canChoosePercent ? (
+              <span className="dz-sim-plan-row-note">
+                ※単価5万円以下のためプランA固定となります
+              </span>
+            ) : (
+              <span className="dz-sim-plan-row-note dz-sim-plan-row-note--muted">
+                単価5万円超のためプランBも選択できます
+              </span>
+            )}
+          </div>
+        </section>
+
+        {/* プラン選択 */}
         <div className="dz-sim-plans">
           <button
             type="button"
             className={`dz-sim-plan ${activePlan === "fixed" ? "is-active" : ""}`}
             onClick={() => setPlan("fixed")}
+            aria-pressed={activePlan === "fixed"}
           >
-            <span className="dz-sim-plan-name">最低保証 5,000円プラン</span>
-            <span className="dz-sim-plan-desc">1アポ ¥5,000（固定）</span>
-            {!canChoosePercent && <span className="dz-sim-plan-badge">自動適用</span>}
+            <div className="dz-sim-plan-text">
+              <span className="dz-sim-plan-name">プランA：単価型</span>
+              <span className="dz-sim-plan-desc">最低保証一律 5,000円／アポ</span>
+            </div>
+            <span className="dz-sim-plan-radio" aria-hidden />
           </button>
           <button
             type="button"
             className={`dz-sim-plan ${activePlan === "percent" ? "is-active" : ""}`}
             onClick={() => canChoosePercent && setPlan("percent")}
             disabled={!canChoosePercent}
+            aria-pressed={activePlan === "percent"}
           >
-            <span className="dz-sim-plan-name">成約時報酬 10%プラン</span>
-            <span className="dz-sim-plan-desc">成約1件あたり 商材単価の10%</span>
-            {!canChoosePercent && <span className="dz-sim-plan-badge is-muted">5万円超で選択可</span>}
+            <div className="dz-sim-plan-text">
+              <span className="dz-sim-plan-name">プランB：成約型</span>
+              <span className="dz-sim-plan-desc">制作単価の 10% ／ 成約</span>
+            </div>
+            <span className="dz-sim-plan-radio" aria-hidden />
           </button>
         </div>
 
-        <div className="dz-sim-result">
-          <p className="dz-sim-result-label">適用プラン</p>
-          <p className="dz-sim-result-plan">{result.planLabel}</p>
-          {result.perApo !== null ? (
-            <p className="dz-sim-result-amount">
-              1アポあたり <strong>¥{result.perApo.toLocaleString()}</strong>
-            </p>
-          ) : (
-            <p className="dz-sim-result-amount">
-              成約1件あたり <strong>¥{result.perClose?.toLocaleString()}</strong>
-              <span className="dz-sim-result-sub">（商材単価 ¥{unitPrice.toLocaleString()} × 10%）</span>
-            </p>
-          )}
-          <p className="dz-sim-result-note">{result.note}</p>
-        </div>
+        {/* 2. 試算結果 */}
+        <section className="dz-sim-block dz-sim-result-block">
+          <h3 className="dz-sim-block-title">2. 試算結果（推定・期待値）</h3>
+
+          <div className="dz-sim-result">
+            <div className="dz-sim-result-main">
+              <p className="dz-sim-result-label">
+                想定される総売上（成約率 30%換算）
+              </p>
+              <p className="dz-sim-result-total">{formatYen(calc.totalSales)}</p>
+            </div>
+
+            <div className="dz-sim-result-row">
+              <span>divizeroへの支払手数料</span>
+              <span className="dz-sim-result-fee">−{formatYen(calc.fee)}</span>
+            </div>
+
+            <div className="dz-sim-result-row dz-sim-result-row--net">
+              <span>あなたの実質手残り</span>
+              <span className="dz-sim-result-net">{formatYen(calc.netProfit)}</span>
+            </div>
+          </div>
+
+          <div className="dz-sim-time">
+            <span className="dz-sim-time-icon" aria-hidden>
+              ◷
+            </span>
+            <span className="dz-sim-time-label">削減される営業アプローチ時間</span>
+            <span className="dz-sim-time-value">約 {calc.timeSavedHours} 時間／月</span>
+          </div>
+        </section>
 
         {canChoosePercent && activePlan === "percent" && (
           <p className="dz-sim-incentive">

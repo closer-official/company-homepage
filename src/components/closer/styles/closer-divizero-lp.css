@@ -382,7 +382,26 @@
 .dz-sim-body {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
+}
+
+.dz-sim-block {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dz-sim-block-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dz-text);
+}
+
+.dz-sim-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .dz-sim-control-top {
@@ -424,10 +443,43 @@
 }
 
 .dz-sim-range-labels {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   margin-top: 8px;
   font-size: 0.72rem;
+  color: var(--dz-muted);
+  text-align: center;
+}
+
+.dz-sim-range-labels span:first-child {
+  text-align: left;
+}
+
+.dz-sim-range-labels span:last-child {
+  text-align: right;
+}
+
+.dz-sim-plan-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-top: 4px;
+  border-top: 1px solid var(--dz-border);
+}
+
+.dz-sim-plan-row-label {
+  font-size: 0.88rem;
+  color: var(--dz-text);
+}
+
+.dz-sim-plan-row-note {
+  font-size: 0.78rem;
+  color: #e07a7a;
+}
+
+.dz-sim-plan-row-note--muted {
   color: var(--dz-muted);
 }
 
@@ -438,6 +490,10 @@
 }
 
 .dz-sim-plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   text-align: left;
   border: 1px solid var(--dz-border);
   background: transparent;
@@ -445,6 +501,34 @@
   color: var(--dz-text);
   cursor: pointer;
   transition: border-color 0.2s, background 0.2s;
+}
+
+.dz-sim-plan-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.dz-sim-plan-radio {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--dz-muted);
+  position: relative;
+}
+
+.dz-sim-plan.is-active .dz-sim-plan-radio {
+  border-color: var(--dz-accent);
+}
+
+.dz-sim-plan.is-active .dz-sim-plan-radio::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--dz-accent);
 }
 
 .dz-sim-plan:disabled {
@@ -483,48 +567,93 @@
   color: var(--dz-muted);
 }
 
+.dz-sim-result-block {
+  gap: 16px;
+}
+
 .dz-sim-result {
-  border: 1px solid rgba(201, 169, 98, 0.35);
-  background: var(--dz-accent-soft);
+  border: 1px solid var(--dz-border);
+  background: rgba(255, 255, 255, 0.03);
   padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dz-sim-result-main {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--dz-border);
 }
 
 .dz-sim-result-label {
-  margin: 0 0 6px;
-  font-size: 0.75rem;
+  margin: 0 0 8px;
+  font-size: 0.8rem;
   color: var(--dz-muted);
 }
 
-.dz-sim-result-plan {
-  margin: 0 0 12px;
-  font-size: 1.05rem;
+.dz-sim-result-total {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--dz-text);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.dz-sim-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--dz-muted);
+}
+
+.dz-sim-result-fee {
+  color: #e07a7a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dz-sim-result-row--net {
+  padding-top: 4px;
+  color: var(--dz-text);
   font-weight: 500;
 }
 
-.dz-sim-result-amount {
-  margin: 0 0 10px;
-  font-size: 1.1rem;
-}
-
-.dz-sim-result-amount strong {
+.dz-sim-result-net {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--dz-accent);
-  font-weight: 400;
+  white-space: nowrap;
 }
 
-.dz-sim-result-sub {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.78rem;
-  color: var(--dz-muted);
+.dz-sim-time {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 14px 18px;
+  border: 1px solid var(--dz-border);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.88rem;
 }
 
-.dz-sim-result-note {
-  margin: 0;
-  font-size: 0.82rem;
+.dz-sim-time-icon {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.dz-sim-time-label {
+  flex: 1;
   color: var(--dz-muted);
-  line-height: 1.7;
+  min-width: 12rem;
+}
+
+.dz-sim-time-value {
+  font-weight: 500;
+  color: var(--dz-text);
+  white-space: nowrap;
 }
 
 .dz-sim-incentive {
