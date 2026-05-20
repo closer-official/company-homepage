@@ -794,3 +794,392 @@
   font-size: 1.6rem;
   color: var(--dz-accent);
 }
+
+/* ---- divizero 追加セクション（files zip） ---- */
+.dz-story {
+  padding: 100px 24px;
+  background: var(--dz-bg);
+}
+
+.dz-story-body {
+  max-width: 680px;
+  margin-top: 32px;
+}
+
+.dz-story-body p {
+  color: var(--dz-muted);
+  line-height: 2;
+  font-size: 0.95rem;
+  margin: 0 0 20px;
+}
+
+.dz-story-body p:last-child {
+  margin-bottom: 0;
+}
+
+.dz-genres {
+  padding: 100px 24px;
+  background: var(--dz-bg-elevated);
+}
+
+.dz-genres-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.dz-genre-tag {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  color: var(--dz-text);
+  padding: 10px 20px;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.dz-genre-tag:hover {
+  border-color: var(--dz-accent);
+  background: var(--dz-accent-soft);
+}
+
+.dz-flow {
+  padding: 100px 24px;
+  background: var(--dz-bg);
+}
+
+.dz-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.dz-flow-step {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  padding: 28px 24px;
+  position: relative;
+}
+
+.dz-flow-dot {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--dz-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--dz-accent);
+  margin-bottom: 16px;
+}
+
+.dz-flow-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--dz-text);
+}
+
+.dz-flow-text {
+  font-size: 0.82rem;
+  color: var(--dz-muted);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.dz-flow-note,
+.closer-flow-note {
+  margin-top: 32px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--dz-accent);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.88rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  max-width: 680px;
+}
+
+.dz-pain-closing {
+  margin-top: 40px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--dz-accent);
+  border-left: 2px solid var(--dz-accent);
+  padding-left: 24px;
+}
+
+.dz-faq {
+  padding: 100px 24px;
+  background: var(--dz-bg-elevated);
+}
+
+.dz-faq-list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 760px;
+}
+
+.dz-faq-item {
+  border-top: 1px solid var(--dz-border);
+  padding: 28px 0;
+}
+
+.dz-faq-item:last-child {
+  border-bottom: 1px solid var(--dz-border);
+}
+
+.dz-faq-q {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dz-text);
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.dz-faq-q::before {
+  content: "Q. ";
+  color: var(--dz-accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.dz-faq-a {
+  font-size: 0.88rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  margin: 0;
+  padding-left: 24px;
+}
+
+.closer-about-brand {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--dz-border);
+  max-width: 760px;
+}
+
+.closer-about-brand-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--dz-text);
+  margin: 0 0 20px;
+}
+
+.closer-about-brand-text {
+  font-size: 0.92rem;
+  color: var(--dz-muted);
+  line-height: 2;
+  margin: 0;
+}
+
+.closer-services-genres {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--dz-border);
+}
+
+.closer-services-genre-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.closer-genre-tag {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  color: var(--dz-text);
+  padding: 10px 20px;
+  font-size: 0.88rem;
+}
+
+.closer-services-flow {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--dz-border);
+}
+
+.closer-services-flow-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.closer-services-flow-step {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  padding: 24px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.closer-services-flow-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--dz-accent);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.closer-services-flow-step p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--dz-muted);
+  line-height: 1.8;
+}
+
+.closer-service-subname {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--dz-muted);
+  margin: 4px 0 16px;
+}
+
+.closer-pricing-guide {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--dz-border);
+}
+
+.closer-pricing-guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.closer-pricing-guide-card {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  padding: 28px 24px;
+}
+
+.closer-pricing-guide-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--dz-accent);
+  margin: 0 0 12px;
+}
+
+.closer-pricing-guide-text {
+  font-size: 0.85rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  margin: 0;
+}
+
+.closer-pricing-faq {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--dz-border);
+}
+
+.closer-works-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 80px;
+}
+
+.closer-works-metric-card {
+  border: 1px solid var(--dz-border);
+  background: var(--dz-bg-card);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.closer-works-metric-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--dz-accent);
+  margin-bottom: 8px;
+}
+
+.closer-works-metric-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dz-text);
+  margin-bottom: 6px;
+}
+
+.closer-works-metric-note {
+  font-size: 0.78rem;
+  color: var(--dz-muted);
+}
+
+.closer-works-context {
+  padding: 80px 0;
+  border-top: 1px solid var(--dz-border);
+  max-width: 760px;
+}
+
+.closer-works-context-text {
+  font-size: 0.92rem;
+  color: var(--dz-muted);
+  line-height: 2;
+  margin: 0 0 20px;
+}
+
+.closer-works-context-text:last-child {
+  margin-bottom: 0;
+}
+
+.closer-works-strengths {
+  padding: 80px 0;
+  border-top: 1px solid var(--dz-border);
+}
+
+.closer-works-strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.closer-works-strength-card {
+  border: 1px solid var(--dz-border);
+  background: linear-gradient(160deg, var(--dz-bg-card) 0%, var(--dz-bg-elevated) 100%);
+  padding: 28px 24px;
+}
+
+.closer-works-strength-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dz-text);
+  margin: 0 0 12px;
+}
+
+.closer-works-strength-text {
+  font-size: 0.85rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .dz-flow-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .closer-works-metrics,
+  .closer-works-strengths-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .closer-pricing-guide-grid,
+  .closer-services-flow-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dz-flow-grid {
+    grid-template-columns: 1fr;
+  }
+}

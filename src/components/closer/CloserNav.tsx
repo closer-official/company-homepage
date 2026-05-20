@@ -15,8 +15,10 @@ const ALL_LINKS = [
 const DIVIZERO_HOME_LINKS = [
   { href: "#pain", en: "Problem", ja: "課題" },
   { href: "#reasons", en: "Why", ja: "強み" },
+  { href: "#flow", en: "Flow", ja: "流れ" },
   { href: "#pricing", en: "Pricing", ja: "料金" },
   { href: "#simulator", en: "Simulator", ja: "試算" },
+  { href: "#faq", en: "FAQ", ja: "質問" },
 ] as const;
 
 const LINE_CTA_URL = "https://lin.ee/q4V81Ks";
