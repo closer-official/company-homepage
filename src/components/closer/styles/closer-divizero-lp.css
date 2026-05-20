@@ -1584,6 +1584,22 @@
   border-top: 1px solid var(--dz-border);
 }
 
+.closer-pricing-guide-lead {
+  font-size: 0.85rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  margin: 20px 0 0;
+  max-width: 42rem;
+}
+
+.closer-pricing-guide-foot {
+  font-size: 0.85rem;
+  color: var(--dz-muted);
+  line-height: 1.9;
+  margin: 24px 0 0;
+  max-width: 42rem;
+}
+
 .closer-pricing-guide-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

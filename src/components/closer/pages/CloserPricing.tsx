@@ -8,7 +8,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "どちらのプランを選べばいいですか？",
-    a: "商材単価が5万円以下なら「1アポ5,000円プラン」が割安です。5万円を超える案件が中心であれば「成約時10%プラン」の方がROIが合うケースが多くなります。迷ったらLINEでご相談ください。",
+    a: "商材単価5万円以下は「1アポ5,000円プラン」のみです。5万円超は単価だけ見ると5,000円プランの方が安く見えることもありますが、成約時10%プランは報酬が成約に直結するため、実績のある営業パートナーが手を挙げやすく、商談の質と成約率で見返りが出やすいケースが多いです。ベース＋成約時インセンティブでのお支払いも準備しています。最適な形はヒアリングのうえ一緒に決めましょう。",
   },
   {
     q: "いつでも辞められますか？",
@@ -42,20 +42,26 @@ export default function CloserPricing() {
         <h2 className="closer-section-title closer-section-title--ruled">
           どちらのプランを選べばいい？
         </h2>
+        <p className="closer-pricing-guide-lead">
+          5万円以下は5,000円プランのみ。5万円超は費用だけ見ると5,000円の方が安く見えることもありますが、10%プランは成約報酬が直結するため、実績のある営業パートナーが集まりやすく、質で見返りが出るケースが多いです。
+        </p>
         <div className="closer-pricing-guide-grid dz-reveal-stagger">
           <div className="closer-pricing-guide-card dz-glass-card">
             <p className="closer-pricing-guide-label">1アポ5,000円プランが向いている方</p>
             <p className="closer-pricing-guide-text">
-              商材単価が5万円以下の方。まず少ないリスクでお試ししたい方。アポ数を優先したい方。
+              商材単価5万円以下（このプランのみ対象）。まず低リスクで始めたい方。アポ数を優先したい方。
             </p>
           </div>
           <div className="closer-pricing-guide-card dz-glass-card">
             <p className="closer-pricing-guide-label">成約時10%プランが向いている方</p>
             <p className="closer-pricing-guide-text">
-              商材単価が5万円を超える方。成約数より受注単価を重視したい方。高単価案件を量産したい方。
+              商材単価5万円超で選択可能。単価より、実績者のアサインと商談の質を重視したい方。成約報酬が動機づけになる商材向け。
             </p>
           </div>
         </div>
+        <p className="closer-pricing-guide-foot">
+          ベース＋成約時インセンティブでのお支払いも準備しています。何がいちばん合うかは、商材・体制・目標を伺ったうえで一緒に決めましょう。
+        </p>
       </div>
 
       <div className="closer-pricing-faq dz-reveal">
