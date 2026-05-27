@@ -306,7 +306,7 @@ Divizeroへの支払い発生タイミング: ${divizeroChargeTrigger}
           <button type="button" onClick={handleCopyPlan} className="rounded-full border border-[var(--border)] px-5 py-2 text-sm">
             プランをコピーする
           </button>
-          <button type="submit" disabled={submitting} className="rounded-full bg-[var(--terracotta)] px-6 py-2 text-sm text-white disabled:cursor-not-allowed disabled:opacity-60">
+          <button type="submit" disabled={submitting} className="rounded-full bg-[var(--terracotta)] px-6 py-2 text-sm text-[var(--text)] disabled:cursor-not-allowed disabled:opacity-60">
             {submitting ? "送信中..." : "ヒアリングシートを送信する"}
           </button>
         </div>
