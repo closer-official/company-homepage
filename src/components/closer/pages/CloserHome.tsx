@@ -1,78 +1,62 @@
 import DivizeroCompareTable from "../DivizeroCompareTable";
 import DivizeroRewardSimulator from "../DivizeroRewardSimulator";
-import DivizeroHeroParticles from "../divizero/DivizeroHeroParticles";
 import { ScrollMetric } from "../divizero/AnimatedNumber";
-import { DIVIZERO_LINE_URL } from "@/lib/divizero";
 
-const LINE_URL = DIVIZERO_LINE_URL;
+// 禁止表現（ハック・量産・自動最適など）を完全排除した、誠実で温度のあるテキストデータ
+const PAIN_ITEMS_CREATOR = [
+  "制作やコンサルティングのクオリティには絶対の自信がある。しかし、自分自身で泥臭い顧客開拓や営業活動をする時間がなく、案件が途切れてしまう。",
+  "売上を立てるために営業代行を探しても、月額数十万の固定費がかかる上に成果保証がない。大切な自分のブランドや商材のイメージが、強引な売り込みで傷つくのが怖い。",
+  "市場の競合が増え続ける中で、自分だけの独自の強みや一気通貫した提案導線が作れず、他社との安価な価格競争に巻き込まれそうになっている。",
+];
 
-const PAIN_ITEMS = [
-  "プル型だけでは、いつまで待っても顧客は来ない。かといってプッシュ型をやろうとしたら、時間も初期費用もかかりすぎる。",
-  "営業代行を探しても、月額数十万・成果保証なし。いいサービスを持っているのに、営業の壁で諦めそうになっている。",
-  "制作には自信がある。でも競合が増えすぎて、「自分だけの差別化」がどうしても見えてこない。",
+const PAIN_ITEMS_SHOP = [
+  "個人サロンや美容室、パーソナルジムを開業したものの、集客のノウハウがなく新規顧客が来ない。大手広告媒体に頼ると高額な掲載料で経営が圧迫される。",
+  "集客の課題を解決したいが、ホームページ、SNS運用、動画、どこが本当のボトルネック（原因）なのか自分自身では判断がつかない。",
+  "営業会社からかかってくる電話はどれも高額で強引な売り込みばかり。自社のお店の状況に本当に寄り添った、適正価格の提案をしてくれる相手が見つからない。",
 ];
 
 const REASONS = [
   {
     num: "01",
-    title: "あなたに興味を持ちそうな人だけに、届ける",
-    text: "テンプレートの使い回しを完全排除。あなたのアカウント特性を徹底分析し、最も可能性の高いターゲットを絞り込みます。ブランドを傷つけない、オーダーメイドのアプローチ設計。",
+    title: "売り込むのではなく、まず「診察」するドクター型提案",
+    text: "私たちは、最初から特定の商材を売りつけるような営業は一切しません。まずは実店舗の集客状況を丁寧にヒアリングし、何が原因で集客が滞っているのかを特定。本当に必要な解決策だけを導き出すため、ミスマッチが起こりません。",
   },
   {
     num: "02",
-    title: "返信が来やすい相手に、来やすい時間に送る",
-    text: "蓄積データから「最も返信が来やすい文面」「最もアクティブな曜日・時間帯」をシステム化。ピンポイントアプローチで、一般的な返信率2〜4%を40%まで引き上げます。",
+    title: "厳選されたフリーランスによる一気通貫の解決力",
+    text: "プラットフォームが目を付けた、えりすぐりの優秀なフリーランスが集結。診断の結果、お店のボトルネックがWebサイトであっても、SNS運用であっても、あるいは動画であっても、窓口を一本化して一気通貫で高品質な施策を提供します。",
   },
   {
     num: "03",
-    title: "テキストだけで、自然にアポを取る",
-    text: "怪しいURLを踏ませるような営業は一切しません。DM内の丁寧なテキストチャットだけで会話を完結させ、クライアントのカレンダーにZoom面談を直接入れます。",
+    title: "「営業は科学だ」感覚に頼らないデータベース営業",
+    text: "在籍する営業スタッフには、運営側から再現性のある科学的な営業データを提供しています。経験の浅い駆け出しのメンバーであっても、仕組みの力で業界トップクラスの誠実な提案を行えるため、全体の営業リソースコストを大幅に抑えています。",
+  },
+];
+
+const THREE_WAY_BENEFITS = [
+  {
+    title: "A：えりすぐりのフリーランス",
+    label: "制作者・コンサルタント",
+    text: "自分自身で泥臭い営業に時間を奪われることなく、一番の強みである「制作・価値提供」に100%集中できます。事前診断に基づいたアプローチのため、自身のブランドイメージが崩れるリスクも極めて低いです。",
+  },
+  {
+    title: "B：集客に悩む個人サロン・実店舗",
+    label: "美容室・パーソナルジム等",
+    text: "高コストなゴリゴリの営業会社を通さないため、ハイレベルな集客パッケージをダイレクトかつ業界最安値クラスの適正価格で導入できます。ドクター型の診断により、本当に必要なおすすめの解決策だけが手に入ります。",
+  },
+  {
+    title: "C：意欲ある営業パートナー",
+    label: "これから頑張る営業スタッフ",
+    text: "センスや感覚、根性に頼ることなく、運営側から支給される豊富なデータを活用して営業を実践。再現性のある科学的なプロセスを繰り返すことで、働きながら一生モノのロジカルな営業スキルをいつの間にか身につけることができます。",
   },
 ];
 
 const FLOW_STEPS = [
-  { num: "01", title: "公式LINEに登録", text: "まず現状の課題・商材・ターゲットをヒアリングします。" },
-  { num: "02", title: "プラン提案", text: "商材単価・目標アポ数をもとに最適なプランをご提案。" },
-  { num: "03", title: "アカウント設計", text: "あなたのアカウントを分析し、ターゲット・文面を設計します。" },
-  { num: "04", title: "DM運用開始", text: "チームが代わりにDMを送り、返信対応・日程調整を行います。" },
-  { num: "05", title: "アポ確定", text: "前向きな相手だけを選び、あなたのカレンダーに商談を届けます。" },
-  { num: "06", title: "あなたは商談だけ", text: "来た方の対応だけしていればOK。制作に戻れます。" },
-];
-
-const GENRES = [
-  "Web制作・LP制作",
-  "SNS運用代行",
-  "動画制作・編集",
-  "コンサルティング",
-  "AIコンテンツ制作",
-  "グラフィックデザイン",
-];
-
-const FAQ_ITEMS = [
-  {
-    q: "本当に初期費用・月額費用はゼロですか？",
-    a: "はい。アポが確定した時点で初めて費用が発生します。成果が出るまで、一切お金はかかりません。",
-  },
-  {
-    q: "今は案件が足りているので不要かもしれません",
-    a: "むしろ今のうちに仕組みを整えておくことをおすすめしています。案件が切れてから動いても、営業には時間がかかります。余裕があるうちに「来月の商談が埋まっている状態」を作るのが、長期的に安定する唯一の方法です。",
-  },
-  {
-    q: "どんなジャンルでも対応できますか？",
-    a: "SNSを通じて届ける無形商材であれば対応できます。Web制作・LP・SNS運用・コンサル・AIコンテンツ・動画制作など、実績・経験を問わずご相談ください。",
-  },
-  {
-    q: "完全成果報酬って、裏があるんじゃないですか？",
-    a: "正直に言うと、私たちが本気を出す理由は「成果が出ないと報酬がゼロだから」です。クライアントにリスクがない分、チーム側にプレッシャーがあります。それがこの仕組みの本質です。",
-  },
-  {
-    q: "いつでも辞められますか？",
-    a: "はい。縛りはありません。アポが来なければ費用もかかりません。",
-  },
-  {
-    q: "フォロワーが少なくても大丈夫ですか？",
-    a: "はい。むしろフォロワー1万人以下の方を主なターゲットとして設計されたサービスです。フォロワー数より、商材の質とターゲット設計が重要です。",
-  },
+  { num: "01", title: "公式LINEへ登録", text: "まずは公式LINEからプラットフォームへご参加ください。現状の商材や店舗の課題感を軽くお聞きします。" },
+  { num: "02", title: "事前分析とアサイン", text: "運営チームがデータベースを基にターゲットや課題を分析。意欲ある営業スタッフがチームとして配置されます。" },
+  { num: "03", title: "丁寧な「診断」の開始", text: "営業スタッフがお店のボトルネック（Web、SNS、動画等）を特定するドクター型の対話カウンセリングを行います。" },
+  { num: "04", title: "一気通貫のプラン提案", text: "診断カルテに基づき、えりすぐりのフリーランスが持つ最適な集客パッケージをミスマッチなくご提案します。" },
+  { num: "05", title: "マッチング確定・稼働", text: "条件が合意に至った段階で、初めて完全成果報酬の手数料が発生。フリーランス側は制作へ、実店舗側は集客改善へと進みます。" },
 ];
 
 function LineCta({
@@ -82,7 +66,7 @@ function LineCta({
 }) {
   return (
     <a
-      href={LINE_URL}
+      href="https://line.me/ti/p/7818mX2ZAe"
       target="_blank"
       rel="noopener noreferrer"
       className={className}
@@ -95,41 +79,44 @@ function LineCta({
 export default function CloserHome() {
   return (
     <div className="dz-lp">
+      {/* ヒーローセクション：白ベースにターコイズが映えるクリーンな空間 */}
       <section className="dz-hero">
-        <DivizeroHeroParticles />
         <div className="dz-hero-glow" aria-hidden />
         <div className="dz-hero-inner dz-reveal is-visible">
-          <span className="dz-label">Sales Platform / divizero</span>
+          <span className="dz-label">Next-Generation Sales Platform / divizero</span>
           <h1 className="dz-hero-title">
-            営業を仕組み化し、
+            営業力を仕組み化し、
             <br />
-            クリエイターに<em className="dz-text-gold-gradient">制作の時間</em>を返す。
+            クリエイターに<span>制作の時間</span>を、
+            <br />
+            実店舗に<span>集客の安心</span>を。
           </h1>
           <p className="dz-hero-sub">
-            初期費用ゼロ。あなたの代わりに商談を取り続ける、完全成果報酬の営業インフラ。
-            一般的なDM営業の返信率はわずか2〜4%。divizeroはターゲット選定とアカウント最適化により、返信率40%を実現しています。
+            初期費用ゼロ。センスや強引な売込に頼らない「科学的な診断」によって、厳選されたフリーランスの確かな解決力と、集客に困っているサロン・実店舗をダイレクトに適正価格で繋ぐ、次世代型の三方よしインフラ。
           </p>
           <div className="dz-hero-actions">
             <LineCta />
           </div>
+          
+          {/* 統計・パラメーター表示 */}
           <div className="dz-hero-metrics dz-reveal-stagger">
             <div className="dz-metric dz-glass-card">
-              <span className="dz-metric-value dz-text-gold-gradient">
-                <ScrollMetric end={40} suffix="%" />
+              <span className="dz-metric-value">
+                <ScrollMetric end={100} suffix="%法務" />
               </span>
-              <span className="dz-metric-label">DM返信率（業界平均2〜4%）</span>
+              <span className="dz-metric-label">商材ブランド保全（URL誘導・無理な売込なし）</span>
             </div>
             <div className="dz-metric dz-glass-card">
-              <span className="dz-metric-value dz-text-gold-gradient">
+              <span className="dz-metric-value">
                 <ScrollMetric end={0} prefix="¥" />
               </span>
-              <span className="dz-metric-label">初期費用・月額費用</span>
+              <span className="dz-metric-label">初期導入・月額固定費用</span>
             </div>
             <div className="dz-metric dz-glass-card">
-              <span className="dz-metric-value dz-text-gold-gradient">
+              <span className="dz-metric-value">
                 <ScrollMetric end={5000} prefix="¥" suffix="〜" />
               </span>
-              <span className="dz-metric-label">1アポ確定・完全成果報酬</span>
+              <span className="dz-metric-label">1診断マッチング確定・完全成果報酬</span>
             </div>
           </div>
         </div>
@@ -141,46 +128,61 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-elevated" aria-hidden />
 
+      {/* 課題セクション：AさんとBさん、双方が直面している現状の限界を可視化 */}
       <section className="dz-pain dz-section dz-section--major" id="pain">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">Problem</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            せっかくのサービスと信念を、<em className="dz-text-gold-gradient">営業の壁</em>で諦めていませんか？
+          <span className="dz-label">The Bottleneck</span>
+          <h2 className="dz-section-title">
+            せっかくの素晴らしい技術やお店が、<span>「届かない壁」</span>で埋もれていませんか？
           </h2>
           <p className="dz-section-lead">
-            Web制作・SNS代行・AIコンテンツ——どのジャンルでも、同じ壁にぶつかっているクリエイターがいます。
+            営業リソースの不足に悩む優秀なクリエイターと、集客の根本原因が分からず疲弊する実店舗オーナー。従来の強引な営業代行では、この双方の溝を埋めることはできませんでした。
           </p>
+          
+          <h3 style={{ marginTop: "40px", fontSize: "1.1rem", fontWeight: 600 }}>制作・コンサルティング側（Aさん）の課題</h3>
           <div className="dz-pain-grid dz-reveal-stagger">
-            {PAIN_ITEMS.map((text, i) => (
+            {PAIN_ITEMS_CREATOR.map((text, i) => (
               <article key={i} className="dz-pain-card dz-glass-card">
                 <span className="dz-pain-num dz-num">{String(i + 1).padStart(2, "0")}</span>
                 <p>{text}</p>
               </article>
             ))}
           </div>
+
+          <h3 style={{ marginTop: "40px", fontSize: "1.1rem", fontWeight: 600 }}>個人サロン・実店舗側（Bさん）の課題</h3>
+          <div className="dz-pain-grid dz-reveal-stagger">
+            {PAIN_ITEMS_SHOP.map((text, i) => (
+              <article key={i} className="dz-pain-card dz-glass-card">
+                <span className="dz-pain-num dz-num">{String(i + 1).padStart(2, "0")}</span>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+
           <p className="dz-pain-closing">
-            divizeroは、その壁をデータとオペレーションで取り除きます。
+            divizeroは、この割り切れない壁を「科学的データ」と「ドクター型の対話」によって、最も無理のない形で解決します。
           </p>
         </div>
       </section>
 
       <div className="dz-slope dz-slope--to-base" aria-hidden />
 
-      <section className="dz-story dz-section dz-section--compact" id="story">
+      {/* 理念セクション：「営業は科学だ」 */}
+      <section className="dz-story dz-section dz-section--compact" id="philosophy">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">Our Story</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            Divizeroが生まれた、<em className="dz-text-gold-gradient">理由</em>。
+          <span className="dz-label">Our Philosophy</span>
+          <h2 className="dz-section-title">
+            営業は根性ではなく、<span>「科学」</span>である。
           </h2>
           <div className="dz-story-body">
             <p>
-              代表自身がWeb制作・コンサル・動画制作を経験してきました。準備に時間をかけても、ROIが合わない。プル型だけでは顧客が来ない。競合が増える中で差別化も難しい。使えそうな営業代行は初期費用が高すぎる。
+              私たちは、最初からスキルの高い高コストなトップ営業マンを囲い込んでいるわけではありません。ここに集まるのは、これから頑張りたいという強い意欲を持った、駆け出しの若い営業スタッフたちです。
             </p>
             <p>
-              その経験があるから分かります。いいサービスを持っているのに、営業の壁で諦める人がどれだけいるか。
+              彼らを支えるのが、運営側から支給される精密な「営業データベース」です。センスや感覚に頼る営業を完全に排除し、再現性のあるデータを基に動くことで、未経験からでも業界トップクラスの誠実でロジカルな提案を可能にしています。
             </p>
             <p>
-              Divizeroという名前には「割り切れない」という数学の概念が込められています。本来ひとりでは越えられないお金・時間・スキルのハードルを、チームと仕組みの力でゼロに近づける。あなたのビジネスを「割り切れない壁」で終わらせないために、このサービスを作りました。
+              このデータ駆動型の育成体制があるからこそ、無駄なコストを極限まで省き、プラットフォーム全体として極めて低価格な営業リソースを市場に提供し続けることができるのです。
             </p>
           </div>
         </div>
@@ -188,20 +190,23 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-elevated" aria-hidden />
 
-      <section className="dz-genres dz-section dz-section--compact" id="genres">
+      {/* 三方よしセクション：三者それぞれの提供価値を分かりやすく明記 */}
+      <section className="dz-reasons dz-section dz-section--major" id="benefits">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">対応ジャンル</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            SNSで届ける<em className="dz-text-gold-gradient">無形商材</em>なら、すべて対応。
+          <span className="dz-label">Three-Way Ecosystem</span>
+          <h2 className="dz-section-title">
+            関わるすべての人が、最も自然に、最も豊かになる循環
           </h2>
           <p className="dz-section-lead">
-            共通するのは「SNSを通じて届ける無形商材」であること。ジャンルや経験年数を問わず、まずはご相談ください。
+            誰かが無理をしたり、誰かが搾取される構造を仕組みから徹底的に排除しました。
           </p>
-          <div className="dz-genres-grid dz-reveal-stagger">
-            {GENRES.map((g) => (
-              <div key={g} className="dz-genre-tag dz-glass-card">
-                {g}
-              </div>
+          <div className="dz-reason-grid dz-reveal-stagger" style={{ gridTemplateColumns: "repeat(3, 1fr)", display: "grid", gap: "20px", marginTop: "40px" }}>
+            {THREE_WAY_BENEFITS.map((b, i) => (
+              <article key={i} className="dz-reason-card dz-glass-card">
+                <span className="dz-reason-num" style={{ fontSize: "0.75rem", color: "var(--dz-accent-dark)", fontWeight: 600 }}>{b.label}</span>
+                <h3 style={{ margin: "8px 0 12px", fontSize: "1.1rem", fontWeight: 600 }}>{b.title}</h3>
+                <p style={{ margin: 0, fontSize: "0.88rem", lineHeight: 1.7, color: "var(--dz-muted)" }}>{b.text}</p>
+              </article>
             ))}
           </div>
         </div>
@@ -209,14 +214,15 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-base" aria-hidden />
 
-      <section className="dz-reasons dz-section dz-section--major" id="reasons">
+      {/* 特徴セクション：なぜこの数字と価値が出るのかの技術的・運用的裏付け */}
+      <section className="dz-reasons dz-section dz-section--major" id="features">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">Why divizero</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            divizeroが選ばれる理由
+          <span className="dz-label">Platform Core</span>
+          <h2 className="dz-section-title">
+            divizeroプラットフォームが選ばれる理由
           </h2>
           <p className="dz-section-lead">
-            有象無象の営業代行とは一線を画す、クリエイター専門の営業インフラ。
+            有象無象のテンプレート使い回し営業会社とは一線を画す、科学的アプローチの核心。
           </p>
           <div className="dz-reason-grid dz-reveal-stagger">
             {REASONS.map((r) => (
@@ -232,14 +238,15 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-deep" aria-hidden />
 
+      {/* 手順セクション：ドクタープロセス */}
       <section className="dz-flow dz-section dz-section--major" id="flow">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">How it works</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            LINE登録から、<em className="dz-text-gold-gradient">商談が届くまで</em>。
+          <span className="dz-label">Doctor Process</span>
+          <h2 className="dz-section-title">
+            LINE登録から、<span>ミスマッチのない診断提案</span>までの流れ。
           </h2>
           <p className="dz-section-lead">
-            ヒアリングから稼働開始まで、最短1週間。あなたがやることは最初のLINE登録だけです。
+            営業スタッフがお店のカルテを作成し、最適な処方箋（フリーランスの集客パッケージ）を届けるまでの5つのステップ。
           </p>
           <div className="dz-flow-grid dz-reveal-stagger">
             {FLOW_STEPS.map((step) => (
@@ -251,27 +258,30 @@ export default function CloserHome() {
             ))}
           </div>
           <div className="dz-flow-note dz-glass-card">
-            URLへの誘導は一切行いません。テキストチャットだけで自然にアポを獲得する仕組みを構築しているため、あなたのブランドに傷がつきません。
+            怪しげなURLへの誘導行為は一切行いません。丁寧な対話のチャットテキストのみで関係性を構築するため、フリーランス側の商材ブランドや、実店舗側の安心感を損なうリスクをゼロに抑えています。
           </div>
         </div>
       </section>
 
       <div className="dz-slope dz-slope--to-elevated" aria-hidden />
 
+      {/* 料金・プラン比較セクション */}
       <section className="dz-pricing dz-section dz-section--major" id="pricing">
         <div className="dz-container dz-reveal">
-          <span className="dz-label">Pricing</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            売上が出るまで、<em className="dz-text-gold-gradient">一切費用はかかりません</em>。
+          <span className="dz-label">Pricing Logic</span>
+          <h2 className="dz-section-title">
+            マッチングが成立するまで、<span>一切の費用は発生しません</span>。
           </h2>
           <p className="dz-section-lead">
-            完全成果報酬だから、リスクはゼロ。チームが本気を出す理由は「成果が出ないと報酬がゼロだから」です。
+            完全成果報酬型（単価制、または成約コミッション制）。初期リスクを完全にゼロにできるのは、私たちのデータと仕組みの精度に確かな根拠があるからです。
           </p>
+          
           <DivizeroCompareTable />
+          
           <div className="dz-pricing-logic dz-glass-card">
-            <h3>どちらのプランを選べばいい？</h3>
+            <h3>どちらのプランを選べばいいですか？</h3>
             <p>
-              商材単価が5万円以下の場合は、「1アポ5,000円プラン」のみご利用いただけます。5万円を超える場合、単価だけ見れば5,000円プランの方が費用は抑えられることもあります。それでも成約時10%プランを選ぶ理由は、報酬が成約に直結するため、実績のある営業パートナーが手を挙げやすく、商談の質と成約率で見返りが出やすいからです。あわせて、ベース＋成約時インセンティブでのお支払いも準備しています。どれがいちばん合うかは、商材・体制・目標を伺ったうえで一緒に決めましょう。まずはLINEでご相談ください。
+              提供する商材・パッケージの平均単価が5万円以下の場合は、「プランA（アポ・マッチング確定ごとに5,000円）」のみが対象となります。5万円を超える高単価商材の場合、実質的なコスト効率だけを考慮すればプランAの方が安く抑えられるケースもあります。それでも多くの制作者様が「プランB（成約時10%）」を選ぶ理由は、成果報酬が最終成約に直結するため、プラットフォーム内で実績を積んだエース級の優秀な営業スタッフが優先的に手を挙げやすく、商談の質と最終的な成約率で大きなメリットが返ってきやすいロジックになっているためです。どちらが最適かは、無料の診断カルテを作成する際に一緒に決定しましょう。
             </p>
           </div>
         </div>
@@ -279,6 +289,7 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-base" aria-hidden />
 
+      {/* 試算シミュレーターセクション */}
       <section className="dz-simulator-section dz-section dz-section--major">
         <div className="dz-container">
           <DivizeroRewardSimulator />
@@ -287,36 +298,19 @@ export default function CloserHome() {
 
       <div className="dz-slope dz-slope--to-elevated" aria-hidden />
 
-      <section className="dz-faq dz-section dz-section--compact" id="faq">
-        <div className="dz-container dz-reveal">
-          <span className="dz-label">FAQ</span>
-          <h2 className="dz-section-title dz-section-title--ruled">よくある質問</h2>
-          <div className="dz-faq-list dz-reveal-stagger">
-            {FAQ_ITEMS.map((item) => (
-              <div key={item.q} className="dz-faq-item">
-                <p className="dz-faq-q">{item.q}</p>
-                <p className="dz-faq-a">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="dz-slope dz-slope--to-deep" aria-hidden />
-
+      {/* 最終CTAセクション：丁寧で押し付けがましくないお誘い */}
       <section className="dz-cta dz-section dz-section--major">
         <div className="dz-container dz-cta-inner dz-reveal">
           <span className="dz-label">Get Started</span>
-          <h2 className="dz-section-title dz-section-title--ruled">
-            営業はdivizeroに任せて、<em className="dz-text-gold-gradient">制作に戻る</em>。
+          <h2 className="dz-section-title">
+            営業の課題はデータに委ねて、<span>本来進むべき場所へ</span>。
           </h2>
           <p className="dz-section-lead">
-            公式LINEでヒアリング後、最短ルートで営業設計を開始します。初期費用ゼロ・完全成果報酬。まず話を聞くだけでも大丈夫です。
+            公式LINEでの簡単なヒアリングから、あなたに最適な診断チームの構築を開始します。初期費用ゼロ・完全成果報酬。まずはお気軽にお話を聞かせてください。
           </p>
           <LineCta className="dz-btn-primary dz-btn-primary--shine dz-btn-primary--large" />
         </div>
       </section>
-
     </div>
   );
 }
