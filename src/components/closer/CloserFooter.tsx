@@ -15,7 +15,7 @@ export default function CloserFooter() {
         <div>
           <div className="closer-footer-brand">divizero</div>
           <p className="closer-footer-tagline">
-            営業代行プラットフォーム divizero。クリエイターの営業をデータと仕組みで自動化し、制作に集中できる環境をつくります。
+            LP・HP制作の相談窓口。発信で集めた人を取りこぼさない"受け皿のページ"を、一緒に作ります。
           </p>
           <div className="closer-footer-social-wrap">
             <div className="closer-footer-col-title">

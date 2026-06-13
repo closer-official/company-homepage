@@ -3,13 +3,13 @@ import CloserShell from "@/components/closer/CloserShell";
 import CloserHome from "@/components/closer/pages/CloserHome";
 
 export const metadata: Metadata = {
-  title: "営業代行プラットフォーム divizero",
+  title: "Divizero | LP・HP制作の相談窓口",
   description:
-    "返信率40%の営業代行。ターゲット選定とデータドリブンなDM運用で、クリエイターの営業を完全自動化。1アポ5,000円〜の成果報酬型。",
+    "XやInstagramで発信している個人事業主・コンサル・アフィリエイターのLP/HP制作相談窓口。買い切り4.98万〜、最短1週間、無料デモあり。まずLINEで気軽に話しかけてください。",
   openGraph: {
-    title: "divizero | 営業代行プラットフォーム",
+    title: "Divizero | LP・HP制作の相談窓口",
     description:
-      "返信率40%の衝撃。あなたの営業を、データと仕組みで完全自動化する。クリエイターは制作だけに集中。",
+      "発信で人は集まる。問題は、そのあと。集めた人を取りこぼさない受け皿のページを、一緒に作ります。",
   },
 };
 

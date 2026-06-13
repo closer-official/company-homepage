@@ -8,12 +8,11 @@ export const DIVIZERO_SITE_LINKS = [
 ] as const;
 
 export const DIVIZERO_HOME_ANCHORS = [
-  { href: "#pain", en: "Problem", ja: "課題" },
-  { href: "#reasons", en: "Why", ja: "強み" },
-  { href: "#flow", en: "Flow", ja: "流れ" },
-  { href: "#pricing", en: "Pricing", ja: "料金" },
-  { href: "#simulator", en: "Simulator", ja: "試算" },
-  { href: "#faq", en: "FAQ", ja: "質問" },
+  { href: "#why", en: "Why", ja: "なぜページが要るか" },
+  { href: "#services", en: "Services", ja: "できること" },
+  { href: "#flow", en: "Flow", ja: "相談の流れ" },
+  { href: "#works", en: "Works", ja: "実績" },
+  { href: "#faq", en: "FAQ", ja: "よくある質問" },
 ] as const;
 
 export const DIVIZERO_FOOTER_COLUMN = [

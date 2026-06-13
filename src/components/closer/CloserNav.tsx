@@ -9,7 +9,7 @@ import {
   DIVIZERO_SITE_LINKS,
 } from "@/lib/divizero-nav";
 
-const LINE_CTA_URL = "https://lin.ee/q4V81Ks";
+const LINE_CTA_URL = "https://line.me/ti/p/7818mX2ZAe";
 
 export default function CloserNav() {
   const pathname = usePathname() ?? "";
@@ -87,9 +87,9 @@ export default function CloserNav() {
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
               >
-                <span className="closer-nav-cta-ja">LINE登録</span>
+                <span className="closer-nav-cta-ja">LINEで相談</span>
                 <span className="closer-nav-cta-sep"> / </span>
-                <span className="closer-nav-cta-en">Start</span>
+                <span className="closer-nav-cta-en">Contact</span>
               </a>
             )}
           </li>

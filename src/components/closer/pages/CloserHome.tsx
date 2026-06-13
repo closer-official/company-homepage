@@ -1,496 +1,488 @@
 "use client";
 import React, { useState } from "react";
-import DivizeroCompareTable from "../DivizeroCompareTable";
 
-// ─────────────────────────────────────────────
-//  サロンオーナー向け：導入店舗の実績（匿名化・共通アセット化）
-// ─────────────────────────────────────────────
-const ASSET_CASE_STUDIES = [
+const LINE_URL = "https://line.me/ti/p/7818mX2ZAe";
+const X_DM_URL = "https://x.com/messages/compose?recipient_id=21closer_ai";
+
+/* ---------- Why アコーディオン ---------- */
+const WHY_POINTS = [
   {
-    type: "プライベートサロン（美容系）",
-    tags: "導線分析カルテ ➔ 動線一新パッケージ",
-    result: "LINE予約数が導入翌月に前月比142%を達成",
-    desc: "ヒアリングに基づく診断により、SNSから予約サイトへのリンク導線が寸断されているボトルネックを特定。提携パートナーA氏の持つノウハウを適用し、窓口一本で無駄のない予約ルートを構築しました。",
-    avatarLetter: "S"
+    num: '01',
+    title: '似た人は、他にもいる',
+    body: '発信を見て興味を持った人は必ず「いいな、でも似た人も他にいるな」と考えます。その瞬間にあなたにする理由を渡せる場所がありますか。プロフィールとLINE登録の間に、説得の1ページがあるかどうか。差はそこで開きます。',
   },
   {
-    type: "パーソナルジム（フィットネス系）",
-    tags: "動画コンテンツ診断 ➔ 特化型LP制作",
-    result: "新規Web問い合わせ数が月間5件から22件へ増加",
-    desc: "大手広告媒体の掲載料に依存していた経営構造を分析。ターゲット層へ響くショート動画施策と、提携パートナーB氏による一気通貫の縦長Webページ（LP）を連携。広告費に頼らない集客の基盤を作りました。",
-    avatarLetter: "G"
-  }
-];
-
-const PAIN_ITEMS_SHOP = [
-  "せっかく開業したものの、地域での集客ノウハウがなく新規顧客が思うように来ない。どう動けばいいか手がかりがない。",
-  "大手広告媒体に頼ると、毎月高額な掲載料を請求され、利益がほとんど手残らず経営が圧迫されてしまう。",
-  "かかってくる営業電話はどれも高額で強引な売り込みばかり。自社の規模や状況に本当に寄り添った、適正価格の提案をしてくれる相手が見つからない。"
-];
-
-const REASONS = [
-  {
-    num: "01",
-    title: "無理に売り込まずボトルネックを見つける「ドクター型診断」",
-    text: "私たちはまず、お店の集客がなぜ止まっているのかの原因を丁寧にヒアリングして特定します。不要なパッケージを無理に売り込むことは一切ありません。"
+    num: '02',
+    title: '熱は、すぐ冷める',
+    body: '人がいちばん前のめりなのは行動した直後です。でも多くの場合、その熱が冷める前に返信はできない。ページは、あなたが眠っている間もその熱を受け止め続けます。24時間働く、いちばん辛抱強い営業です。',
   },
   {
-    num: "02",
-    title: "厳選された提携パートナーによる、窓口一本の一気通貫提供",
-    text: "Webサイト、SNS運用、動画制作など、診断によって判明した課題が何であっても、divizeroの窓口一つで、各分野のスペシャリストの知見を結集した高品質な施策を提供します。"
+    num: '03',
+    title: '競合は、あとから流れてくる',
+    body: '一度あなたの商品に反応した人のTLには、そのあと似たサービスの発信が流れ込みます。仕組み上そうなります。比較が始まる前に納得まで運べているか。スピードで負けないために、ページがあります。',
   },
   {
-    num: "03",
-    title: "過去のデータに基づく、センスに頼らない誠実なアプローチ",
-    text: "感覚任せの強引な営業手法を完全に排除し、実証されたデータに準拠して動く仕組みを整えています。そのため、あなたのお店のブランドを傷つけるようなアプローチは絶対にいたしません。"
-  }
+    num: '04',
+    title: '人に勧めることを、自分でも',
+    body: '「成功する人はまず自分に投資する」——そう発信している人ほど、自分の販売ページは後回しにしがちです。人に勧めていることを自分のページで体現する。それが結局、いちばんの説得力になります。',
+  },
 ];
 
-const FLOW_STEPS = [
-  { num: "01", title: "公式LINEまたは各SNSのDMから相談", text: "まずは使いやすい窓口からお気軽にご連絡ください。現在の状況について軽くお伺いします。" },
-  { num: "02", title: "お店の集客状況の事前分析", text: "お聞きした内容と地域のデータベースを基に、運営チームがボトルネックの予備分析を行います。" },
-  { num: "03", title: "丁寧な「診断カルテ」の作成", text: "担当者がお店に寄り添ったカウンセリングを行い、何が原因で集客が詰まっているかを可視化します。" },
-  { num: "04", title: "最適な解決パッケージの提示", text: "診断結果に基づき、本当に必要な施策だけをまとめたプランを、ミスマッチのない適正価格でご提案します。" },
-  { num: "05", title: "マッチング確定・施策スタート", text: "内容にご納得いただき、条件が合意に至った段階で初めて契約・稼働となります。初期固定費によるリスクはありません。" }
+const FAQ_ITEMS = [
+  {
+    q: "制作はどんな体制ですか？",
+    a: "私が窓口となり、信頼できる制作チームと連携して進めます。累計1,000サイト以上の制作体制で、相談から完成まで伴走します。",
+  },
+  {
+    q: "無料デモって本当に無料ですか？",
+    a: "はい、完全無料です。あなたのサービスに合わせたサンプルページを実際に作ってから確認できます。気に入らなければキャンセルも可能です。",
+  },
+  {
+    q: "何を準備して相談すればいいですか？",
+    a: "何も準備しなくて大丈夫です。「こういうサービスをやっています」の一言から始まります。ヒアリングしながら一緒に整理します。",
+  },
+  {
+    q: "価格を教えてください。",
+    a: "LP（1ページ）49,800円〜／HP（5ページ構成）98,000円〜。買い切りで月額費用は一切かかりません。分割払いも可能です（3回まで）。",
+  },
 ];
 
-// ─────────────────────────────────────────────
-//  スマートマルチチャネルCTAコンポーネント（解決策A）
-// ─────────────────────────────────────────────
-function SmartMultiCta() {
-  return (
-    <div className="dz-cta-wrapper">
-      {/* メインの公式LINEリンク。スマホ環境ではこれが最優先 */}
-      <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener noreferrer" className="dz-btn-primary">
-        公式LINEで無料相談・診断カルテを依頼する
-      </a>
-      
-      {/* PCユーザー離脱対策：PC表示時のみ現れるSNSのDM選択窓口 */}
-      <div className="dz-pc-sns-channels">
-        <p className="dz-sns-prompt">
-          ※パソコンでご覧の方へ：スマホを取り出さず、今お使いのブラウザから直接DMで相談することも可能です。
-        </p>
-        <div className="dz-sns-buttons">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="dz-btn-sns dz-btn-sns--instagram">
-            Instagram DM
-          </a>
-          <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="dz-btn-sns dz-btn-sns--x">
-            X (Twitter) DM
-          </a>
-          <a href="https://threads.net" target="_blank" rel="noopener noreferrer" className="dz-btn-sns dz-btn-sns--threads">
-            Threads DM
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
-//  サロンオーナー向け：利益シミュレーターコンポーネント
-// ─────────────────────────────────────────────
-function SalonProfitSimulator() {
-  const [avgSpent, setAvgSpent] = useState<number>(8000); // 平均客単価
-  const [targetCustomers, setTargetCustomers] = useState<number>(5); // 目標新規来店数/月
-  const [currentAdCost, setCurrentAdCost] = useState<number>(50000); // 現在の大手媒体広告費/月
-
-  // 計算ロジック
-  // 新規来店による見込み増加売上 = 客単価 * 目標数
-  const estimatedRevenue = avgSpent * targetCustomers;
-  // divizeroプランA想定費用 (1件につき5,000円)
-  const divizeroCost = 5000 * targetCustomers;
-  // 大手媒体を削減した場合の削減広告費 (現在の広告費 - divizero費用)
-  const savedCost = Math.max(0, currentAdCost - divizeroCost);
-  // お店に残る推定実質プラス利益 = 増加売上 + 削減広告費
-  const totalProfit = estimatedRevenue + (currentAdCost > divizeroCost ? currentAdCost - divizeroCost : 0);
+function WhyAccordion() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const toggle = (i: number) => setOpenIdx(openIdx === i ? null : i);
 
   return (
-    <div className="dz-sim-box">
-      <h3 className="dz-sim-title">サロン・店舗オーナー専用 利益シミュレーター</h3>
-      <p className="dz-sim-sub">divizeroの完全成果報酬プランを導入した場合の、店舗への手残り利益（コスト削減含む）の目安を計算します。</p>
-      
-      <div className="dz-sim-form-grid">
-        <div className="dz-sim-field">
-          <label>お店の平均客単価（円）</label>
-          <input 
-            type="number" 
-            value={avgSpent} 
-            onChange={(e) => setAvgSpent(Number(e.target.value))} 
-            placeholder="例: 8000"
-          />
+    <div className="dz2-why-inner">
+      {WHY_POINTS.map((p, i) => (
+        <div key={p.num} className={`dz2-why-point${openIdx === i ? " open" : ""}`}>
+          <div
+            className="dz2-why-head"
+            role="button"
+            tabIndex={0}
+            aria-expanded={openIdx === i}
+            onClick={() => toggle(i)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggle(i)}
+          >
+            <span className="dz2-why-number">{p.num}</span>
+            <span className="dz2-why-title">{p.title}</span>
+            <svg
+              className="dz2-why-chevron"
+              width="16" height="16" viewBox="0 0 16 16" fill="none"
+              aria-hidden="true"
+            >
+              <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className="dz2-why-body">
+            <p>{p.body}</p>
+          </div>
         </div>
-        <div className="dz-sim-field">
-          <label>目標とする月間の新規獲得数（人）</label>
-          <input 
-            type="number" 
-            value={targetCustomers} 
-            onChange={(e) => setTargetCustomers(Number(e.target.value))} 
-            placeholder="例: 5"
-          />
-        </div>
-        <div className="dz-sim-field">
-          <label>現在支払っている月間の広告掲載料（円）</label>
-          <input 
-            type="number" 
-            value={currentAdCost} 
-            onChange={(e) => setCurrentAdCost(Number(e.target.value))} 
-            placeholder="例: 50000"
-          />
-        </div>
-        <div className="dz-sim-field">
-          <label>適用検討プラン</label>
-          <select disabled>
-            <option>プランA（マッチング確定：5,000円/件）</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="dz-sim-results">
-        <div className="dz-sim-res-card">
-          <div className="dz-sim-res-label">新規来店による増加売上（目安）</div>
-          <div className="dz-sim-res-value">¥{estimatedRevenue.toLocaleString()} /月</div>
-        </div>
-        <div className="dz-sim-res-card">
-          <div className="dz-sim-res-label">広告媒体の見直しによる固定費削減効果</div>
-          <div className="dz-sim-res-value">¥{savedCost.toLocaleString()} /月</div>
-        </div>
-        <div className="dz-sim-res-card">
-          <div className="dz-sim-res-label">発生する成果報酬（費用）</div>
-          <div className="dz-sim-res-value">¥{divizeroCost.toLocaleString()} /月</div>
-        </div>
-        <div className="dz-sim-res-card dz-sim-res-card--highlight">
-          <div className="dz-sim-res-label">お店への実質的な利益プラス効果</div>
-          <div className="dz-sim-res-value">約 ¥{totalProfit.toLocaleString()} /月</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
-//  手書き線画イラスト群（SVG）
-// ─────────────────────────────────────────────
-function HeroIllustration() {
-  return (
-    <svg viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="dz-hero-illustration">
-      <circle cx="240" cy="160" r="46" stroke="#00b4b8" strokeWidth="2" strokeDasharray="6 4" />
-      <text x="240" y="154" textAnchor="middle" fontSize="11" fontWeight="700" fill="#179ca0" fontFamily="'Noto Sans JP', sans-serif">divi</text>
-      <text x="240" y="170" textAnchor="middle" fontSize="11" fontWeight="700" fill="#179ca0" fontFamily="'Noto Sans JP', sans-serif">zero</text>
-      <rect x="18" y="120" width="108" height="80" rx="12" stroke="#1e293b" strokeWidth="1.4" fill="white" />
-      <text x="72" y="154" textAnchor="middle" fontSize="10" fill="#64748b" fontFamily="'Noto Sans JP', sans-serif">厳選された</text>
-      <text x="72" y="170" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1e293b" fontFamily="'Noto Sans JP', sans-serif">提携パートナー</text>
-      <path d="M128 160 C160 160 180 160 192 160" stroke="#00b4b8" strokeWidth="1.5" strokeLinecap="round" />
-      <rect x="354" y="120" width="108" height="80" rx="12" stroke="#1e293b" strokeWidth="1.4" fill="white" />
-      <text x="408" y="154" textAnchor="middle" fontSize="10" fill="#64748b" fontFamily="'Noto Sans JP', sans-serif">集客に悩む</text>
-      <text x="408" y="170" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1e293b" fontFamily="'Noto Sans JP', sans-serif">個人サロン・実店舗</text>
-      <path d="M286 160 C306 160 330 160 352 160" stroke="#00b4b8" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function DoctorIllustration() {
-  return (
-    <svg viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="dz-section-illustration">
-      <rect x="80" y="20" width="160" height="160" rx="8" fill="white" stroke="#e1e8f0" strokeWidth="1.5" />
-      {[60, 80, 100, 120, 140].map((y) => (
-        <line key={y} x1="96" y1={y} x2="224" y2={y} stroke="#e1e8f0" strokeWidth="0.8" />
       ))}
-      <text x="112" y="44" fontSize="11" fontWeight="700" fill="#1e293b" fontFamily="'Noto Sans JP', sans-serif">診断カルテ</text>
-      <path d="M98 130 L108 142 L128 118" stroke="#00b4b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M30 60 Q20 90 30 120 Q38 148 58 152 Q80 156 86 140" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" fill="none" />
-      <circle cx="58" cy="152" r="8" stroke="#1e293b" strokeWidth="1.5" fill="none" />
-    </svg>
+    </div>
   );
 }
 
-// ─────────────────────────────────────────────
-//  メインコンポーネント（サロンオーナー向け最適化版）
-// ─────────────────────────────────────────────
+function FaqAccordion() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const toggle = (i: number) => setOpenIdx(openIdx === i ? null : i);
+
+  return (
+    <div className="dz2-faq-list">
+      {FAQ_ITEMS.map((item, i) => (
+        <div key={i} className={`dz2-faq-item${openIdx === i ? " open" : ""}`}>
+          <div
+            className="dz2-faq-question"
+            role="button"
+            tabIndex={0}
+            aria-expanded={openIdx === i}
+            onClick={() => toggle(i)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggle(i)}
+          >
+            <span>{item.q}</span>
+            <svg className="dz2-faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <div className="dz2-faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function CloserHome() {
   return (
-    <div className="dz-lp">
+    <div className="dz2-lp">
 
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          HERO
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-hero">
-        <div className="dz-hero-inner">
-          <div className="dz-hero-content">
-            <div className="dz-hero-text">
-              <span className="dz-label">Next-Generation Matching / divizero</span>
-              <h1 className="dz-hero-title">
-                「営業する時間がない」と悩む制作者と、<br />
-                「強引な売込は嫌だ」という実店舗を、<br />
-                <span>データと誠実な対話</span>でつなぐ。
-              </h1>
-              <p className="dz-hero-sub">
-                初期費用ゼロ。センスや強引な売込に頼らない「科学的な集客状況の診断」によって、
-                厳選された制作・コンサルタントの技術を、本当に集客を必要としているサロン・実店舗へ
-                最もリスクのない形でお届けするプラットフォームです。
-              </p>
-              
-              {/* マルチチャネル対応CTA */}
-              <SmartMultiCta />
-            </div>
-            <div className="dz-hero-visual">
-              <HeroIllustration />
-            </div>
-          </div>
-
-          {/* 統計カード（ScrollMetricを廃止し、誠実な静的表現に変更） */}
-          <div className="dz-hero-metrics">
-            <div className="dz-metric-card">
-              <span className="dz-metric-value">100%</span>
-              <span className="dz-metric-label">商材・店舗ブランドの保全</span>
-              <span className="dz-metric-note">強引な営業・押し売り行為の完全排除</span>
-            </div>
-            <div className="dz-metric-card">
-              <span className="dz-metric-value">¥0</span>
-              <span className="dz-metric-label">初期費用・月額固定費</span>
-              <span className="dz-metric-note">契約成立までリスクは一切発生しません</span>
-            </div>
-            <div className="dz-metric-card">
-              <span className="dz-metric-value">適正価格</span>
-              <span className="dz-metric-label">ドクター型提案</span>
-              <span className="dz-metric-note">お店のボトルネックに合わせた最適処方</span>
-            </div>
-          </div>
-        </div>
-        <div className="dz-scroll-hint">
-          <span>scroll</span>
-          <div className="dz-scroll-line" />
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          PAIN SECTION
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--elevated" id="pain">
-        <div className="dz-container">
-          <span className="dz-label">The Bottleneck</span>
-          <h2 className="dz-section-title">
-            素晴らしい技術やお店の魅力が、<span>「集客の壁」</span>で埋もれていませんか？
-          </h2>
-          <p className="dz-section-lead">
-            多くの個人サロンや実店舗のオーナー様が、日々の本業に追われながら、
-            正体の分からない「集客の悩み」と戦っています。
-          </p>
-
-          <div className="dz-pain-list" style={{ maxWidth: "720px", margin: "0 auto 32px" }}>
-            {PAIN_ITEMS_SHOP.map((text, i) => (
-              <article key={i} className="dz-pain-item">
-                <span className="dz-pain-num">{String(i + 1).padStart(2, "0")}</span>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-
-          <p className="dz-pain-closing" style={{ maxWidth: "720px", margin: "0 auto" }}>
-            divizeroは、この不透明な壁を「データに基づく客観的な診断」によって取り除きます。何が本当に必要なのか、お店の現状に寄り添った解決策だけを導き出します。
-          </p>
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          PHILOSOPHY
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--base" id="philosophy">
-        <div className="dz-container">
-          <span className="dz-label">Our Philosophy</span>
-          <h2 className="dz-section-title">
-            センスや根性に頼らない、<span>「徹底した準備と対話」</span>。
-          </h2>
-          <div className="dz-story-layout">
-            <div className="dz-story-body">
-              <p>
-                私たちのプラットフォームには、丁寧なヒアリングと用意された精密な「集客データベース」を活用し、
-                誠実にお店をサポートしたいと願う営業チームが揃っています。
-              </p>
-              <p>
-                「とにかく契約を取る」といった、従来の強引な営業を完全に排除。
-                事前に用意されたデータと照らし合わせて動くことで、
-                お互いにミスマッチのない、ロジカルで透明性の高い提案が可能になっています。
-              </p>
-              <p>
-                このデータに裏打ちされた無駄のない診断体制があるからこそ、中間コストを徹底的に省き、
-                実店舗の皆様にとって最も導入しやすい適正な価格設定を維持し続けることができるのです。
-              </p>
-            </div>
-            <div className="dz-story-accent">
-              <blockquote className="dz-philosophy-quote">
-                「定型の文章をただ送るような営業はしない。あなたのお店に深く向き合う分析を。」
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          ANONYMOUS ASSETS / CASES (中抜き防衛：名無し実績提示)
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--elevated" id="cases">
-        <div className="dz-container">
-          <span className="dz-label">Proven Assets</span>
-          <h2 className="dz-section-title">
-            divizeroチームがこれまでに生み出した<span>導入店舗の実績</span>
-          </h2>
-          <p className="dz-section-lead">
-            個人を特定する情報は伏せ、プラットフォームの共通資産として実証された具体的な解決事例をご紹介します。
-          </p>
-
-          <div className="dz-asset-grid">
-            {ASSET_CASE_STUDIES.map((item, idx) => (
-              <div key={idx} className="dz-asset-card">
-                <div className="dz-asset-profile">
-                  <div className="dz-asset-avatar">
-                    <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--dz-accent-dark)" }}>{item.avatarLetter}</span>
-                  </div>
-                  <div>
-                    <h3 className="dz-asset-meta-title">{item.type}</h3>
-                    <div className="dz-asset-meta-tags">{item.tags}</div>
-                  </div>
-                </div>
-                <div className="dz-asset-results-box">
-                  <p className="dz-asset-result-item">成果：<span>{item.result}</span></p>
-                </div>
-                <p className="dz-asset-description">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          REASONS
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--base" id="features">
-        <div className="dz-container">
-          <span className="dz-label">Platform Core</span>
-          <h2 className="dz-section-title">
-            多くの店舗オーナー様に選ばれる理由
-          </h2>
-          <p className="dz-section-lead">
-            ただの営業代行やテンプレートを使い回す制作会社とは一線を画す、アプローチの核心。
-          </p>
-          <div className="dz-reason-grid">
-            {REASONS.map((r) => (
-              <article key={r.num} className="dz-reason-card">
-                <span className="dz-reason-num">{r.num}</span>
-                <h3 className="dz-reason-title">{r.title}</h3>
-                <p className="dz-reason-text">{r.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          DOCTOR PROCESS / FLOW
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--elevated" id="flow">
-        <div className="dz-container">
-          <div className="dz-section-header dz-section-header--with-illust">
-            <div className="dz-section-header-text">
-              <span className="dz-label">Doctor Process</span>
-              <h2 className="dz-section-title">
-                ご相談から、<br /><span>ミスマッチのない診断提案</span>までの流れ
-              </h2>
-              <p className="dz-section-lead">
-                お店の現状をしっかりと「診察」し、最適な処方箋（プラン）をお届けする5ステップ。
-              </p>
-            </div>
-            <div className="dz-section-header-illust">
-              <DoctorIllustration />
-            </div>
-          </div>
-
-          <div className="dz-flow-steps">
-            {FLOW_STEPS.map((step, i) => (
-              <div key={step.num} className="dz-flow-step">
-                <div className="dz-flow-step-num">{step.num}</div>
-                <div className="dz-flow-step-body">
-                  <h3 className="dz-flow-step-title">{step.title}</h3>
-                  <p className="dz-flow-step-text">{step.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="dz-flow-note">
-            怪しげなURLへの無理な誘導行為は一切行いません。丁寧なテキストのやり取りや対話のみで関係性を構築するため、
-            お店側の安心感を損なうリスクを完全に抑えています。
-          </div>
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          PRICING
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--base" id="pricing">
-        <div className="dz-container">
-          <span className="dz-label">Pricing Logic</span>
-          <h2 className="dz-section-title">
-            マッチングが成立するまで、<span>一切の費用は発生しません</span>。
-          </h2>
-          <p className="dz-section-lead">
-            完全成果報酬型。初期リスクをゼロに抑えられるのは、私たちのデータと仕組みの精度に強い根拠があるからです。
-          </p>
-
-          <DivizeroCompareTable />
-
-          <div className="dz-pricing-note">
-            <h3>どちらのプランを選べばいいですか？</h3>
-            <p>
-              提供する商材・サービスの平均単価が5万円以下の場合は「プランA（マッチング確定ごとに5,000円）」のみが対象となります。
-              高単価なサービスを運用されている店舗様では、プランB（成約時10%）をご選択いただくことで、より密着した継続的なサポートチームの構築が可能になります。
-              最適なプランは、無料の診断カルテ作成時に現状をお聞きしながら一緒に決定しましょう。
+      {/* ── HERO ── */}
+      <section className="dz2-hero" id="top">
+        <div className="dz2-hero-inner">
+          <div className="dz2-hero-content">
+            <p className="dz2-eyebrow">LP・HP制作の相談窓口</p>
+            <h1 className="dz2-hero-headline">
+              「興味を持たれた、<br />次の一手はありますか。」
+            </h1>
+            <p className="dz2-hero-sub">
+              発信で人は集まる。問題は、そのあと。<br />
+              集めた人を取りこぼさない"受け皿のページ"を、一緒に作ります。
             </p>
+            <div className="dz2-hero-ctas">
+              <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-primary">
+                まずLINEで話しかける
+              </a>
+              <a href="#why" className="dz2-btn-secondary">
+                LPって必要？と思ったら ↓
+              </a>
+            </div>
+            <p className="dz2-hero-note">買い切り4.98万〜 ／ 最短1週間 ／ 無料デモあり</p>
+          </div>
+
+          {/* 装飾SVG（デスクトップのみ）*/}
+          <div className="dz2-hero-deco" aria-hidden="true">
+            <svg width="260" height="460" viewBox="0 0 260 460" fill="none">
+              <rect x="20" y="10" width="220" height="440" rx="28" stroke="#D0D0C8" strokeWidth="1.5" />
+              <rect x="95" y="10" width="70" height="20" rx="10" fill="#FAFAF8" stroke="#D0D0C8" strokeWidth="1.5" />
+              <rect x="36" y="46" width="188" height="92" rx="8" stroke="#D0D0C8" strokeWidth="1.5" />
+              <rect x="36" y="150" width="148" height="8" rx="4" fill="#D0D0C8" />
+              <rect x="36" y="164" width="120" height="8" rx="4" fill="#D0D0C8" />
+              <rect x="36" y="184" width="188" height="5" rx="2.5" fill="#E8E8E4" />
+              <rect x="36" y="194" width="160" height="5" rx="2.5" fill="#E8E8E4" />
+              <rect x="36" y="204" width="176" height="5" rx="2.5" fill="#E8E8E4" />
+              <rect x="36" y="222" width="188" height="36" rx="18" stroke="#D0D0C8" strokeWidth="1.5" />
+              <line x1="36" y1="274" x2="224" y2="274" stroke="#E8E8E4" strokeWidth="1" strokeDasharray="4 4" />
+              <rect x="36" y="286" width="10" height="10" rx="2" fill="#D0D0C8" />
+              <rect x="52" y="288" width="100" height="6" rx="3" fill="#D0D0C8" />
+              <rect x="36" y="306" width="10" height="10" rx="2" fill="#D0D0C8" />
+              <rect x="52" y="308" width="130" height="6" rx="3" fill="#D0D0C8" />
+              <rect x="36" y="326" width="10" height="10" rx="2" fill="#D0D0C8" />
+              <rect x="52" y="328" width="88" height="6" rx="3" fill="#D0D0C8" />
+              <rect x="36" y="354" width="80" height="14" rx="4" fill="#D0D0C8" opacity="0.7" />
+              <rect x="36" y="382" width="188" height="36" rx="18" stroke="#D0D0C8" strokeWidth="1.5" />
+            </svg>
           </div>
         </div>
       </section>
 
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          SALON PROFIT SIMULATOR (リデザインされたシミュレーター)
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--elevated">
-        <div className="dz-container">
-          <SalonProfitSimulator />
-        </div>
-      </section>
-
-      <div className="dz-divider" aria-hidden />
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          CTA
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="dz-section dz-section--cta">
-        <div className="dz-container">
-          <span className="dz-label">Get Started</span>
-          <h2 className="dz-section-title">
-            集客の課題はデータに委ねて、<span>本業のクオリティ追及へ</span>。
-          </h2>
-          <p className="dz-section-lead">
-            公式LINEまたは各SNSのDMからの簡単な相談から、あなたのお店に最適な診断を開始します。
-            初期費用ゼロ・完全成果報酬。まずはお気軽にお話を聞かせてください。
+      {/* ── HOOK ── */}
+      <section className="dz2-hook" id="hook">
+        <div className="dz2-container">
+          <p className="dz2-hook-line">
+            興味を持たれた次の瞬間、<br />
+            ライバルの発信が、相手のTLに流れ込みます。
           </p>
-          
-          <SmartMultiCta />
+          <p className="dz2-hook-sub">比較が始まる前に、納得まで届けられているか。</p>
+          <a href="#why" className="dz2-link-arrow">その仕組みを見る →</a>
         </div>
       </section>
+
+      {/* ── CONCERN ── */}
+      <section className="dz2-section dz2-section--surface2" id="concern">
+        <div className="dz2-container-wide">
+          <span className="dz2-label">こんな方へ</span>
+          <div className="dz2-concern-grid">
+
+            <article className="dz2-concern-card">
+              <div className="dz2-concern-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <circle cx="12" cy="16" r="5" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M12 21v6M9 23h6" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M20 16h6" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M26 13l3 3-3 3" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="37" cy="16" r="2.5" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M36 32c0-3 2-5 2-5" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="37" cy="40" r="2" stroke="#3D6B4F" strokeWidth="1.5" />
+                </svg>
+              </div>
+              <p className="dz2-concern-text">
+                XやInstagramで集客できてるのに<br />受け皿のページがDM任せになっている
+              </p>
+            </article>
+
+            <article className="dz2-concern-card">
+              <div className="dz2-concern-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <rect x="8" y="6" width="24" height="32" rx="3" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M14 14h12M14 20h12M14 26h8" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M34 22l4 4-4 4" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="36" cy="34" r="6" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M34 34h4M36 32v4" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="dz2-concern-text">
+                制作会社は高すぎる<br />フリーランスは不安で頼めない
+              </p>
+            </article>
+
+            <article className="dz2-concern-card">
+              <div className="dz2-concern-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <circle cx="20" cy="14" r="6" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M8 38c0-7 5.4-12 12-12s12 5 12 12" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <rect x="33" y="8" width="12" height="14" rx="3" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M36 13h6M36 17h4" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M37 22l-2 3 2-3" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="dz2-concern-text">
+                何をどう頼めばいいか<br />そもそも分からない
+              </p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY ── */}
+      <section className="dz2-section dz2-section--white" id="why">
+        <div className="dz2-container">
+          <span className="dz2-label">なぜ、ページが要るのか</span>
+          <h2 className="dz2-section-heading">
+            集客の入口より、<br />受け止める場所の話を。
+          </h2>
+          <p className="dz2-why-lead">
+            発信で人は集められる。問題はそのあと。<br />
+            興味を持った人が"次に見る場所"が、ありますか。
+          </p>
+          <WhyAccordion />
+          <div className="dz2-why-close">
+            <p className="dz2-why-close-text">まずは無料のデモから。</p>
+            <p className="dz2-why-close-sub">言葉で説明するより、見てもらうほうが早いので。</p>
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-link-arrow">
+              デモを見てみる →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section className="dz2-section dz2-section--bg" id="services">
+        <div className="dz2-container">
+          <span className="dz2-label">できること</span>
+          <h2 className="dz2-section-heading">販売ページを、一緒に整えます。</h2>
+
+          <div className="dz2-service-list">
+            <div className="dz2-service-item">
+              <div className="dz2-service-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="5" y="2" width="14" height="22" rx="3" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <circle cx="12" cy="21" r="1" fill="#3D6B4F" />
+                  <path d="M20 10h5M22 8l3 2-3 2" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="dz2-service-name">LINE登録ページ</h3>
+                <p className="dz2-service-desc">無料プレゼント受取・メルマガ登録など。LINEへ流す前の"最初の1ページ"を整える。</p>
+              </div>
+            </div>
+            <div className="dz2-service-item">
+              <div className="dz2-service-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M3 4h3l2.5 12h12L23 8H8" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="11.5" cy="21.5" r="1.5" fill="#3D6B4F" />
+                  <circle cx="19.5" cy="21.5" r="1.5" fill="#3D6B4F" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="dz2-service-name">販売LP</h3>
+                <p className="dz2-service-desc">講座・コンサル・デジタル商品の販売ページ。「なぜ必要か」から「今すぐ申込む」まで1枚で完結。</p>
+              </div>
+            </div>
+            <div className="dz2-service-item">
+              <div className="dz2-service-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="3" y="10" width="22" height="4" rx="2" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <rect x="5" y="14" width="18" height="10" rx="2" stroke="#3D6B4F" strokeWidth="1.5" />
+                  <path d="M14 10V24" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M14 10c0 0-3-1-3-4s3-3 3 0M14 10c0 0 3-1 3-4s-3-3-3 0" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="dz2-service-name">特典・プレゼント受取ページ</h3>
+                <p className="dz2-service-desc">購読者・購入者向けの特典案内。信頼の積み上げを、ページでも支える。</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="dz2-tag-group">
+            {["買い切り", "4.98万円〜", "最短1週間", "無料デモあり", "修正無制限"].map((t) => (
+              <span key={t} className="dz2-tag">{t}</span>
+            ))}
+          </div>
+
+          <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-primary">
+            無料でデモを見る
+          </a>
+        </div>
+      </section>
+
+      {/* ── FLOW ── */}
+      <section className="dz2-section dz2-section--accent-lt" id="flow">
+        <div className="dz2-container-wide">
+          <div style={{ textAlign: "center" }}>
+            <span className="dz2-label">相談の流れ</span>
+            <h2 className="dz2-section-heading">まず雑談からで、大丈夫です。</h2>
+          </div>
+
+          <div className="dz2-flow-steps">
+            {[
+              {
+                n: 1, title: "LINEかDMで話しかける",
+                desc: "専門用語も準備も不要。「こういうことがしたい」で十分です。",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M6 6h28a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H14l-8 6v-6H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 16h16M12 22h10" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ),
+              },
+              {
+                n: 2, title: "無料でデモを見る",
+                desc: "あなたのサービスに合わせたサンプルページを無料で作ります。",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect x="4" y="4" width="14" height="22" rx="2" stroke="#3D6B4F" strokeWidth="1.5" />
+                    <circle cx="11" cy="23" r="1" fill="#3D6B4F" />
+                    <rect x="22" y="10" width="14" height="22" rx="2" stroke="#3D6B4F" strokeWidth="1.5" />
+                    <path d="M26 16h6M26 20h6M26 24h4" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ),
+              },
+              {
+                n: 3, title: "気に入ったら制作スタート",
+                desc: "気に入らなければキャンセルOK。納得してから進められます。",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="20" r="14" stroke="#3D6B4F" strokeWidth="1.5" />
+                    <path d="M12 20l6 6 10-12" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ),
+              },
+            ].map((step, idx, arr) => (
+              <React.Fragment key={step.n}>
+                <div className="dz2-flow-step">
+                  <div className="dz2-flow-num">{step.n}</div>
+                  <div className="dz2-flow-icon" aria-hidden="true">{step.icon}</div>
+                  <h3 className="dz2-flow-title">{step.title}</h3>
+                  <p className="dz2-flow-desc">{step.desc}</p>
+                </div>
+                {idx < arr.length - 1 && (
+                  <div className="dz2-flow-arrow" aria-hidden="true">
+                    <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+                      <path d="M0 12h34M28 6l6 6-6 6" stroke="#3D6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center" }}>
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-primary">
+              まず話しかけてみる →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORKS / STATS ── */}
+      <section className="dz2-section dz2-section--bg" id="works">
+        <div className="dz2-container">
+          <span className="dz2-label">制作実績</span>
+          <div style={{ textAlign: "center", marginBottom: "8px" }}>
+            <div className="dz2-stat-badge">
+              <span className="dz2-stat-number">1,000+</span>
+              <span className="dz2-stat-label">これまでの制作実績</span>
+            </div>
+            <p className="dz2-stat-note">累計1,000サイト以上の制作体制で対応します</p>
+          </div>
+
+          <h2 className="dz2-section-heading">こんなページを作ってきました。</h2>
+
+          <div className="dz2-works-grid">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="dz2-work-placeholder">制作実績<br />近日公開</div>
+            ))}
+          </div>
+
+          <p className="dz2-works-note">掲載許可をいただいた案件のみ表示しています</p>
+
+          <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-primary">
+            自分のページを相談する →
+          </a>
+        </div>
+      </section>
+
+      {/* ── PROFILE ── */}
+      <section className="dz2-section dz2-section--surface2" id="profile">
+        <div className="dz2-container">
+          <div className="dz2-profile-inner">
+            <div className="dz2-profile-photo-wrap">
+              <img
+                src="/images/profile.png"
+                alt="小林薫之介"
+                className="dz2-profile-photo"
+                width={160}
+                height={160}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                }}
+              />
+            </div>
+            <div>
+              <p className="dz2-profile-eyebrow">窓口担当</p>
+              <h2 className="dz2-profile-name">小林 薫之介</h2>
+              <p className="dz2-profile-role">Tadanosuke Kobayashi ／ Divizero 代表</p>
+              <p className="dz2-profile-bio">
+                Web制作・SNS発信・マーケティングに携わる中で、<br />
+                「良いサービスを持っているのに、見せ方で損している人が多い」<br />
+                と感じてこの窓口を始めました。<br /><br />
+                私が窓口となり、信頼できる制作体制と連携して、<br />
+                相談から完成まで伴走します。<br />
+                専門用語なしで、気軽に話しかけてもらえれば嬉しいです。
+              </p>
+              <div className="dz2-profile-sns">
+                <a href="https://x.com/21closer_ai" target="_blank" rel="noopener noreferrer" className="dz2-sns-link">
+                  X：@21closer_ai
+                </a>
+                <a href="https://www.instagram.com/tadanosuke.divizero" target="_blank" rel="noopener noreferrer" className="dz2-sns-link">
+                  Instagram：@tadanosuke.divizero
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="dz2-section dz2-section--bg" id="faq">
+        <div className="dz2-container">
+          <span className="dz2-label">よくある質問</span>
+          <h2 className="dz2-section-heading">FAQ</h2>
+          <FaqAccordion />
+        </div>
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <section className="dz2-cta-final" id="contact">
+        <div className="dz2-container" style={{ textAlign: "center" }}>
+          <h2 className="dz2-cta-final-heading">まず、話しかけてみてください。</h2>
+          <p className="dz2-cta-final-sub">
+            専門知識も準備も要りません。<br />「こういうことがしたい」の一言から始まります。
+          </p>
+          <div className="dz2-cta-final-btns">
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-white">
+              LINEで話しかける
+            </a>
+            <a href={X_DM_URL} target="_blank" rel="noopener noreferrer" className="dz2-btn-outline-white">
+              XでDMする
+            </a>
+          </div>
+          <p className="dz2-cta-final-note">返信は基本的に当日〜翌日以内</p>
+        </div>
+      </section>
+
     </div>
   );
 }
