@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LPや販売ページの制作相談窓口。買い切り4.98万〜、最短1週間、無料デモあり。X・インスタで発信している個人事業主・コンサル・アフィリエイターの方へ。">
+  <title>Divizero | LP・HP制作の相談窓口</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- ============================================================
+       LOADER / OPENING (Section 0)
+  ============================================================ -->
+  <div id="loader" role="presentation" aria-hidden="true">
+    <span class="loader-logo" id="loaderLogo">Divizero</span>
+    <span class="loader-bar" id="loaderBar"></span>
+  </div>
+
+  <!-- ============================================================
+       NAV (Section 0)
+  ============================================================ -->
+  <nav class="site-nav" id="siteNav">
+    <a href="#" class="nav-logo" aria-label="Divizero トップへ">
+      <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- ÷ 記号：上の点 -->
+        <circle cx="8" cy="10" r="3" fill="#2D3A4A"/>
+        <!-- ÷ 記号：下の点 -->
+        <circle cx="8" cy="22" r="3" fill="#2D3A4A"/>
+        <!-- ÷ 記号：横棒（ゼロを貫通） -->
+        <line x1="4" y1="16" x2="36" y2="16" stroke="#2D3A4A" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 0 の文字（スレートブルー・横棒が貫通している） -->
+        <ellipse cx="28" cy="16" rx="10" ry="13" stroke="#6B8CAE" stroke-width="2.5" fill="none"/>
+        <!-- テキスト "divizero" -->
+        <text x="44" y="22" font-family="'Plus Jakarta Sans', sans-serif" font-size="14"
+              font-weight="500" fill="#2D3A4A" letter-spacing="0.5">divizero</text>
+      </svg>
+    </a>
+    <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="nav-cta">
+      LINEで相談する
+    </a>
+  </nav>
+
+  <!-- ============================================================
+       HERO (Section 1)
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow" id="heroEyebrow">LP・HP制作の相談窓口</p>
+        <h1 class="hero-headline" id="heroHeadline">
+          「興味を持たれた、<br>次の一手はありますか。」
+        </h1>
+        <p class="hero-sub" id="heroSub">
+          発信で人は集まる。問題は、そのあと。<br>
+          集めた人を取りこぼさない"受け皿のページ"を、一緒に作ります。
+        </p>
+        <div class="hero-cta-group" id="heroCta">
+          <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-primary">
+            まずLINEで話しかける
+          </a>
+          <a href="#why" class="btn-secondary">
+            LPって必要？と思ったら ↓
+          </a>
+        </div>
+        <p class="hero-note" id="heroNote">
+          買い切り4.98万〜 ／ 最短1週間 ／ 無料デモあり
+        </p>
+      </div>
+
+      <!-- 背景装飾：スマホのワイヤーフレーム -->
+      <div class="hero-decoration" id="heroDecoration" aria-hidden="true">
+        <svg width="260" height="480" viewBox="0 0 260 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- スマホ外枠 -->
+          <rect x="20" y="10" width="220" height="460" rx="28" stroke="#D0D0C8" stroke-width="1.5" fill="none"/>
+          <!-- ノッチ -->
+          <rect x="95" y="10" width="70" height="20" rx="10" fill="#FAFAF8" stroke="#D0D0C8" stroke-width="1.5"/>
+          <!-- ヒーロー画像エリア -->
+          <rect x="36" y="46" width="188" height="100" rx="8" stroke="#D0D0C8" stroke-width="1.5" fill="none"/>
+          <!-- ヘッドライン -->
+          <rect x="36" y="158" width="148" height="8" rx="4" fill="#D0D0C8"/>
+          <rect x="36" y="172" width="120" height="8" rx="4" fill="#D0D0C8"/>
+          <!-- サブテキスト -->
+          <rect x="36" y="192" width="188" height="5" rx="2.5" fill="#E8E8E4"/>
+          <rect x="36" y="202" width="160" height="5" rx="2.5" fill="#E8E8E4"/>
+          <rect x="36" y="212" width="176" height="5" rx="2.5" fill="#E8E8E4"/>
+          <!-- CTAボタン -->
+          <rect x="36" y="232" width="188" height="36" rx="18" fill="#1A1A1A" opacity="0.12"/>
+          <rect x="36" y="232" width="188" height="36" rx="18" stroke="#D0D0C8" stroke-width="1.5" fill="none"/>
+          <!-- セクション区切り -->
+          <line x1="36" y1="285" x2="224" y2="285" stroke="#E8E8E4" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- 特徴リスト -->
+          <rect x="36" y="298" width="10" height="10" rx="2" fill="#D0D0C8"/>
+          <rect x="52" y="300" width="100" height="6" rx="3" fill="#D0D0C8"/>
+          <rect x="36" y="318" width="10" height="10" rx="2" fill="#D0D0C8"/>
+          <rect x="52" y="320" width="130" height="6" rx="3" fill="#D0D0C8"/>
+          <rect x="36" y="338" width="10" height="10" rx="2" fill="#D0D0C8"/>
+          <rect x="52" y="340" width="88" height="6" rx="3" fill="#D0D0C8"/>
+          <!-- 価格エリア -->
+          <rect x="36" y="366" width="80" height="14" rx="4" fill="#D0D0C8" opacity="0.7"/>
+          <rect x="124" y="368" width="100" height="8" rx="3" fill="#E8E8E4"/>
+          <!-- CTAボタン2 -->
+          <rect x="36" y="396" width="188" height="36" rx="18" stroke="#D0D0C8" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOOK (Section 2)
+  ============================================================ -->
+  <section class="hook" id="hook">
+    <div class="container">
+      <p class="hook-line fade-in">
+        興味を持たれた次の瞬間、<br>
+        ライバルの発信が、相手のTLに流れ込みます。
+      </p>
+      <p class="hook-sub fade-in fade-in-delay-1">
+        比較が始まる前に、納得まで届けられているか。
+      </p>
+      <a href="#why" class="btn-text-link fade-in fade-in-delay-2">
+        その仕組みを見る →
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONCERN (Section 3)
+  ============================================================ -->
+  <section class="concern section" id="concern">
+    <div class="container-wide">
+      <span class="section-label">こんな方へ</span>
+      <div class="concern-grid">
+
+        <article class="concern-card fade-in">
+          <div class="concern-icon" aria-hidden="true">
+            <!-- SVG: SNS→矢印→疑問符 -->
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="16" r="5" stroke="#3D6B4F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M12 21v6" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 23h6" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M20 16h6" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M26 13l3 3-3 3" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="37" cy="16" r="2.5" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <text x="35" y="37" font-family="sans-serif" font-size="14" fill="#3D6B4F" font-weight="700">?</text>
+            </svg>
+          </div>
+          <p class="concern-text">
+            XやInstagramで集客できてるのに<br>受け皿のページがDM任せになっている
+          </p>
+        </article>
+
+        <article class="concern-card fade-in fade-in-delay-1">
+          <div class="concern-icon" aria-hidden="true">
+            <!-- SVG: ページ+価格タグ -->
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="6" width="24" height="32" rx="3" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M14 14h12M14 20h12M14 26h8" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M34 22l4 4-4 4" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="36" cy="34" r="6" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M34 34h4M36 32v4" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="concern-text">
+            制作会社は高すぎる<br>フリーランスは不安で頼めない
+          </p>
+        </article>
+
+        <article class="concern-card fade-in fade-in-delay-2">
+          <div class="concern-icon" aria-hidden="true">
+            <!-- SVG: 吹き出し+人物 -->
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="14" r="6" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M8 38c0-7 5.4-12 12-12s12 5 12 12" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M33 10h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2l-2 3-2-3h-2a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <circle cx="35" cy="16" r="1" fill="#3D6B4F"/>
+              <circle cx="39" cy="16" r="1" fill="#3D6B4F"/>
+            </svg>
+          </div>
+          <p class="concern-text">
+            何をどう頼めばいいか<br>そもそも分からない
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHY (Section 4)
+  ============================================================ -->
+  <section class="why section" id="why">
+    <div class="container">
+      <span class="section-label">なぜ、ページが要るのか</span>
+      <h2 class="section-heading fade-in">
+        集客の入口より、<br>受け止める場所の話を。
+      </h2>
+      <p class="why-lead fade-in">
+        発信で人は集められる。問題はそのあと。<br>
+        興味を持った人が"次に見る場所"が、ありますか。
+      </p>
+
+      <div class="why-inner fade-in">
+
+        <div class="why-point" data-why>
+          <div class="why-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="why-number">01</span>
+            <span class="why-title">似た人は、他にもいる</span>
+            <svg class="why-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="why-body">
+            発信を見て興味を持った人は必ず「いいな、でも似た人も他にいるな」と考えます。
+            その瞬間に"あなたにする理由"を渡せる場所がありますか。
+            プロフィールとLINE登録の間に、説得の1ページがあるかどうか。差はそこで開きます。
+          </div>
+        </div>
+
+        <div class="why-point" data-why>
+          <div class="why-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="why-number">02</span>
+            <span class="why-title">熱は、すぐ冷める</span>
+            <svg class="why-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="why-body">
+            人がいちばん前のめりなのは行動した直後です。でも多くの場合、その熱が冷める前に返信はできない。
+            ページは、あなたが眠っている間もその熱を受け止め続けます。24時間働く、いちばん辛抱強い営業です。
+          </div>
+        </div>
+
+        <div class="why-point" data-why>
+          <div class="why-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="why-number">03</span>
+            <span class="why-title">競合は、あとから流れてくる</span>
+            <svg class="why-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="why-body">
+            一度あなたの商品に反応した人のTLには、そのあと似たサービスの発信が流れ込みます。仕組み上そうなります。
+            比較が始まる前に納得まで運べているか。スピードで負けないために、ページがあります。
+          </div>
+        </div>
+
+        <div class="why-point" data-why>
+          <div class="why-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="why-number">04</span>
+            <span class="why-title">人に勧めることを、自分でも</span>
+            <svg class="why-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="why-body">
+            「成功する人はまず自分に投資する」——そう発信している人ほど、自分の販売ページは後回しにしがちです。
+            人に勧めていることを自分のページで体現する。それが結局、いちばんの説得力になります。
+          </div>
+        </div>
+
+      </div>
+
+      <div class="why-close fade-in">
+        <p class="why-close-text">まずは無料のデモから。</p>
+        <p class="why-close-sub">言葉で説明するより、見てもらうほうが早いので。</p>
+        <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-text-link">
+          デモを見てみる →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES (Section 5)
+  ============================================================ -->
+  <section class="services section" id="services">
+    <div class="container">
+      <span class="section-label">できること</span>
+      <h2 class="section-heading fade-in">販売ページを、一緒に整えます。</h2>
+
+      <div class="service-list">
+
+        <div class="service-item fade-in">
+          <div class="service-icon" aria-hidden="true">
+            <!-- SVG: スマホ+矢印 -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="2" width="14" height="22" rx="3" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <circle cx="12" cy="21" r="1" fill="#3D6B4F"/>
+              <path d="M20 10h5M22 8l3 2-3 2" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="service-text">
+            <h3 class="service-name">LINE登録ページ</h3>
+            <p class="service-desc">
+              無料プレゼント受取・メルマガ登録など。LINEへ流す前の"最初の1ページ"を整える。
+            </p>
+          </div>
+        </div>
+
+        <div class="service-item fade-in fade-in-delay-1">
+          <div class="service-icon" aria-hidden="true">
+            <!-- SVG: カート+ページ -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4h3l2.5 12h12L23 8H8" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="11.5" cy="21.5" r="1.5" fill="#3D6B4F"/>
+              <circle cx="19.5" cy="21.5" r="1.5" fill="#3D6B4F"/>
+            </svg>
+          </div>
+          <div class="service-text">
+            <h3 class="service-name">販売LP</h3>
+            <p class="service-desc">
+              講座・コンサル・デジタル商品の販売ページ。「なぜ必要か」から「今すぐ申込む」まで1枚で完結。
+            </p>
+          </div>
+        </div>
+
+        <div class="service-item fade-in fade-in-delay-2">
+          <div class="service-icon" aria-hidden="true">
+            <!-- SVG: ギフト -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="10" width="22" height="4" rx="2" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <rect x="5" y="14" width="18" height="10" rx="2" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M14 10V24" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 10c0 0-3-1-3-4s3-3 3 0M14 10c0 0 3-1 3-4s-3-3-3 0" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="service-text">
+            <h3 class="service-name">特典・プレゼント受取ページ</h3>
+            <p class="service-desc">
+              購読者・購入者向けの特典案内。信頼の積み上げを、ページでも支える。
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tag-group fade-in">
+        <span class="tag-pill">買い切り</span>
+        <span class="tag-pill">4.98万円〜</span>
+        <span class="tag-pill">最短1週間</span>
+        <span class="tag-pill">無料デモあり</span>
+        <span class="tag-pill">修正無制限</span>
+      </div>
+
+      <div class="fade-in">
+        <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-primary">
+          無料でデモを見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FLOW (Section 6)
+  ============================================================ -->
+  <section class="flow section" id="flow">
+    <div class="container-wide">
+      <div class="text-center">
+        <span class="section-label">相談の流れ</span>
+        <h2 class="section-heading fade-in">まず雑談からで、大丈夫です。</h2>
+      </div>
+
+      <div class="flow-steps">
+
+        <div class="flow-step fade-in">
+          <div class="flow-step-number">1</div>
+          <div class="flow-step-icon" aria-hidden="true">
+            <!-- SVG: 吹き出し -->
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6h28a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H14l-8 6v-6H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M12 16h16M12 22h10" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="flow-step-title">LINEかDMで話しかける</h3>
+          <p class="flow-step-desc">専門用語も準備も不要。「こういうことがしたい」で十分です。</p>
+          <!-- 矢印（デスクトップ）-->
+          <svg class="flow-connector" width="40" height="24" viewBox="0 0 40 24" fill="none" aria-hidden="true">
+            <path d="M0 12h34M28 6l6 6-6 6" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="flow-step fade-in fade-in-delay-1">
+          <div class="flow-step-number">2</div>
+          <div class="flow-step-icon" aria-hidden="true">
+            <!-- SVG: スマホ+ページ -->
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="14" height="22" rx="2" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <circle cx="11" cy="23" r="1" fill="#3D6B4F"/>
+              <rect x="22" y="10" width="14" height="22" rx="2" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M26 16h6M26 20h6M26 24h4" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="flow-step-title">無料でデモを見る</h3>
+          <p class="flow-step-desc">あなたのサービスに合わせたサンプルページを無料で作ります。</p>
+          <!-- 矢印（デスクトップ）-->
+          <svg class="flow-connector" width="40" height="24" viewBox="0 0 40 24" fill="none" aria-hidden="true">
+            <path d="M0 12h34M28 6l6 6-6 6" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="flow-step fade-in fade-in-delay-2">
+          <div class="flow-step-number">3</div>
+          <div class="flow-step-icon" aria-hidden="true">
+            <!-- SVG: チェック -->
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="14" stroke="#3D6B4F" stroke-width="1.5" fill="none"/>
+              <path d="M12 20l6 6 10-12" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="flow-step-title">気に入ったら制作スタート</h3>
+          <p class="flow-step-desc">気に入らなければキャンセルOK。納得してから進められます。</p>
+        </div>
+
+      </div>
+
+      <div class="text-center fade-in">
+        <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-primary">
+          まず話しかけてみる →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORKS / STATS (Section 7)
+  ============================================================ -->
+  <section class="works section" id="works">
+    <div class="container">
+      <span class="section-label">制作実績</span>
+
+      <div class="text-center fade-in">
+        <div class="stat-badge">
+          <span class="stat-number">1,000<span style="font-size:var(--text-2xl);">+</span></span>
+          <span class="stat-label">これまでの制作実績</span>
+        </div>
+        <p class="stat-note">累計1,000サイト以上の制作体制で対応します</p>
+      </div>
+
+      <h2 class="section-heading fade-in">こんなページを作ってきました。</h2>
+
+      <div class="works-grid">
+        <div class="work-placeholder fade-in">制作実績<br>近日公開</div>
+        <div class="work-placeholder fade-in fade-in-delay-1">制作実績<br>近日公開</div>
+        <div class="work-placeholder fade-in fade-in-delay-2">制作実績<br>近日公開</div>
+        <div class="work-placeholder fade-in">制作実績<br>近日公開</div>
+        <div class="work-placeholder fade-in fade-in-delay-1">制作実績<br>近日公開</div>
+        <div class="work-placeholder fade-in fade-in-delay-2">制作実績<br>近日公開</div>
+      </div>
+
+      <p class="works-note fade-in">掲載許可をいただいた案件のみ表示しています</p>
+
+      <div class="fade-in">
+        <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-primary">
+          自分のページを相談する →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROFILE (Section 8)
+  ============================================================ -->
+  <section class="profile-section section" id="profile">
+    <div class="container">
+      <div class="profile-inner fade-in">
+        <div class="profile-photo-wrap">
+          <img
+            src="assets/profile.png"
+            alt="小林薫之介"
+            class="profile-photo"
+            width="160"
+            height="160"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="profile-photo-placeholder" style="display:none;" aria-hidden="true">
+            <span>写真</span>
+          </div>
+        </div>
+        <div class="profile-text">
+          <p class="profile-eyebrow">窓口担当</p>
+          <h2 class="profile-name">小林 薫之介</h2>
+          <p class="profile-role">Tadanosuke Kobayashi ／ Divizero 代表</p>
+          <p class="profile-bio">
+            Web制作・SNS発信・マーケティングに携わる中で、<br>
+            「良いサービスを持っているのに、見せ方で損している人が多い」<br>
+            と感じてこの窓口を始めました。<br><br>
+            私が窓口となり、信頼できる制作体制と連携して、<br>
+            相談から完成まで伴走します。<br>
+            専門用語なしで、気軽に話しかけてもらえれば嬉しいです。
+          </p>
+          <div class="profile-sns">
+            <a href="https://x.com/21closer_ai" target="_blank" rel="noopener" class="profile-sns-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12.6 1H15L9.9 6.8 16 15h-4.8l-3.7-4.9L2.9 15H.5l5.5-6.2L0 1h4.9l3.4 4.5L12.6 1zm-.9 12.6h1.3L4.4 2.4H3l8.7 11.2z" fill="currentColor"/>
+              </svg>
+              @21closer_ai
+            </a>
+            <a href="https://www.instagram.com/tadanosuke.divizero" target="_blank" rel="noopener" class="profile-sns-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/>
+              </svg>
+              @tadanosuke.divizero
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ (Section 9)
+  ============================================================ -->
+  <section class="faq section" id="faq">
+    <div class="container">
+      <span class="section-label">よくある質問</span>
+      <h2 class="section-heading fade-in">FAQ</h2>
+
+      <div class="faq-list fade-in">
+
+        <div class="faq-item" data-faq>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            <span>制作はどんな体制ですか？</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">
+              私が窓口となり、信頼できる制作チームと連携して進めます。
+              累計1,000サイト以上の制作体制で、相談から完成まで伴走します。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            <span>無料デモって本当に無料ですか？</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">
+              はい、完全無料です。あなたのサービスに合わせたサンプルページを
+              実際に作ってから確認できます。気に入らなければキャンセルも可能です。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            <span>何を準備して相談すればいいですか？</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">
+              何も準備しなくて大丈夫です。「こういうサービスをやっています」の一言から始まります。
+              ヒアリングしながら一緒に整理します。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            <span>価格を教えてください。</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">
+              LP（1ページ）49,800円〜／HP（5ページ構成）98,000円〜。
+              買い切りで月額費用は一切かかりません。分割払いも可能です（3回まで）。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA (Section 10)
+  ============================================================ -->
+  <section class="cta-final" id="contact">
+    <div class="container">
+      <h2 class="cta-final-heading fade-in">まず、話しかけてみてください。</h2>
+      <p class="cta-final-sub fade-in">
+        専門知識も準備も要りません。<br>「こういうことがしたい」の一言から始まります。
+      </p>
+      <div class="cta-final-buttons fade-in">
+        <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" class="btn-white">
+          LINEで話しかける
+        </a>
+        <a href="https://x.com/messages/compose?recipient_id=21closer_ai" target="_blank" rel="noopener" class="btn-ghost-white">
+          XでDMする
+        </a>
+      </div>
+      <p class="cta-final-note fade-in">返信は基本的に当日〜翌日以内</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a href="#" class="footer-logo" aria-label="Divizero トップへ">
+          <svg width="110" height="32" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="8" cy="10" r="3" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="8" cy="22" r="3" fill="rgba(255,255,255,0.7)"/>
+            <line x1="4" y1="16" x2="36" y2="16" stroke="rgba(255,255,255,0.7)" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="28" cy="16" rx="10" ry="13" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" fill="none"/>
+            <text x="44" y="22" font-family="'Plus Jakarta Sans', sans-serif" font-size="14"
+                  font-weight="500" fill="rgba(255,255,255,0.8)" letter-spacing="0.5">divizero</text>
+          </svg>
+        </a>
+        <nav class="footer-nav" aria-label="フッターナビ">
+          <a href="#">Top</a>
+          <a href="#why">なぜページなのか</a>
+          <a href="#services">できること</a>
+          <a href="#works">実績</a>
+          <a href="#faq">よくある質問</a>
+          <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener">お問い合わせ</a>
+        </nav>
+        <div class="footer-sns">
+          <a href="https://x.com/21closer_ai" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M12.6 1H15L9.9 6.8 16 15h-4.8l-3.7-4.9L2.9 15H.5l5.5-6.2L0 1h4.9l3.4 4.5L12.6 1zm-.9 12.6h1.3L4.4 2.4H3l8.7 11.2z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/tadanosuke.divizero" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://line.me/ti/p/7818mX2ZAe" target="_blank" rel="noopener" aria-label="LINE">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 1C4.1 1 1 3.6 1 6.8c0 2.8 2.5 5.1 5.8 5.6l-.4 1.7c-.1.2.1.4.3.3L9.6 12c2.8-.9 4.4-2.8 4.4-5.2C14 3.6 11.9 1 8 1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+              <path d="M5 6.5h2M9 6.5h2M6 9l1-1 1 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Divizero. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="法的情報">
+          <a href="operator.html">運営者情報</a>
+          <a href="legal.html">特定商取引法に基づく表記</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
