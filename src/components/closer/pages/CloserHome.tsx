@@ -401,9 +401,21 @@ export default function CloserHome() {
           <h2 className="dz2-section-heading">こんなページを作ってきました。</h2>
 
           <div className="dz2-works-grid">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="dz2-work-placeholder">制作実績<br />近日公開</div>
-            ))}
+            <figure className="dz2-work-item">
+              <img src="/works/work-cafe.gif" alt="カフェ / ブランドサイト" width={1200} height={750} />
+              <figcaption>カフェ / ブランドサイト</figcaption>
+            </figure>
+            <figure className="dz2-work-item">
+              <img src="/works/work-music.gif" alt="音楽レーベル / コーポレートサイト" width={1200} height={750} />
+              <figcaption>音楽レーベル / コーポレートサイト</figcaption>
+            </figure>
+            <figure className="dz2-work-item">
+              <img src="/works/work-futsal.gif" alt="フットサルクラブ / 公式サイト" width={1200} height={750} />
+              <figcaption>フットサルクラブ / 公式サイト</figcaption>
+            </figure>
+            <div className="dz2-work-placeholder">制作実績<br />近日公開</div>
+            <div className="dz2-work-placeholder">制作実績<br />近日公開</div>
+            <div className="dz2-work-placeholder">制作実績<br />近日公開</div>
           </div>
 
           <p className="dz2-works-note">掲載許可をいただいた案件のみ表示しています</p>
