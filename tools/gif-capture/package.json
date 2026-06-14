@@ -1,0 +1,16 @@
+{
+  "name": "gif-capture",
+  "version": "1.0.0",
+  "description": "Puppeteer screen capture → GIF converter for divizero works section",
+  "main": "capture-sites.js",
+  "scripts": {
+    "start": "node capture-sites.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.11.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "gif-encoder-2": "^1.0.4",
+    "jimp": "^0.22.12"
+  }
+}
