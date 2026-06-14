@@ -4,7 +4,9 @@
       "Bash(npx tsc:*)",
       "Bash(npx next:*)",
       "PowerShell(Copy-Item *)",
-      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\tduka\\\\company-homepage\\\\divizero\\\\assets\\\\works\" | ForEach-Object { \"$\\($_.Name\\)  $\\([math]::Round\\($_.Length/1MB,2\\)\\) MB\" })"
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\tduka\\\\company-homepage\\\\divizero\\\\assets\\\\works\" | ForEach-Object { \"$\\($_.Name\\)  $\\([math]::Round\\($_.Length/1MB,2\\)\\) MB\" })",
+      "PowerShell(New-Item *)",
+      "PowerShell(git *)"
     ]
   }
 }
