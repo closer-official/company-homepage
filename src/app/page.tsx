@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import CloserShell from "@/components/closer/CloserShell";
-import CloserHome from "@/components/closer/pages/CloserHome";
+import fs from "fs";
+import path from "path";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Divizero | LP・HP制作の相談窓口",
@@ -14,9 +15,23 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const styleContent = fs.readFileSync(
+    path.join(process.cwd(), "public", "home-style.css"),
+    "utf-8"
+  );
+  const bodyHtml = fs.readFileSync(
+    path.join(process.cwd(), "public", "home-body.html"),
+    "utf-8"
+  );
+
   return (
-    <CloserShell variant="divizero">
-      <CloserHome />
-    </CloserShell>
+    <>
+      {/* divisero.html のスタイル — Tailwind の font-sans より優先 */}
+      <style dangerouslySetInnerHTML={{ __html: `body{font-family:'Zen Kaku Gothic New',sans-serif!important;background:#FFFFFF!important;}\n${styleContent}` }} />
+      {/* divisero.html の body コンテンツ（script タグ除去済み）*/}
+      <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+      {/* スクロールアニメーション・ヘッダー挙動 JS */}
+      <Script src="/home-script.js" strategy="afterInteractive" />
+    </>
   );
 }
