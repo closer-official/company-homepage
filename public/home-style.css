@@ -193,3 +193,77 @@ body.ready .head{opacity:1;transform:none}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important;animation-iteration-count:1!important}
   .js .reveal{opacity:1;transform:none}
 }
+
+/* ========== CV改善追加スタイル ========== */
+
+/* オレンジCTAボタン（立体感・ホバーで浮き上がる） */
+.btn-orange{
+  background:#FF8C00!important;
+  color:#fff!important;
+  box-shadow:0 6px 20px rgba(255,140,0,.45),0 2px 6px rgba(0,0,0,.25)!important;
+}
+.btn-orange:hover{
+  background:#E67E00!important;
+  transform:translateY(-3px)!important;
+  box-shadow:0 12px 30px rgba(255,140,0,.55),0 4px 10px rgba(0,0,0,.2)!important;
+}
+
+/* ヒーロー新見出し */
+.hero-headline-new{font-family:var(--mincho);font-weight:700;font-size:clamp(1.9rem,7.5vw,3.4rem);line-height:1.38;letter-spacing:.03em;color:var(--ink)}
+.micro-copy-top{font-size:.92rem;font-weight:700;color:#FF8C00;margin-bottom:10px;letter-spacing:.04em}
+.micro-copy-bottom{margin-top:10px;font-size:.75rem;color:var(--muted)}
+
+/* 黄色マーカー強調 */
+.hl{background:linear-gradient(transparent 60%,#ffff66 60%);font-weight:bold;font-size:1.55em;line-height:1.7;display:inline}
+
+/* セクション背景alt（sec-alt-bgクラス） */
+.sec-alt-bg{background:var(--paper-2)}
+
+/* 悩みセクション */
+.problem-sec{background:#f8f9fa!important;border-top:1px solid var(--line-soft)}
+.problem-heading{font-family:var(--mincho);font-weight:600;font-size:clamp(1.3rem,4vw,1.85rem);color:var(--navy);margin-bottom:28px}
+.problem-list{list-style:none;display:grid;gap:16px;max-width:36em}
+.problem-list li{position:relative;padding:18px 22px 18px 56px;background:#fff;border-radius:10px;border-left:4px solid #FF8C00;font-size:1rem;line-height:1.75;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.problem-list li::before{content:"😓";position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.4rem}
+
+/* 解決策セクション */
+.solution-sec{background:var(--paper);border-top:1px solid var(--line-soft)}
+.solution-heading{font-family:var(--mincho);font-weight:600;font-size:clamp(1.3rem,4vw,1.85rem);color:var(--navy);margin-bottom:20px}
+.solution-copy{font-size:1.02rem;line-height:2.05;color:var(--ink);margin-bottom:28px}
+.solution-highlight{display:flex;flex-wrap:wrap;gap:20px 40px;margin-bottom:36px;align-items:baseline}
+.hl-item{font-size:1rem;color:var(--navy);line-height:2}
+.solution-reason{background:#f8f9fa;border-radius:12px;padding:28px clamp(20px,4vw,36px);max-width:38em}
+.solution-reason h3{font-family:var(--mincho);font-weight:600;font-size:1.1rem;color:var(--navy);margin-bottom:12px}
+.solution-reason p{font-size:.97rem;color:var(--muted);line-height:2.05}
+
+/* 実績ハイライト */
+.work-highlight{color:#d00000;font-weight:bold;font-size:.88rem;margin-top:6px;padding:4px 14px 8px;letter-spacing:.02em}
+
+/* お客様の声セクション */
+.social-proof-sec{background:var(--paper-2);border-top:1px solid var(--line-soft)}
+.social-proof-heading{font-family:var(--mincho);font-weight:600;font-size:clamp(1.3rem,4vw,1.85rem);color:var(--navy);margin-bottom:36px}
+.review-list{display:grid;gap:24px;max-width:42em}
+.review-card{display:flex;gap:20px;align-items:flex-start;background:#fff;border-radius:14px;padding:26px 24px;box-shadow:0 4px 16px rgba(46,58,79,.1)}
+.review-avatar{flex-shrink:0;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:var(--paper-2);border:2px solid var(--line)}
+.review-text{font-size:.97rem;line-height:2.0;color:var(--ink);margin-bottom:10px}
+.review-text::before{content:"「"}
+.review-text::after{content:"」"}
+.review-meta{font-size:.74rem;color:var(--muted);letter-spacing:.04em}
+
+/* 代表者ストーリー */
+.founder-story{margin-top:20px;padding:20px 24px;border-left:3px solid #FF8C00;background:#fff9f0;border-radius:0 10px 10px 0;font-size:.98rem;line-height:2.1;color:var(--ink);max-width:36em;font-style:italic}
+
+/* 追従型スティッキーCTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(46,58,79,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:12px clamp(16px,5vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.sticky-cta.visible{transform:translateY(0)}
+.sticky-cta .sticky-text{color:#fff;font-size:.88rem;line-height:1.5}
+.sticky-cta .sticky-text strong{display:block;font-size:1rem;margin-bottom:2px}
+.btn-orange-sm{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:#FF8C00;color:#fff;font-weight:700;font-size:.9rem;padding:12px 24px;border-radius:100px;white-space:nowrap;box-shadow:0 4px 14px rgba(255,140,0,.5);text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-orange-sm:hover{background:#E67E00;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,140,0,.6)}
+@media(max-width:640px){
+  .sticky-cta{flex-direction:column;align-items:stretch;padding:14px 20px;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+  .btn-orange-sm{justify-content:center;width:100%;padding:14px;text-align:center}
+  .sticky-cta .sticky-text{text-align:center}
+}
+body.sticky-visible{padding-bottom:80px}
+@media(max-width:640px){body.sticky-visible{padding-bottom:130px}}

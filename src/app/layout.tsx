@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ConditionalAdsense from "@/components/ConditionalAdsense";
-import ConditionalHeader from "@/components/ConditionalHeader";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://divizero.jp";
 
@@ -131,12 +129,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <ConditionalAdsense />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ConditionalHeader />
         <main className="min-h-0">{children}</main>
       </body>
     </html>

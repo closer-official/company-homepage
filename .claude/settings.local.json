@@ -7,7 +7,9 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\tduka\\\\company-homepage\\\\divizero\\\\assets\\\\works\" | ForEach-Object { \"$\\($_.Name\\)  $\\([math]::Round\\($_.Length/1MB,2\\)\\) MB\" })",
       "PowerShell(New-Item *)",
       "PowerShell(git *)",
-      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\tduka\\\\company-homepage\\\\divizero.html' | Select-Object -Skip 208 -First 232\")"
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\tduka\\\\company-homepage\\\\divizero.html' | Select-Object -Skip 208 -First 232\")",
+      "PowerShell(Get-ChildItem 'C:\\\\Users\\\\tduka\\\\company-homepage\\\\src\\\\app' -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\('C:\\\\Users\\\\tduka\\\\company-homepage\\\\', ''\\) })",
+      "PowerShell(Remove-Item *)"
     ]
   }
 }
