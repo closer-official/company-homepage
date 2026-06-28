@@ -11,7 +11,8 @@
       "PowerShell(Get-ChildItem 'C:\\\\Users\\\\tduka\\\\company-homepage\\\\src\\\\app' -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\('C:\\\\Users\\\\tduka\\\\company-homepage\\\\', ''\\) })",
       "PowerShell(Remove-Item *)",
       "PowerShell(cd 'C:\\\\Users\\\\tduka\\\\company-homepage'; $env:TIMESTAMP = Get-Date -Format \"yyyy-MM-dd HH:mm:ss\"; npx firebase deploy --only hosting 2>&1 | Select-Object -Last 15)",
-      "PowerShell(npm run *)"
+      "PowerShell(npm run *)",
+      "PowerShell(Get-ChildItem 'C:\\\\Users\\\\tduka\\\\company-homepage\\\\public' -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name, @{N='Path';E={$_.FullName.Replace\\('C:\\\\Users\\\\tduka\\\\company-homepage\\\\public\\\\','/'\\) }}, @{N='KB';E={[math]::Round\\($_.Length/1024\\)}})"
     ]
   }
 }
