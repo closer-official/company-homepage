@@ -86,6 +86,8 @@
       font-weight: 900;
       line-height: 1.38;
       letter-spacing: .02em;
+      text-wrap: balance;
+      word-break: keep-all;
     }
 
     .lp-heading .marker {
@@ -99,6 +101,7 @@
       font-weight: 500;
       line-height: 2.15;
       letter-spacing: .025em;
+      text-wrap: balance;
     }
 
     .lp-copy strong {
@@ -137,6 +140,7 @@
       font-size: clamp(1rem, 3.4vw, 1.18rem);
       font-weight: 800;
       line-height: 1.7;
+      text-wrap: balance;
     }
 
     .sequence-box.after {
@@ -178,6 +182,7 @@
       margin: 0 0 10px;
       font-size: 1rem;
       font-weight: 900;
+      text-wrap: balance;
     }
 
     .price {
@@ -207,6 +212,7 @@
       font-size: clamp(1.08rem, 3.8vw, 1.35rem);
       font-weight: 800;
       line-height: 2;
+      text-wrap: balance;
     }
 
     .facts {
@@ -272,6 +278,7 @@
       margin: 24px 0 0;
       font-size: clamp(1rem, 3.2vw, 1.15rem);
       line-height: 2;
+      text-wrap: balance;
     }
 
     .final-section {
@@ -338,6 +345,7 @@
       color: #dbe2ea;
       font-size: .88rem;
       font-weight: 700;
+      text-wrap: balance;
     }
 
     .bridge {
@@ -480,6 +488,7 @@
       font-size: clamp(1rem, 3.3vw, 1.18rem);
       font-weight: 600;
       line-height: 1.95;
+      text-wrap: balance;
     }
 
     .small-emphasis {
@@ -492,6 +501,7 @@
       font-size: clamp(1.05rem, 3.6vw, 1.3rem);
       font-weight: 900;
       line-height: 1.75;
+      text-wrap: balance;
     }
 
     .flow-compare,
@@ -523,6 +533,7 @@
       font-size: 1.2rem;
       font-weight: 900;
       text-align: center;
+      text-wrap: balance;
     }
 
     .flow-list {
@@ -550,6 +561,7 @@
       font-weight: 900;
       line-height: 1.6;
       text-align: center;
+      text-wrap: balance;
     }
 
     .section-close {
@@ -557,6 +569,7 @@
       font-size: clamp(1.25rem, 4.4vw, 1.75rem);
       font-weight: 900;
       line-height: 1.65;
+      text-wrap: balance;
     }
 
     .feature-grid {
@@ -705,6 +718,60 @@
       color: #ffda62;
       font-size: clamp(1.4rem, 4.7vw, 2rem);
       font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .time-panel {
+      display: grid;
+      gap: 16px;
+      margin: 34px auto 0;
+      max-width: 720px;
+    }
+
+    .time-card {
+      padding: clamp(22px, 5vw, 32px);
+      background: #fff;
+      border: 1px solid #dfe3e7;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgb(45 58 74 / 7%);
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .time-block {
+      padding: 18px 14px;
+      background: #f8f5ed;
+      border-radius: 14px;
+      font-weight: 900;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .time-block strong {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(1.2rem, 4.8vw, 1.9rem);
+      color: #b57d00;
+    }
+
+    .time-equals {
+      color: #8a6a20;
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .time-note {
+      margin: 18px 0 0;
+      font-size: .98rem;
+      font-weight: 700;
+      line-height: 1.9;
+      text-wrap: balance;
     }
 
     .choice-card.no {
@@ -789,13 +856,48 @@
         <h2 class="lp-heading" id="lp-heading-1">俺じゃん。</h2>
         <p class="section-lead">そう思ったなら、<br>この先はあなたの話です。</p>
         <p class="lp-copy">毎回同じ説明をしている。<br>料金から会話が始まる。<br>本当に聞いてほしい話まで、なかなか辿り着かない。</p>
-        <p class="lp-copy">その状態を変えるために作るのが、<br><strong>ただのLPではありません。</strong></p>
-        <p class="small-emphasis">説明を終えた状態から、<br>会話を始めるための営業マンです。</p>
+        <p class="lp-copy">でも知りたいのは、<br>LPの説明ではないはずです。</p>
+        <p class="small-emphasis">自分なら、<br>どう変わるのか。<br><br>まずは、その未来から見てください。</p>
       </section>
 
       <section class="lp-section" aria-labelledby="lp-heading-2">
-        <p class="thought">スタート地点を比べる</p>
-        <h2 class="lp-heading" id="lp-heading-2">会話は、こう変わります。</h2>
+        <p class="thought">未来を先に見る</p>
+        <h2 class="lp-heading" id="lp-heading-2">あなたなら、<br>こう変わります。</h2>
+        <div class="flow-compare">
+          <article class="flow-card">
+            <h3 class="flow-title">今</h3>
+            <ol class="flow-list"><li>DMで料金説明</li><li>LINEで内容説明</li><li>Zoomで初心者向け説明</li></ol>
+            <p class="flow-result">説明が終わるころには、<br>もう30分。</p>
+          </article>
+          <article class="flow-card after">
+            <h3 class="flow-title">LP後</h3>
+            <ol class="flow-list"><li>先に料金を読んでいる</li><li>先に内容を理解している</li><li>先に不安が減っている</li></ol>
+            <p class="flow-result">だから会話は、<br>質問から始まる。</p>
+          </article>
+        </div>
+        <p class="section-close">変わるのは、問い合わせ数だけではありません。<br><span class="marker">会話の始まり方です。</span></p>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-3">
+        <p class="thought">時間が戻る</p>
+        <h2 class="lp-heading" id="lp-heading-3">毎日、<br>どれくらい説明していますか？</h2>
+        <div class="time-panel">
+          <div class="time-card">
+            <p class="section-lead">たとえば、<br>1日1時間だけでも、月に約30時間。<br><br>1日1.5時間なら、月に約45時間。<br><br>年間で見れば、何十日分もの時間です。</p>
+            <div class="time-row" aria-hidden="true">
+              <div class="time-block">1日1.5時間</div>
+              <div class="time-equals">×</div>
+              <div class="time-block">30日<strong>月45時間</strong></div>
+            </div>
+            <p class="time-note">その時間、<br>本当にあなたじゃないとできない仕事ですか？</p>
+          </div>
+        </div>
+        <p class="lp-copy">料金説明。<br>内容説明。<br>初心者向け説明。<br><br>その8割は、<br>先にページが伝えられます。</p>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-4">
+        <p class="thought">なぜ起きるのか</p>
+        <h2 class="lp-heading" id="lp-heading-4">会話は、こう変わります。</h2>
         <div class="flow-compare">
           <article class="flow-card">
             <h3 class="flow-title">今の営業</h3>
@@ -811,9 +913,9 @@
         <p class="section-close">変わるのは、ページではありません。<br><span class="marker">会話のスタート地点です。</span></p>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-3">
+      <section class="lp-section" aria-labelledby="lp-heading-5">
         <p class="thought">「LPで変わるの？」</p>
-        <h2 class="lp-heading" id="lp-heading-3">変わるのは、<br><span class="marker">説明の順番です。</span></h2>
+        <h2 class="lp-heading" id="lp-heading-5">変わるのは、<br><span class="marker">説明の順番です。</span></h2>
         <p class="section-lead">正確には、LPそのものが変えるわけではありません。</p>
         <div class="feature-grid">
           <article class="feature-card"><span class="feature-icon" aria-hidden="true">01</span><h3>先に伝える</h3><p>料金・内容・流れを<br>先に整理</p></article>
@@ -823,9 +925,10 @@
         <p class="lp-copy">ただ綺麗なページでは意味がありません。<br><strong>説明し、安心させ、質問を生む。</strong><br>その順番まで設計します。</p>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-4">
-        <p class="thought">「高そう」</p>
-        <h2 class="lp-heading" id="lp-heading-4">なので、<br>先に金額を出します。</h2>
+      <section class="lp-section" aria-labelledby="lp-heading-6">
+        <p class="thought">なので、先に出す</p>
+        <h2 class="lp-heading" id="lp-heading-6">金額も、<br>先に出します。</h2>
+        <p class="section-lead">毎日失っている説明時間と比べて、<br>判断してください。</p>
         <div class="price-grid">
           <article class="price-card">
             <p class="price-name">LP制作</p>
@@ -847,23 +950,17 @@
         </ul>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-5">
-        <p class="thought">制作できる数には限りがあります</p>
-        <h2 class="lp-heading" id="lp-heading-5">今月の制作枠</h2>
-        <p class="section-lead">制作品質を維持するため、<br>毎月の受付は10名までに制限しています。</p>
-        <div class="slots-panel">
-          <p class="slots-number">今月の残り枠：<strong id="remaining-slots">残り5名</strong></p>
-          <div class="slots-track" role="progressbar" aria-label="今月の残り制作枠" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5"><div class="slots-fill" id="slots-fill"></div></div>
-          <p class="slots-note">※相談中の方も枠に含まれる場合があります。</p>
-        </div>
+      <section class="lp-section" aria-labelledby="lp-heading-7">
+        <p class="thought">なぜこの発想なのか</p>
+        <h2 class="lp-heading" id="lp-heading-7">なぜ、<br>営業マンなのか。</h2>
+        <p class="belief">私も営業をしていた時期があります。<br><br>その時に感じていたのは、<br>毎回、最初の説明が同じだということでした。<br><br>料金を説明する。<br>内容を説明する。<br>安心してもらう。<br><br>そこまで終わって、<br>ようやく相手の質問が始まる。<br><br>でも本当は、<br>営業の価値は説明ではありません。<br><br>相手の質問に答えること。<br>その人に合った提案をすること。<br><br>だから私は、<br>説明だけを仕組みに任せるページを作っています。</p>
+        <p class="small-emphasis">説明を減らしたいのではなく、<br>人にしかできない営業を増やしたい。</p>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-6">
-        <p class="thought">「この人に任せて大丈夫？」</p>
-        <h2 class="lp-heading" id="lp-heading-6">長い営業トークより、<br>先に見てもらう。</h2>
-        <p class="belief">私は、LPを売りたいわけではありません。<br>毎回同じ説明で終わる営業が、もったいないと思っています。<br><br>営業の価値は、説明そのものではなく、相手の質問に答えること。<br>だから、説明だけを仕組みに任せるページを作っています。</p>
+      <section class="lp-section" aria-labelledby="lp-heading-8">
+        <p class="thought">作れるのかを見る</p>
+        <h2 class="lp-heading" id="lp-heading-8">制作は、提携制作チームと<br>連携しています。</h2>
         <div class="proof-card">
-          <p>制作は、提携制作チームと連携しています。</p>
           <span class="proof-number">提携制作チームの制作実績1000件以上</span>
         </div>
         <ul class="facts">
@@ -872,30 +969,41 @@
         </ul>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-7">
+      <section class="lp-section" aria-labelledby="lp-heading-9">
         <p class="thought">もう、答えは出ているはずです</p>
-        <h2 class="lp-heading" id="lp-heading-7">ここまで読んで、<br>どう思いましたか？</h2>
+        <h2 class="lp-heading" id="lp-heading-9">ここまで読んで、<br>もう答えは出ていると思います。</h2>
         <div class="choice-grid">
           <article class="choice-card no">
             <h3 class="choice-title">やっぱり必要ない。</h3>
-            <p>そう思ったなら、その判断で大丈夫です。<br><br>もし私が直接営業しても、きっと同じ結論だったと思います。<br><br>このLPが、私の代わりに説明してくれた。それだけです。</p>
+            <p>そう思ったなら、<br>その判断で大丈夫です。<br><br>もし私が直接営業しても、<br>きっと同じ結論だったと思います。<br><br>このLPが、<br>私の代わりに説明してくれた。<br><br>それだけです。</p>
           </article>
           <article class="choice-card yes">
             <h3 class="choice-title">少し気になる。</h3>
-            <p>そう思ったなら、私にとっては大成功です。<br><br>あなたはもう、説明を聞きたい人ではなく、<strong>質問を持った人</strong>になっています。</p>
+            <p>そう思ったなら、<br>私にとっては大成功です。<br><br>あなたはもう、<br>説明を聞きたい人ではなく、<br><strong>質問を持った人</strong>になっています。</p>
           </article>
         </div>
         <p class="section-close">次は、あなたが<br>それを作る番です。</p>
       </section>
 
-      <section class="lp-section final-section" aria-labelledby="lp-heading-8">
+      <section class="lp-section" aria-labelledby="lp-heading-10">
+        <p class="thought">制作できる数には限りがあります</p>
+        <h2 class="lp-heading" id="lp-heading-10">今月の制作枠</h2>
+        <p class="section-lead">制作品質を維持するため、<br>毎月の受付は10名までに制限しています。</p>
+        <div class="slots-panel">
+          <p class="slots-number">今月の残り枠：<strong id="remaining-slots">残り5名</strong></p>
+          <div class="slots-track" role="progressbar" aria-label="今月の残り制作枠" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5"><div class="slots-fill" id="slots-fill"></div></div>
+          <p class="slots-note">※相談中の方も枠に含まれる場合があります。</p>
+        </div>
+      </section>
+
+      <section class="lp-section final-section" aria-labelledby="lp-heading-11">
         <p class="thought">まずは、判断材料を見る</p>
-        <h2 class="lp-heading" id="lp-heading-8">あなた専属の営業マン候補を、<br>まずは見てください。</h2>
+        <h2 class="lp-heading" id="lp-heading-11">あなた専属の営業マン候補を、<br>まずは見てください。</h2>
         <div class="cta-panel">
-          <p class="section-lead">デモを見て「やっぱり違う」と思えば、今までの判断は間違っていなかったということです。</p>
-          <p class="section-lead">逆に「これなら使いたい」と思えたなら、もっと効率的に仕事を進められるはずです。<br>その時は、一緒に進めていきましょう。</p>
+          <p class="section-lead">デモを見て、<br>「やっぱり違う」と思えば、今までの判断は間違っていなかったということです。</p>
+          <p class="section-lead">逆に、<br>「これなら使いたい」と思えたなら、もっと効率的に仕事を進められるはずです。<br>その時は、一緒に進めていきましょう。</p>
           <a class="final-cta" href="https://twitter.com/messages/compose?recipient_id=2017553945481330688" target="_blank" rel="noopener noreferrer">無料デモを見る</a>
-          <p class="cta-sub" style="color:#66717d">あなたが毎日説明していることを、営業マンにできるか。<br>まずはデモで確認してください。</p>
+          <p class="cta-sub" style="color:#66717d">あなたが毎日説明していることを、<br>営業マンにできるか。<br>まずはデモで確認してください。</p>
         </div>
       </section>
     </div>
