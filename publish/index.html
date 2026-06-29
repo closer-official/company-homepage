@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="UTAGE活用ストーリー">
+  <title>UTAGE活用ストーリー</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page-width: 860px;
+      --ink: #211a11;
+      --gold: #f7b500;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #f4f0e8;
+    }
+
+    body {
+      color: var(--ink);
+      font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      padding-bottom: calc(112px + env(safe-area-inset-bottom));
+    }
+
+    main {
+      width: min(100%, var(--page-width));
+      margin: 0 auto;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 0 34px rgb(52 39 20 / 14%);
+    }
+
+    .comic {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .lp-content {
+      color: #2d3a4a;
+      background: #fffdf8;
+    }
+
+    .lp-section {
+      position: relative;
+      padding: clamp(72px, 12vw, 120px) clamp(24px, 7vw, 72px);
+      text-align: center;
+    }
+
+    .lp-section + .lp-section {
+      border-top: 1px solid #e8e2d7;
+    }
+
+    .lp-section:nth-child(even) {
+      background: #f8f5ed;
+    }
+
+    .thought {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 24px;
+      color: #8a6a20;
+      font-size: clamp(.78rem, 2.4vw, .95rem);
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .thought::before,
+    .thought::after {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: #d7af50;
+    }
+
+    .lp-heading {
+      margin: 0;
+      color: #2d3a4a;
+      font-size: clamp(1.8rem, 6.5vw, 3.15rem);
+      font-weight: 900;
+      line-height: 1.38;
+      letter-spacing: .02em;
+    }
+
+    .lp-heading .marker {
+      background: linear-gradient(transparent 67%, #ffe083 67%);
+    }
+
+    .lp-copy {
+      margin: 36px auto 0;
+      max-width: 650px;
+      font-size: clamp(1rem, 3.5vw, 1.22rem);
+      font-weight: 500;
+      line-height: 2.15;
+      letter-spacing: .025em;
+    }
+
+    .lp-copy strong {
+      font-weight: 900;
+    }
+
+    .key-message {
+      margin: 42px auto 0;
+      max-width: 680px;
+      padding: 30px clamp(20px, 6vw, 46px);
+      color: #fff;
+      background: #2d3a4a;
+      border-radius: 4px;
+      font-size: clamp(1.2rem, 4.4vw, 1.65rem);
+      font-weight: 900;
+      line-height: 1.75;
+    }
+
+    .sequence {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      margin: 44px auto 0;
+      max-width: 680px;
+    }
+
+    .sequence-box {
+      display: grid;
+      place-items: center;
+      min-height: 120px;
+      padding: 20px;
+      background: #fff;
+      border: 2px solid #d9dfe5;
+      border-radius: 14px;
+      font-size: clamp(1rem, 3.4vw, 1.18rem);
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    .sequence-box.after {
+      background: #fff8dc;
+      border-color: #e5b22d;
+    }
+
+    .sequence-arrow {
+      color: #d49700;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .price-intro {
+      margin: 42px auto 0;
+      color: #8a6a20;
+      font-size: clamp(1.15rem, 4vw, 1.5rem);
+      font-weight: 900;
+      line-height: 1.7;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin: 38px auto 0;
+      max-width: 680px;
+    }
+
+    .price-card {
+      padding: 32px 18px 28px;
+      background: #fff;
+      border: 2px solid #e9c45c;
+      border-radius: 16px;
+      box-shadow: 0 10px 28px rgb(45 58 74 / 7%);
+    }
+
+    .price-name {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .price {
+      margin: 0;
+      color: #2d3a4a;
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .price small {
+      font-size: .5em;
+    }
+
+    .price-note {
+      margin: 24px 0 0;
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .belief {
+      margin: 40px auto 0;
+      max-width: 680px;
+      padding-left: 24px;
+      border-left: 5px solid #efb619;
+      text-align: left;
+      font-size: clamp(1.08rem, 3.8vw, 1.35rem);
+      font-weight: 800;
+      line-height: 2;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 40px auto 0;
+      max-width: 680px;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+
+    .facts li {
+      position: relative;
+      padding: 17px 16px 17px 44px;
+      background: #fff;
+      border: 1px solid #e1e5e9;
+      border-radius: 10px;
+      font-size: clamp(.9rem, 2.8vw, 1rem);
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .facts li::before {
+      content: "✓";
+      position: absolute;
+      left: 16px;
+      color: #c58b00;
+      font-weight: 900;
+    }
+
+    .facts .wide {
+      grid-column: 1 / -1;
+    }
+
+    .demo-box {
+      margin: 42px auto 0;
+      max-width: 680px;
+      padding: clamp(28px, 7vw, 48px);
+      background: #fff;
+      border: 3px solid #efb619;
+      border-radius: 20px;
+      box-shadow: 0 15px 38px rgb(45 58 74 / 9%);
+    }
+
+    .demo-label {
+      margin: 0 0 14px;
+      color: #a36e00;
+      font-size: .9rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .demo-title {
+      margin: 0;
+      font-size: clamp(1.35rem, 5vw, 2rem);
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .demo-copy {
+      margin: 24px 0 0;
+      font-size: clamp(1rem, 3.2vw, 1.15rem);
+      line-height: 2;
+    }
+
+    .final-section {
+      padding-bottom: clamp(100px, 18vw, 150px);
+      background:
+        radial-gradient(circle at 50% 0, rgb(255 219 102 / 19%), transparent 42%),
+        #2d3a4a !important;
+      color: #fff;
+    }
+
+    .final-section .thought { color: #ffda6f; }
+    .final-section .thought::before,
+    .final-section .thought::after { background: #ffda6f; }
+    .final-section .lp-heading { color: #fff; }
+    .final-section .lp-copy { color: #fff; }
+    .final-section .key-message {
+      background: #202c39;
+      border: 1px solid rgb(255 218 111 / 45%);
+    }
+
+    .final-cta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 560px);
+      min-height: 84px;
+      margin: 46px auto 0;
+      padding: 18px 76px 18px 28px;
+      color: #2d3a4a;
+      background: linear-gradient(135deg, #ffe269, #f5ad00);
+      border: 4px solid #fff;
+      border-radius: 999px;
+      box-shadow: 0 12px 35px rgb(255 190 0 / 35%);
+      text-decoration: none;
+      font-size: clamp(1.15rem, 4.4vw, 1.55rem);
+      font-weight: 900;
+    }
+
+    .final-cta::after {
+      content: "›";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      color: #fff;
+      background: #2d3a4a;
+      border-radius: 50%;
+      font: 900 2rem/1 Arial, sans-serif;
+      transform: translateY(-50%);
+    }
+
+    .final-cta:hover,
+    .final-cta:focus-visible {
+      filter: brightness(1.05);
+      transform: translateY(-2px);
+    }
+
+    .cta-sub {
+      margin: 16px 0 0;
+      color: #dbe2ea;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    .bridge {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 116px;
+      margin: 0;
+      padding: 30px 20px;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 15% 10%, rgb(255 212 79 / 18%), transparent 32%),
+        linear-gradient(120deg, #17130d, #30230e 48%, #17130d);
+      border-top: 5px solid #d99d10;
+      border-bottom: 5px solid #d99d10;
+      text-align: center;
+      font-size: clamp(1.25rem, 4.5vw, 2rem);
+      font-weight: 800;
+      line-height: 1.65;
+      letter-spacing: .06em;
+    }
+
+    .bridge::before,
+    .bridge::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ffd96c);
+    }
+
+    .bridge::before { left: 3%; }
+    .bridge::after { right: 3%; transform: rotate(180deg); }
+
+    .floating-cta {
+      position: fixed;
+      z-index: 20;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(92vw, 650px);
+      min-height: 76px;
+      padding: 15px 76px 15px 32px;
+      overflow: hidden;
+      color: #2d3a4a;
+      background: linear-gradient(135deg, #ffd93d 0%, #f7aa00 48%, #e88900 100%);
+      border: 5px solid #fff;
+      border-radius: 999px;
+      box-shadow:
+        0 8px 22px rgb(97 55 0 / 38%),
+        0 0 10px #ffd21c,
+        0 0 28px rgb(255 190 0 / 82%);
+      text-decoration: none;
+      text-align: center;
+      text-shadow: none;
+      font-size: clamp(1.05rem, 4vw, 1.55rem);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: .04em;
+      transform: translateX(-50%);
+      animation: float 2.8s ease-in-out infinite;
+      isolation: isolate;
+    }
+
+    .floating-cta::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -55%;
+      left: -45%;
+      width: 38%;
+      height: 210%;
+      background: linear-gradient(90deg, transparent, rgb(255 255 255 / 72%), transparent);
+      transform: skewX(-24deg);
+      animation: sheen 3.5s ease-in-out infinite;
+    }
+
+    .cta-arrow {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: #e99a00;
+      background: #fff;
+      box-shadow: 0 3px 8px rgb(115 62 0 / 25%);
+      font: 900 2rem/1 Arial, sans-serif;
+      transform: translateY(-50%);
+    }
+
+    .sparkle {
+      position: absolute;
+      color: #fff8bd;
+      filter: drop-shadow(0 0 4px #fff);
+      animation: twinkle 1.6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .sparkle.one { top: 8px; left: 24px; font-size: 17px; }
+    .sparkle.two { right: 75px; bottom: 6px; font-size: 13px; animation-delay: .7s; }
+
+    .floating-cta:focus-visible {
+      outline: 4px solid #312000;
+      outline-offset: 4px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -7px); }
+    }
+
+    @keyframes sheen {
+      0%, 35% { left: -45%; }
+      70%, 100% { left: 120%; }
+    }
+
+    @keyframes twinkle {
+      from { opacity: .35; transform: scale(.75) rotate(0); }
+      to { opacity: 1; transform: scale(1.25) rotate(20deg); }
+    }
+
+    @media (max-width: 520px) {
+      body { padding-bottom: calc(102px + env(safe-area-inset-bottom)); }
+      .bridge { min-height: 94px; padding: 24px 18px; border-width: 3px; }
+      .bridge::before, .bridge::after { width: 25px; }
+      .sequence { grid-template-columns: 1fr; }
+      .sequence-arrow { transform: rotate(90deg); }
+      .price-grid, .facts { grid-template-columns: 1fr; }
+      .facts .wide { grid-column: auto; }
+      .lp-copy br.mobile-keep { display: none; }
+      .floating-cta {
+        min-height: 68px;
+        padding: 12px 62px 12px 20px;
+        border-width: 4px;
+      }
+      .cta-arrow { right: 10px; width: 43px; height: 43px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .floating-cta, .floating-cta::before, .sparkle { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="comic" src="src/01.jpg" alt="毎日たくさんの相談に対応する男性" width="1024" height="1536">
+    <p class="bridge">届く相談に、ひとつずつ丁寧に答える毎日。</p>
+
+    <img class="comic" src="src/02.jpg" alt="相談者へ丁寧に返信する男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">そんなある日、教え子から届いたひと言。</p>
+
+    <img class="comic" src="src/03.jpg" alt="UTAGEを使い始めた教え子とのオンライン会話" width="1024" height="1536" loading="lazy">
+    <p class="bridge">便利そうだと思った。けれど、そのときはまだ――。</p>
+
+    <img class="comic" src="src/04.jpg" alt="数週間後も同じ質問への対応を続ける男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">繰り返すうちに、見えてきたことがあった。</p>
+
+    <img class="comic" src="src/05.jpg" alt="同じ説明を何度も繰り返していたと気づく男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">もし、一度伝えるだけで届く仕組みがあったなら。</p>
+
+    <img class="comic" src="src/06.jpg" alt="翌日、教え子の話を思い返す男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">答えを探して、あの人の発信を開いた。</p>
+
+    <img class="comic" src="src/07.jpg" alt="LPについて知り、話を聞く決心をする男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">まずは、自分の目で確かめてみよう。</p>
+
+    <img class="comic" src="src/08.jpg" alt="無料デモで仕組みの全体像を知る男性" width="1024" height="1536" loading="lazy">
+    <p class="bridge">そして、働き方は静かに変わり始めた。</p>
+
+    <img class="comic" src="src/09.jpg" alt="24時間働くページによって相談者も安心できるようになった様子" width="1024" height="1536" loading="lazy">
+
+    <div class="lp-content">
+      <section class="lp-section" aria-labelledby="lp-heading-1">
+        <p class="thought">「……これ、自分のことかも」</p>
+        <h2 class="lp-heading" id="lp-heading-1">欲しいのは、<br><span class="marker">LPじゃない。</span></h2>
+        <p class="lp-copy">
+          欲しいのは、<br>
+          毎回同じ説明をしなくていい状態。
+        </p>
+        <p class="lp-copy">
+          問い合わせが来るたび、<br>
+          ゼロから話すのではなく。<br>
+          <strong>相手が知ったうえで、会話が始まる状態。</strong>
+        </p>
+        <div class="key-message">
+          「説明してください」から、<br>
+          「ここを聞きたいです」へ。
+        </div>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-2">
+        <p class="thought">「でも、本当にそんな風になる？」</p>
+        <h2 class="lp-heading" id="lp-heading-2">魔法は、使いません。</h2>
+        <p class="lp-copy">
+          やることは、ひとつ。<br>
+          <strong>会う前に、説明を終わらせておく。</strong>
+        </p>
+        <p class="lp-copy">
+          何をしているのか。<br>
+          誰のためのものか。<br>
+          いくらで、どう始めるのか。
+        </p>
+        <p class="lp-copy">
+          相手が知りたい順番で置いておけば、<br>
+          会話は「概要説明」ではなく、<br>
+          その人にしかできない質問から始まります。
+        </p>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-3">
+        <p class="thought">「それが、LPで変わるの？」</p>
+        <h2 class="lp-heading" id="lp-heading-3">すごいのはページではなく、<br><span class="marker">説明の順番です。</span></h2>
+        <p class="lp-copy">
+          情報を並べただけでは、<br>
+          読まれても、伝わりません。
+        </p>
+        <p class="lp-copy">
+          相手の疑問を先回りし、<br>
+          一つずつ解消する順番に変える。
+        </p>
+        <div class="sequence" aria-label="営業の会話の変化">
+          <div class="sequence-box">説明だけで<br>時間が終わる</div>
+          <div class="sequence-arrow" aria-hidden="true">→</div>
+          <div class="sequence-box after">説明が終わった状態から<br>質問に答える</div>
+        </div>
+        <p class="lp-copy">
+          そのときLPは、ただのページではなく、<br>
+          <strong>あなたの説明を代わりにしてくれる営業マン</strong>になります。
+        </p>
+        <p class="lp-copy">
+          営業の価値は、説明することではなく。<br>
+          目の前の人の質問に、<br>
+          あなたの言葉で答えることだから。
+        </p>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-4">
+        <p class="thought">「でも……高そう」</p>
+        <h2 class="lp-heading" id="lp-heading-4">比べる相手は、<br>制作会社ではありません。</h2>
+        <p class="lp-copy">
+          今日も、明日も、その先も。<br>
+          同じ説明に使い続ける時間。
+        </p>
+        <p class="lp-copy">
+          その時間を、質問に答える時間へ変える。<br>
+          そのための仕組みです。
+        </p>
+        <p class="price-intro">買い切り・完全所有で</p>
+        <div class="price-grid">
+          <article class="price-card">
+            <p class="price-name">LP制作</p>
+            <p class="price">49,800<small>円〜</small></p>
+          </article>
+          <article class="price-card">
+            <p class="price-name">HP制作</p>
+            <p class="price">98,000<small>円〜</small></p>
+          </article>
+        </div>
+        <p class="price-note">ライティング込み・スマホ対応</p>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-5">
+        <p class="thought">「この人に任せて、大丈夫？」</p>
+        <h2 class="lp-heading" id="lp-heading-5">説明で終わる営業は、<br>もったいない。</h2>
+        <p class="belief">
+          同じ説明を繰り返すためではなく、<br>
+          人にしかできない仕事に集中してほしい。<br>
+          私たちは、そう考えています。
+        </p>
+        <p class="lp-copy">
+          派手な約束より、<br>
+          任せる前に確かめられることを。
+        </p>
+        <ul class="facts">
+          <li class="wide">提携制作チームの制作実績1000件以上</li>
+          <li>最短1週間</li>
+          <li>買い切り</li>
+          <li>完全所有</li>
+          <li>ライティング込み</li>
+          <li>スマホ対応</li>
+          <li>保守・アップデート対応</li>
+          <li class="wide">LP・HP・LINE連携・予約管理・メール配信対応</li>
+        </ul>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-6">
+        <p class="thought">「気になる。でも、失敗はしたくない」</p>
+        <h2 class="lp-heading" id="lp-heading-6">だから、無料相談ではなく。<br><span class="marker">無料デモです。</span></h2>
+        <div class="demo-box">
+          <p class="demo-label">まず、見てから決める</p>
+          <p class="demo-title">営業される前に、<br>営業マン候補を見てください。</p>
+          <p class="demo-copy">
+            どんな説明ができるのか。<br>
+            自分の仕事なら、どう変わるのか。<br>
+            まずは実物で確かめてください。
+          </p>
+          <p class="demo-copy">
+            合わなければ、<br>
+            契約しなくて大丈夫です。
+          </p>
+        </div>
+      </section>
+
+      <section class="lp-section final-section" aria-labelledby="lp-heading-7">
+        <p class="thought">「でも、少し気になる」</p>
+        <h2 class="lp-heading" id="lp-heading-7">その質問から、<br>営業は変わります。</h2>
+        <p class="lp-copy">
+          ここまで読んで<br>
+          「いらない」と思ったなら、<br>
+          きっと直接説明しても<br class="mobile-keep">
+          同じ結論だったと思います。<br>
+          それで大丈夫です。
+        </p>
+        <p class="lp-copy">
+          でも、少しでも<br>
+          「気になる」<br>
+          「自分の場合はどうなる？」<br>
+          と思ったなら、このLPは成功です。
+        </p>
+        <p class="lp-copy">
+          あなたはもう、<br>
+          説明を聞きたい人ではなく、<br>
+          <strong>質問を持った人</strong>だからです。
+        </p>
+        <p class="key-message">次は、あなたの番です。</p>
+        <a class="final-cta" href="https://line.me/R/ti/p/@divizero" target="_blank" rel="noopener noreferrer">無料デモを見る</a>
+        <p class="cta-sub">合わなければ、契約する必要はありません</p>
+      </section>
+    </div>
+  </main>
+
+  <a class="floating-cta" href="https://line.me/R/ti/p/@divizero" target="_blank" rel="noopener noreferrer" aria-label="無料デモを見る">
+    <span class="sparkle one" aria-hidden="true">✦</span>
+    <span>無料デモを見る</span>
+    <span class="sparkle two" aria-hidden="true">✧</span>
+    <span class="cta-arrow" aria-hidden="true">&gt;</span>
+  </a>
+</body>
+</html>
