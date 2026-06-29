@@ -465,6 +465,273 @@
       to { opacity: 1; transform: scale(1.25) rotate(20deg); }
     }
 
+    .lp-content .lp-section {
+      padding-block: clamp(60px, 10vw, 96px);
+    }
+
+    .lp-content .lp-copy {
+      margin-top: 24px;
+      line-height: 1.95;
+    }
+
+    .section-lead {
+      margin: 22px auto 0;
+      max-width: 620px;
+      font-size: clamp(1rem, 3.3vw, 1.18rem);
+      font-weight: 600;
+      line-height: 1.95;
+    }
+
+    .small-emphasis {
+      margin: 32px auto 0;
+      max-width: 620px;
+      padding: 22px;
+      background: #2d3a4a;
+      border-radius: 12px;
+      color: #fff;
+      font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+      font-weight: 900;
+      line-height: 1.75;
+    }
+
+    .flow-compare,
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin: 38px auto 0;
+      max-width: 700px;
+    }
+
+    .flow-card,
+    .choice-card {
+      padding: 28px 22px;
+      background: #fff;
+      border: 2px solid #dfe3e7;
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .flow-card.after {
+      background: #fff9e5;
+      border-color: #e6b62e;
+    }
+
+    .flow-title,
+    .choice-title {
+      margin: 0 0 22px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .flow-list {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-align: center;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .flow-list li:not(:last-child)::after {
+      content: "↓";
+      display: block;
+      margin-top: 7px;
+      color: #bd8b0f;
+    }
+
+    .flow-result {
+      margin: 24px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid #dfe3e7;
+      font-weight: 900;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .section-close {
+      margin: 38px auto 0;
+      font-size: clamp(1.25rem, 4.4vw, 1.75rem);
+      font-weight: 900;
+      line-height: 1.65;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 36px auto 0;
+      max-width: 720px;
+    }
+
+    .feature-card {
+      padding: 28px 18px;
+      background: #fff;
+      border: 1px solid #e0e4e8;
+      border-radius: 14px;
+      box-shadow: 0 9px 24px rgb(45 58 74 / 7%);
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      background: #fff1b8;
+      border-radius: 50%;
+      font-size: 1.35rem;
+    }
+
+    .feature-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .feature-card p {
+      margin: 12px 0 0;
+      font-size: .92rem;
+      line-height: 1.7;
+    }
+
+    .regular-price {
+      margin: 8px 0 0;
+      color: #7f8994;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: line-through;
+    }
+
+    .price-arrow {
+      margin: 12px 0 5px;
+      color: #b57d00;
+      font-weight: 900;
+    }
+
+    .limited-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      color: #7a5200;
+      background: #fff0b5;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .price-notes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 28px auto 0;
+      max-width: 680px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .price-notes li {
+      padding: 8px 12px;
+      background: #fff;
+      border: 1px solid #dfe3e7;
+      border-radius: 999px;
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    .slots-panel {
+      margin: 34px auto 0;
+      max-width: 620px;
+      padding: clamp(26px, 6vw, 40px);
+      background: #fff;
+      border: 2px solid #e6b62e;
+      border-radius: 18px;
+    }
+
+    .slots-number {
+      margin: 0;
+      font-size: clamp(1.25rem, 4vw, 1.6rem);
+      font-weight: 900;
+    }
+
+    .slots-number strong {
+      color: #b77900;
+      font-size: 1.7em;
+    }
+
+    .slots-track {
+      height: 14px;
+      margin: 22px 0 0;
+      overflow: hidden;
+      background: #e9edf0;
+      border-radius: 999px;
+    }
+
+    .slots-fill {
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, #ffd95a, #e9a300);
+      border-radius: inherit;
+      transition: width .5s ease;
+    }
+
+    .slots-note {
+      margin: 18px 0 0;
+      color: #66717d;
+      font-size: .82rem;
+      line-height: 1.6;
+    }
+
+    .proof-card {
+      margin: 34px auto 0;
+      max-width: 680px;
+      padding: 28px;
+      background: #2d3a4a;
+      border-radius: 16px;
+      color: #fff;
+    }
+
+    .proof-card p {
+      margin: 0;
+      line-height: 1.8;
+    }
+
+    .proof-number {
+      display: block;
+      margin-top: 8px;
+      color: #ffda62;
+      font-size: clamp(1.4rem, 4.7vw, 2rem);
+      font-weight: 900;
+    }
+
+    .choice-card.no {
+      color: #53606d;
+      background: #f3f4f5;
+    }
+
+    .choice-card.yes {
+      background: #fff9e5;
+      border-color: #e6b62e;
+    }
+
+    .choice-card p {
+      margin: 0;
+      line-height: 1.9;
+    }
+
+    .cta-panel {
+      margin: 36px auto 0;
+      max-width: 680px;
+      padding: clamp(30px, 7vw, 52px);
+      background: #fff;
+      border-radius: 22px;
+      color: #2d3a4a;
+      box-shadow: 0 16px 42px rgb(0 0 0 / 18%);
+    }
+
     @media (max-width: 520px) {
       body { padding-bottom: calc(102px + env(safe-area-inset-bottom)); }
       .bridge { min-height: 94px; padding: 24px 18px; border-width: 3px; }
@@ -472,6 +739,7 @@
       .sequence { grid-template-columns: 1fr; }
       .sequence-arrow { transform: rotate(90deg); }
       .price-grid, .facts { grid-template-columns: 1fr; }
+      .flow-compare, .choice-grid, .feature-grid { grid-template-columns: 1fr; }
       .facts .wide { grid-column: auto; }
       .lp-copy br.mobile-keep { display: none; }
       .floating-cta {
@@ -517,160 +785,118 @@
 
     <div class="lp-content">
       <section class="lp-section" aria-labelledby="lp-heading-1">
-        <p class="thought">「……これ、自分のことかも」</p>
-        <h2 class="lp-heading" id="lp-heading-1">欲しいのは、<br><span class="marker">LPじゃない。</span></h2>
-        <p class="lp-copy">
-          欲しいのは、<br>
-          毎回同じ説明をしなくていい状態。
-        </p>
-        <p class="lp-copy">
-          問い合わせが来るたび、<br>
-          ゼロから話すのではなく。<br>
-          <strong>相手が知ったうえで、会話が始まる状態。</strong>
-        </p>
-        <div class="key-message">
-          「説明してください」から、<br>
-          「ここを聞きたいです」へ。
-        </div>
+        <p class="thought">漫画から、あなたの話へ</p>
+        <h2 class="lp-heading" id="lp-heading-1">俺じゃん。</h2>
+        <p class="section-lead">そう思ったなら、<br>この先はあなたの話です。</p>
+        <p class="lp-copy">毎回同じ説明をしている。<br>料金から会話が始まる。<br>本当に聞いてほしい話まで、なかなか辿り着かない。</p>
+        <p class="lp-copy">その状態を変えるために作るのが、<br><strong>ただのLPではありません。</strong></p>
+        <p class="small-emphasis">説明を終えた状態から、<br>会話を始めるための営業マンです。</p>
       </section>
 
       <section class="lp-section" aria-labelledby="lp-heading-2">
-        <p class="thought">「でも、本当にそんな風になる？」</p>
-        <h2 class="lp-heading" id="lp-heading-2">魔法は、使いません。</h2>
-        <p class="lp-copy">
-          やることは、ひとつ。<br>
-          <strong>会う前に、説明を終わらせておく。</strong>
-        </p>
-        <p class="lp-copy">
-          何をしているのか。<br>
-          誰のためのものか。<br>
-          いくらで、どう始めるのか。
-        </p>
-        <p class="lp-copy">
-          相手が知りたい順番で置いておけば、<br>
-          会話は「概要説明」ではなく、<br>
-          その人にしかできない質問から始まります。
-        </p>
+        <p class="thought">スタート地点を比べる</p>
+        <h2 class="lp-heading" id="lp-heading-2">会話は、こう変わります。</h2>
+        <div class="flow-compare">
+          <article class="flow-card">
+            <h3 class="flow-title">今の営業</h3>
+            <ol class="flow-list"><li>DM</li><li>料金説明</li><li>内容説明</li><li>初心者向け説明</li><li>ようやく質問</li></ol>
+            <p class="flow-result">毎回、ゼロから説明。</p>
+          </article>
+          <article class="flow-card after">
+            <h3 class="flow-title">LP後の営業</h3>
+            <ol class="flow-list"><li>LP</li><li>理解</li><li>質問</li><li>相談</li></ol>
+            <p class="flow-result">説明が終わった状態から始まる。</p>
+          </article>
+        </div>
+        <p class="section-close">変わるのは、ページではありません。<br><span class="marker">会話のスタート地点です。</span></p>
       </section>
 
       <section class="lp-section" aria-labelledby="lp-heading-3">
-        <p class="thought">「それが、LPで変わるの？」</p>
-        <h2 class="lp-heading" id="lp-heading-3">すごいのはページではなく、<br><span class="marker">説明の順番です。</span></h2>
-        <p class="lp-copy">
-          情報を並べただけでは、<br>
-          読まれても、伝わりません。
-        </p>
-        <p class="lp-copy">
-          相手の疑問を先回りし、<br>
-          一つずつ解消する順番に変える。
-        </p>
-        <div class="sequence" aria-label="営業の会話の変化">
-          <div class="sequence-box">説明だけで<br>時間が終わる</div>
-          <div class="sequence-arrow" aria-hidden="true">→</div>
-          <div class="sequence-box after">説明が終わった状態から<br>質問に答える</div>
+        <p class="thought">「LPで変わるの？」</p>
+        <h2 class="lp-heading" id="lp-heading-3">変わるのは、<br><span class="marker">説明の順番です。</span></h2>
+        <p class="section-lead">正確には、LPそのものが変えるわけではありません。</p>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-icon" aria-hidden="true">01</span><h3>先に伝える</h3><p>料金・内容・流れを<br>先に整理</p></article>
+          <article class="feature-card"><span class="feature-icon" aria-hidden="true">02</span><h3>不安を減らす</h3><p>初心者向け・FAQ・実績を<br>先に提示</p></article>
+          <article class="feature-card"><span class="feature-icon" aria-hidden="true">03</span><h3>質問を育てる</h3><p>理解した人だけが、<br>次の質問へ</p></article>
         </div>
-        <p class="lp-copy">
-          そのときLPは、ただのページではなく、<br>
-          <strong>あなたの説明を代わりにしてくれる営業マン</strong>になります。
-        </p>
-        <p class="lp-copy">
-          営業の価値は、説明することではなく。<br>
-          目の前の人の質問に、<br>
-          あなたの言葉で答えることだから。
-        </p>
+        <p class="lp-copy">ただ綺麗なページでは意味がありません。<br><strong>説明し、安心させ、質問を生む。</strong><br>その順番まで設計します。</p>
       </section>
 
       <section class="lp-section" aria-labelledby="lp-heading-4">
-        <p class="thought">「でも……高そう」</p>
-        <h2 class="lp-heading" id="lp-heading-4">比べる相手は、<br>制作会社ではありません。</h2>
-        <p class="lp-copy">
-          今日も、明日も、その先も。<br>
-          同じ説明に使い続ける時間。
-        </p>
-        <p class="lp-copy">
-          その時間を、質問に答える時間へ変える。<br>
-          そのための仕組みです。
-        </p>
-        <p class="price-intro">買い切り・完全所有で</p>
+        <p class="thought">「高そう」</p>
+        <h2 class="lp-heading" id="lp-heading-4">なので、<br>先に金額を出します。</h2>
         <div class="price-grid">
           <article class="price-card">
             <p class="price-name">LP制作</p>
-            <p class="price">49,800<small>円〜</small></p>
+            <p class="regular-price">通常 98,000円</p>
+            <p class="price-arrow">↓</p>
+            <span class="limited-label">毎月先着10名限定</span>
+            <p class="price">49,800<small>円</small></p>
           </article>
           <article class="price-card">
-            <p class="price-name">HP制作</p>
-            <p class="price">98,000<small>円〜</small></p>
+            <p class="price-name">ホームページ制作</p>
+            <p class="regular-price">通常 198,000円</p>
+            <p class="price-arrow">↓</p>
+            <span class="limited-label">毎月先着10名限定</span>
+            <p class="price">98,000<small>円</small></p>
           </article>
         </div>
-        <p class="price-note">ライティング込み・スマホ対応</p>
+        <ul class="price-notes">
+          <li>買い切り・完全所有</li><li>ライティング込み</li><li>スマホ対応込み</li><li>保守・アップデート 月額4,980円〜</li>
+        </ul>
       </section>
 
       <section class="lp-section" aria-labelledby="lp-heading-5">
-        <p class="thought">「この人に任せて、大丈夫？」</p>
-        <h2 class="lp-heading" id="lp-heading-5">説明で終わる営業は、<br>もったいない。</h2>
-        <p class="belief">
-          同じ説明を繰り返すためではなく、<br>
-          人にしかできない仕事に集中してほしい。<br>
-          私たちは、そう考えています。
-        </p>
-        <p class="lp-copy">
-          派手な約束より、<br>
-          任せる前に確かめられることを。
-        </p>
+        <p class="thought">制作できる数には限りがあります</p>
+        <h2 class="lp-heading" id="lp-heading-5">今月の制作枠</h2>
+        <p class="section-lead">制作品質を維持するため、<br>毎月の受付は10名までに制限しています。</p>
+        <div class="slots-panel">
+          <p class="slots-number">今月の残り枠：<strong id="remaining-slots">残り5名</strong></p>
+          <div class="slots-track" role="progressbar" aria-label="今月の残り制作枠" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5"><div class="slots-fill" id="slots-fill"></div></div>
+          <p class="slots-note">※相談中の方も枠に含まれる場合があります。</p>
+        </div>
+      </section>
+
+      <section class="lp-section" aria-labelledby="lp-heading-6">
+        <p class="thought">「この人に任せて大丈夫？」</p>
+        <h2 class="lp-heading" id="lp-heading-6">長い営業トークより、<br>先に見てもらう。</h2>
+        <p class="belief">私は、LPを売りたいわけではありません。<br>毎回同じ説明で終わる営業が、もったいないと思っています。<br><br>営業の価値は、説明そのものではなく、相手の質問に答えること。<br>だから、説明だけを仕組みに任せるページを作っています。</p>
+        <div class="proof-card">
+          <p>制作は、提携制作チームと連携しています。</p>
+          <span class="proof-number">提携制作チームの制作実績1000件以上</span>
+        </div>
         <ul class="facts">
-          <li class="wide">提携制作チームの制作実績1000件以上</li>
-          <li>最短1週間</li>
-          <li>買い切り</li>
-          <li>完全所有</li>
-          <li>ライティング込み</li>
-          <li>スマホ対応</li>
-          <li>保守・アップデート対応</li>
+          <li>最短1週間</li><li>ライティング込み</li><li>スマホ対応</li><li>買い切り</li><li>完全所有</li><li>保守・アップデート対応</li>
           <li class="wide">LP・HP・LINE連携・予約管理・メール配信対応</li>
         </ul>
       </section>
 
-      <section class="lp-section" aria-labelledby="lp-heading-6">
-        <p class="thought">「気になる。でも、失敗はしたくない」</p>
-        <h2 class="lp-heading" id="lp-heading-6">だから、無料相談ではなく。<br><span class="marker">無料デモです。</span></h2>
-        <div class="demo-box">
-          <p class="demo-label">まず、見てから決める</p>
-          <p class="demo-title">営業される前に、<br>営業マン候補を見てください。</p>
-          <p class="demo-copy">
-            どんな説明ができるのか。<br>
-            自分の仕事なら、どう変わるのか。<br>
-            まずは実物で確かめてください。
-          </p>
-          <p class="demo-copy">
-            合わなければ、<br>
-            契約しなくて大丈夫です。
-          </p>
+      <section class="lp-section" aria-labelledby="lp-heading-7">
+        <p class="thought">もう、答えは出ているはずです</p>
+        <h2 class="lp-heading" id="lp-heading-7">ここまで読んで、<br>どう思いましたか？</h2>
+        <div class="choice-grid">
+          <article class="choice-card no">
+            <h3 class="choice-title">やっぱり必要ない。</h3>
+            <p>そう思ったなら、その判断で大丈夫です。<br><br>もし私が直接営業しても、きっと同じ結論だったと思います。<br><br>このLPが、私の代わりに説明してくれた。それだけです。</p>
+          </article>
+          <article class="choice-card yes">
+            <h3 class="choice-title">少し気になる。</h3>
+            <p>そう思ったなら、私にとっては大成功です。<br><br>あなたはもう、説明を聞きたい人ではなく、<strong>質問を持った人</strong>になっています。</p>
+          </article>
         </div>
+        <p class="section-close">次は、あなたが<br>それを作る番です。</p>
       </section>
 
-      <section class="lp-section final-section" aria-labelledby="lp-heading-7">
-        <p class="thought">「でも、少し気になる」</p>
-        <h2 class="lp-heading" id="lp-heading-7">その質問から、<br>営業は変わります。</h2>
-        <p class="lp-copy">
-          ここまで読んで<br>
-          「いらない」と思ったなら、<br>
-          きっと直接説明しても<br class="mobile-keep">
-          同じ結論だったと思います。<br>
-          それで大丈夫です。
-        </p>
-        <p class="lp-copy">
-          でも、少しでも<br>
-          「気になる」<br>
-          「自分の場合はどうなる？」<br>
-          と思ったなら、このLPは成功です。
-        </p>
-        <p class="lp-copy">
-          あなたはもう、<br>
-          説明を聞きたい人ではなく、<br>
-          <strong>質問を持った人</strong>だからです。
-        </p>
-        <p class="key-message">次は、あなたの番です。</p>
-        <a class="final-cta" href="https://twitter.com/messages/compose?recipient_id=2017553945481330688" target="_blank" rel="noopener noreferrer">無料デモを見る</a>
-        <p class="cta-sub">合わなければ、契約する必要はありません</p>
+      <section class="lp-section final-section" aria-labelledby="lp-heading-8">
+        <p class="thought">まずは、判断材料を見る</p>
+        <h2 class="lp-heading" id="lp-heading-8">あなた専属の営業マン候補を、<br>まずは見てください。</h2>
+        <div class="cta-panel">
+          <p class="section-lead">デモを見て「やっぱり違う」と思えば、今までの判断は間違っていなかったということです。</p>
+          <p class="section-lead">逆に「これなら使いたい」と思えたなら、もっと効率的に仕事を進められるはずです。<br>その時は、一緒に進めていきましょう。</p>
+          <a class="final-cta" href="https://twitter.com/messages/compose?recipient_id=2017553945481330688" target="_blank" rel="noopener noreferrer">無料デモを見る</a>
+          <p class="cta-sub" style="color:#66717d">あなたが毎日説明していることを、営業マンにできるか。<br>まずはデモで確認してください。</p>
+        </div>
       </section>
     </div>
   </main>
